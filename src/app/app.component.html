@@ -1,12 +1,7 @@
-<body
-  class="min-h-screen flex flex-col justify-center items-center gap-5 transition-all duration-400
-  dark:bg-gray-800"
->
-  <button
-    (click)="toggleDarkMode()"
-    class="bg-black text-white px-4 py-2 rounded-md
-    dark:bg-gray-300 dark:text-gray-800 "
-  >
-    {{ darkModeText }}
-  </button>
+<body class="min-h-screen flex flex-col">
+  <app-header class="header top-0 bg-primary text-white dark:bg-header-color-dark
+    transition-all duration-600"></app-header>
+  <app-main class="main grow text-white"></app-main>
+  <app-footer class="footer bottom-0 bg-primary text-white dark:bg-footer-color-dark
+    transition-all duration-600"></app-footer>
 </body>
