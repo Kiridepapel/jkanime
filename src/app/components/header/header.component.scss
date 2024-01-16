@@ -1,15 +1,11 @@
 @import "../../../assets/styles/utils.scss";
 
-.img {
-  transition: all 0.4s ease-in-out;
-
-  &:hover {
-    transform: rotate(-4deg);
-  }
+.search {
+  outline: none;
+  border-radius: 24px;
 }
 
-.button {
-  @apply h-full font-medium rounded-lg transition-all
-    bg-button hover:bg-button-hover
-    dark:bg-section-two-dark dark:hover:bg-button-hover-dark;
+.icon {
+  top: calc(50% - 8px);
+  right: 16px;
 }

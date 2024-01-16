@@ -3,3 +3,9 @@
   padding-right: 20.25%;
   @apply w-full h-full flex flex-wrap transition-all;
 }
+
+.button {
+  @apply h-full transition-all
+    bg-button hover:bg-button-hover
+    dark:bg-section-two-dark dark:hover:bg-button-hover-dark;
+}
