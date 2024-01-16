@@ -18,7 +18,7 @@ export class ButtonComponent {
     if (this.type === 'text') {
       this.tam = 'px-5 py-2';
     } else if (this.type === 'icon') {
-      this.tam = 'w-10 h-10 grid place-items-center';
+      this.tam = 'w-10 h-10';
     }
   }
 }

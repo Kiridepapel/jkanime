@@ -4,7 +4,7 @@
   </a>
 } @else if (type === 'icon') {
   <a class="button text-xl rounded-lg grid place-items-center {{ tam }} max-md:w-full">
-    <i class="{{ tam }} {{ icon }}"></i>
+    <i class="{{ tam }} grid place-items-center {{ icon }}"></i>
   </a>
 } @else if (type === 'burguer') {
   <button class="menu" onclick="this.classList.toggle('opened'); this.setAttribute('aria-expanded', this.classList.contains('opened'))" aria-label="Main Menu">

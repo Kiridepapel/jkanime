@@ -1,15 +1,21 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { DarkModeService } from './shared/services/dark-mode.service';
+import { DarkModeService } from './services/dark-mode.service';
 import { HeaderComponent } from './components/header/header.component';
-import { MainComponent } from './components/main/main.component';
+import { JKAnimeComponent } from './pages/jkanime/jkanime.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderComponent, MainComponent, FooterComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    HeaderComponent,
+    JKAnimeComponent,
+    FooterComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -19,6 +25,6 @@ export class AppComponent {
   constructor(private darkModeService: DarkModeService) {}
 
   ngOnInit() {
-    this.darkModeService.initDarkMode()
+    this.darkModeService.initDarkMode();
   }
 }

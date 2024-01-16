@@ -1,7 +1,13 @@
-<body class="min-h-screen flex flex-col">
-  <app-header class="header top-0 bg-primary text-white dark:bg-header-color-dark
-    transition-all duration-600"></app-header>
-  <router-outlet class="main"></router-outlet>
-  <app-footer class="footer bottom-0 bg-primary text-white dark:bg-footer-color-dark
-    transition-all duration-600"></app-footer>
-</body>
+@defer(on viewport) {
+  <body class="min-h-screen flex flex-col">
+    <app-header class="h-header sticky top-0 bg-primary text-white dark:bg-header-color-dark
+      transition-all duration-600"></app-header>
+    <router-outlet></router-outlet>
+    <app-footer class="h-footer bottom-0 bg-primary text-white dark:bg-footer-color-dark
+      transition-all duration-600"></app-footer>
+  </body>
+} @placeholder {
+  <div class="loading">
+    <div class="loader-1"></div>
+  </div>
+}

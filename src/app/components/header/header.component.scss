@@ -1,31 +1,21 @@
-@import "../../../assets/styles/variables.scss";
 @import "../../../assets/styles/utils.scss";
 
-.btn {
-  cursor: pointer;
+.search::placeholder {
+  color: #ffffff;
+  opacity: .7;
 }
 
-.search {
-  outline: none;
-  border-radius: 24px;
-}
-
-.icon {
+.search-icon {
   top: calc(50% - 8px);
   right: 16px;
-  transition: all .5s ease-in-out;
 }
 
 @media screen and (max-width: 768px) {
   .options  {
-    @apply h-full w-screen absolute flex flex-col justify-start p-5 bg-primary dark:bg-header-color-dark;
-    height: calc(100vh - $bar-height);
-    top: $bar-height;
-    left: 0;
-    transition: transform 0.3s ease-in-out;
+    @apply h-options-header top-header w-screen absolute left-0 flex-col justify-start gap-4 p-5 transition-all duration-300 ease-in-out bg-primary dark:bg-header-color-dark;
 
     &.expanded {
-      transform: translateX(0);
+      transform: translateX(0%);
     }
 
     &:not(.expanded) {

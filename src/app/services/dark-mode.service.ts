@@ -18,9 +18,13 @@ export class DarkModeService {
     return this.darkMode ? 'fa-regular fa-sun' : 'fa-solid fa-moon';
   }
 
-  public get darkModeText(): string {
-    return this.darkMode ? 'Activar modo claro' : 'Activar modo oscuro';
+  public get darkModeStyles(): string {
+    return this.darkMode ? 'text-2xl max-md:text-2xl text-yellow-100' : 'text-3xl max-md:text-3xl text-purple-800';
   }
+
+  // public get darkModeText(): string {
+  //   return this.darkMode ? 'Activar modo claro' : 'Activar modo oscuro';
+  // }
 
   public toggleDarkMode(event: Event) {
     event.preventDefault();

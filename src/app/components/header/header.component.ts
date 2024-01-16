@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
-import { DarkModeService } from '../../shared/services/dark-mode.service';
-import { Router } from '@angular/router';
+import { DarkModeService } from '../../services/dark-mode.service';
 
 @Component({
   selector: 'app-header',
@@ -15,11 +14,10 @@ export class HeaderComponent {
 
   constructor(
     private darkModeService: DarkModeService,
-    private router: Router
   ) {}
 
   public goTo(route: string, noCloseNav?: boolean) {
-    this.router.navigate([route]);
+    window.location.href = route;
     
     if (!noCloseNav) {
       const menu = document.querySelector('.menu');
@@ -30,6 +28,10 @@ export class HeaderComponent {
 
   public get darkModeIcon(): string {
     return this.darkModeService.darkModeIcon;
+  }
+
+  public get darkModeStyles(): string {
+    return this.darkModeService.darkModeStyles;
   }
 
   public toggleDarkMode(event: Event) {

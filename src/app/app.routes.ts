@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { MainComponent } from './components/main/main.component';
+import { JKAnimeComponent } from './pages/jkanime/jkanime.component';
 import { DirectoryComponent } from './pages/directory/directory.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { TopComponent } from './pages/top/top.component';
 import { PremiereComponent } from './pages/premiere/premiere.component';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', component: MainComponent },
+  { path: '', pathMatch: 'full', component: JKAnimeComponent },
 
   { path: 'directorio', component: DirectoryComponent },
   { path: 'directorio/estrenos', component: PremiereComponent },

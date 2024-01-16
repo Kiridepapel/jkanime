@@ -1,11 +1,18 @@
 .section {
   @apply w-full h-full flex flex-wrap transition-all
-    pl-plr-20.25 pr-plr-20.25 max-md:pl-5 max-md:pr-5
-    text-white;
+    pl-plr-section pr-plr-section
+    max-2xl:pl-plr-section-2xl max-2xl:pr-plr-section-2xl
+    max-xl:pl-plr-section-xl max-xl:pr-plr-section-xl
+    max-md:pl-4 max-md:pr-4
+    text-gray-800 dark:text-white;
+  
+    &.header {
+      @apply max-2xl:pl-5 max-2xl:pr-5;
+      flex-wrap: nowrap;
+    }
 }
 
 .button {
   @apply h-full transition-all
-    bg-button hover:bg-button-hover
-    dark:bg-section-two-dark dark:hover:bg-button-hover-dark;
+    bg-button hover:bg-button-hover dark:bg-section-two-dark dark:hover:bg-button-hover-dark;
 }
