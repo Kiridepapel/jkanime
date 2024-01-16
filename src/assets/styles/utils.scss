@@ -1,6 +1,7 @@
 .section {
   @apply w-full h-full flex flex-wrap transition-all
-    pl-plr-20.25 pr-plr-20.25 max-md:pl-5 max-md:pr-5;
+    pl-plr-20.25 pr-plr-20.25 max-md:pl-5 max-md:pr-5
+    text-white;
 }
 
 .button {

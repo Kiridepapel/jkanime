@@ -1,19 +1,19 @@
 <div class="section justify-center content-center py-0 gap-10 max-md:justify-between relative">
   <div class="flex justify-center items-center gap-10">
-    <a href="/" class="max-w-36 grid place-items-center max-md:hidden">
+    <a (click)="goTo('/', true)" class="btn max-w-36 grid place-items-center max-md:hidden">
       <img
         src="../../../assets/imgs/jkanime.webp"
         alt=""
         class="transition-all duration-900 hover:rotate-[-2deg]"
       />
     </a>
-    <a href="/" class="w-8 hidden max-md:block">
+    <a (click)="goTo('/', true)" class="btn w-8 hidden max-md:block">
       <img src="../../../assets/imgs/jk.webp" alt="">
     </a>
     <div class="options flex justify-center items-center gap-2 max-md:gap-4" [class.expanded]="navState">
-      <app-button text="Directorio" class="max-md:w-full"></app-button>
-      <app-button text="Horario" class="max-md:w-full"></app-button>
-      <app-button text="Top" class="max-md:w-full"></app-button>
+      <app-button text="Directorio" class="max-md:w-full" (click)="goTo('/directorio')"></app-button>
+      <app-button text="Horario" class="max-md:w-full" (click)="goTo('/horario')"></app-button>
+      <app-button text="Top" class="max-md:w-full" (click)="goTo('/top')"></app-button>
       <app-button type="icon" icon="fa-brands fa-youtube" class="max-md:w-full"></app-button>
       <app-button type="icon" icon="fa-brands fa-facebook-f" class="max-md:w-full"></app-button>
     </div>
@@ -30,7 +30,7 @@
     </a>
   </div>
   <a href="#" class="text-2xl hidden max-md:grid max-md:place-items-center">
-    <i class="{{ darkModeIcon }}" (click)="toggleDarkMode()"></i>
+    <i class="{{ darkModeIcon }}" (click)="toggleDarkMode($event)"></i>
   </a>
-  <app-button type="burguer" class="hidden max-md:block" (click)="toggleNav()"></app-button>
+  <app-button type="burguer" #menuButton class="hidden max-md:block" (click)="toggleNav()"></app-button>
 </div>

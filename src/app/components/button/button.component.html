@@ -1,9 +1,9 @@
 @if (type === 'text') {
-  <a href="#" class="button text rounded-lg grid place-items-center {{ tam }}">
+  <a class="button text rounded-lg grid place-items-center {{ tam }}">
     {{ text }}
   </a>
 } @else if (type === 'icon') {
-  <a href="#" class="button text-xl rounded-lg grid place-items-center {{ tam }} max-md:w-full">
+  <a class="button text-xl rounded-lg grid place-items-center {{ tam }} max-md:w-full">
     <i class="{{ tam }} {{ icon }}"></i>
   </a>
 } @else if (type === 'burguer') {

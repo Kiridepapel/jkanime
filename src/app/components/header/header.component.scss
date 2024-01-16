@@ -1,6 +1,10 @@
 @import "../../../assets/styles/variables.scss";
 @import "../../../assets/styles/utils.scss";
 
+.btn {
+  cursor: pointer;
+}
+
 .search {
   outline: none;
   border-radius: 24px;

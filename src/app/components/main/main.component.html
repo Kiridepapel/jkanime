@@ -2,12 +2,12 @@
   <div class="jkinfo w-full h-28 rounded-xl bg-gray-800">
     <div class="infoc w-full h-full rounded-xl flex flex-col justify-center items-center">
       <h2 class="text-xl pb-3">Temporada Invierno 2024</h2>
-      <button class="py-2 px-56 max-md:px-8
-        bg-gray-100 text-black rounded-md hover:bg-primary hover:text-white transition-colors">Ver más
+      <button class="py-2 px-56 max-md:px-8 transition-colors rounded-md
+        bg-gray-100 text-black hover:bg-primary hover:text-white" (click)="goTo('/directorio/estrenos')">Ver más
       </button>
     </div>
   </div>
-  <app-button class="w-52" text="{{ darkModeText }}" (click)="toggleDarkMode()"></app-button>
+  <app-button class="w-52" text="{{ darkModeText }}" (click)="toggleDarkMode($event)"></app-button>
 </section>
 
 <section class="section test py-6 justify-center items-center bg-section-two dark:bg-section-two-dark">

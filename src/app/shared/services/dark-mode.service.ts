@@ -22,7 +22,8 @@ export class DarkModeService {
     return this.darkMode ? 'Activar modo claro' : 'Activar modo oscuro';
   }
 
-  public toggleDarkMode() {
+  public toggleDarkMode(event: Event) {
+    event.preventDefault();
     this.darkMode = !this.darkMode;
     this.updateUI();
   }

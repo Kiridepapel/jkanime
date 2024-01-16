@@ -1,0 +1,6 @@
+@import "../../../assets/styles/variables.scss";
+@import "../../../assets/styles/utils.scss";
+
+.section {
+  min-height: calc(100vh - $bar-height - $footer-height);
+}
