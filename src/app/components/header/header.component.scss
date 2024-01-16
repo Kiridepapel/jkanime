@@ -1,3 +1,4 @@
+@import "../../../assets/styles/variables.scss";
 @import "../../../assets/styles/utils.scss";
 
 .search {
@@ -8,4 +9,23 @@
 .icon {
   top: calc(50% - 8px);
   right: 16px;
+  transition: all .5s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .options  {
+    @apply h-full w-screen absolute flex flex-col justify-start p-5 bg-primary dark:bg-header-color-dark;
+    height: calc(100vh - $bar-height);
+    top: $bar-height;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
+
+    &.expanded {
+      transform: translateX(0);
+    }
+
+    &:not(.expanded) {
+      transform: translateX(-100%);
+    }
+  }
 }

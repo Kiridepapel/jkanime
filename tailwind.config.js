@@ -15,9 +15,12 @@ module.exports = {
         // footer
         "footer-color-dark": "#474C67",
         // button
-        "button": "#1D95CF",
+        button: "#1D95CF",
         "button-hover": "#146E9A",
         "button-hover-dark": "#777EA7",
+      },
+      spacing: {
+        "plr-20.25": "20.25%",
       },
     },
   },

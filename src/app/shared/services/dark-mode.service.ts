@@ -14,9 +14,12 @@ export class DarkModeService {
     this.updateUI();
   }
 
+  public get darkModeIcon(): string {
+    return this.darkMode ? 'fa-regular fa-sun' : 'fa-solid fa-moon';
+  }
+
   public get darkModeText(): string {
-    // return 'Modo oscuro';
-    return this.darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+    return this.darkMode ? 'Activar modo claro' : 'Activar modo oscuro';
   }
 
   public toggleDarkMode() {

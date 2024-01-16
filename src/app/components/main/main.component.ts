@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { DarkModeService } from '../../shared/services/dark-mode.service';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [],
+  imports: [ButtonComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })
