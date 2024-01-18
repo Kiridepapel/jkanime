@@ -1,16 +1,55 @@
-<section class="section min-h-base py-6 justify-center items-start gap-6 bg-section-one dark:bg-section-one-dark">
-  <div class="jkinfo w-full h-28 rounded-xl bg-gray-800">
-    <div class="infoc w-full h-full rounded-xl flex flex-col justify-center items-center">
-      <h2 class="text-xl pb-3 text-white">Temporada Invierno 2024</h2>
-      <a href="/directorio/estrenos" class="py-2 px-56 max-md:px-8 transition-colors rounded-md cursor-pointer
-        bg-gray-100 text-black hover:bg-primary hover:text-white">Ver más
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="section min-h-test py-6 justify-center items-center bg-section-two dark:bg-section-two-dark">
-</section>
-
-<section class="section min-h-test py-6 justify-center items-center bg-section-one dark:bg-section-one-dark">
-</section>
+@defer(when !isLoading) {
+  <section class="section gap-6 bg-section-one dark:bg-section-one-dark">
+    <article class="jkinfo w-full h-28 rounded-xl bg-gray-800">
+      <div class="infoc w-full h-full rounded-xl flex flex-col justify-center items-center">
+        <h2 class="text-xl pb-3 text-white">Temporada Invierno 2024</h2>
+        <a href="/directorio/estrenos" class="py-2 px-56 max-md:px-8 transition-colors rounded-md cursor-pointer
+          bg-gray-100 text-black hover:bg-primary hover:text-white">Ver más
+        </a>
+      </div>
+    </article>
+    
+    <article class="flex w-full h-full max-lg:flex-col gap-4 max-lg:gap-6">
+      <!-- Slider y Especiales -->
+      <section class="flex flex-col gap-4 w-8/12 max-h-section-one max-lg:w-full">
+        <div class="slider w-full bg-gray-500 rounded-md"></div>
+        <div class="h-full w-full bg-gray-500 max-lg:hidden"></div>
+      </section>
+      <!-- Ultimos episodios -->
+      <section class="h-section-one min-w-90 flex flex-col gap-5 w-4/12 max-lg:min-w-min max-lg:w-full pl-4 pt-2 max-lg:p-0">
+        <h3 class="title font-oswald relative flex items-center uppercase px-5 h-8 font-semibold text-lg">PROGRAMACIÓN</h3>
+        <div class="buttons font-mulish w-full h-9 rounded-lg bg-secondary text-white max-2xl:text-sm">
+          <button (click)="select(0)" class="w-2/4 h-full rounded-l-lg active">Animes</button>
+          <button (click)="select(1)" class="w-2/4 h-full rounded-r-lg">Donghuas</button>
+        </div>
+        <div class="last-animes w-full h-full overflow-y-auto rounded-lg p-1.25 bg-white border-gray-700 dark:bg-section-two-dark">
+          @for(chapter of homeData.lastChapters; track chapter) {
+            <a href="/{{ chapter.url }}" class="last-chapter w-full flex justify-between items-center p-2 gap-2
+              border-b border-gray-200 dark:border-gray-700
+              hover:bg-gray-200 dark:hover:bg-section-one-dark">
+              <div class="flex items-start">
+                <img src="{{ chapter.imgUrl }}" alt="Image of {{ chapter.name }}" class="w-28 h-20 rounded-md mr-3">
+                <div class="font-mulish text-13">
+                  <h4 class="font-bold underline decoration-transparent duration-300 ease-in-out">{{ chapter.name }}</h4>
+                  <p class="text-secondary font-semibold">{{ chapter.chapter }}</p>
+                  <p class="text-gray-400 font-normal">{{ chapter.date || 'Adivina' }}</p>
+                </div>
+              </div>
+              <img src="../../../assets/imgs/flecha.webp" alt="Ir" class="max-w-6 max-h-8">
+            </a>
+          }
+        </div>
+      </section>
+    </article>
+  </section>
+  
+  <section class="section min-h-test py-6 justify-center items-center bg-section-two dark:bg-section-two-dark">
+  </section>
+  
+  <section class="section min-h-test py-6 justify-center items-center bg-section-one dark:bg-section-one-dark">
+  </section>
+} @placeholder {
+  <section class="section center bg-section-one dark:bg-section-one-dark">
+    <div class="loader-2"></div>
+  </section>
+}

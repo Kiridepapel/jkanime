@@ -13,7 +13,6 @@
     <a (click)="goTo('/', true)" class="cursor-pointer w-8 hidden max-lg:block">
       <img src="../../../assets/imgs/jk.webp" alt="">
     </a>
-
     <!-- Options in desktop -->
     <div class="options justify-center items-center gap-2 flex max-md:hidden" [class.expanded]="navState">
       <app-button text="Directorio" class="max-md:w-full" (click)="goTo('/directorio')"></app-button>
@@ -32,11 +31,11 @@
 
   <div class="flex justify-center items-center gap-4">
     <!-- Dark mode button -->
-    <a class="cursor-pointer w-7 grid place-items-center" (click)="toggleDarkMode($event)">
+    <a class="cursor-pointer w-7 grid place-items-center text-white" (click)="toggleDarkMode($event)">
       <i class="{{ darkModeIcon }} {{ darkModeStyles }}"></i>
     </a>
     <!-- Search form -->
-    <form class="search relative max-md:hidden text-white">
+    <form class="search relative max-sm:hidden text-white">
       <input type="text" placeholder="Buscar animes..." class="search h-auto text-md button outline-none rounded-3xl font-normal pl-5 pr-10 py-2 w-full">
       <button type="button" href="#">
         <i class="search-icon fa-solid fa-magnifying-glass absolute right-0"></i>

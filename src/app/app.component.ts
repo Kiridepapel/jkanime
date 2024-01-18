@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { DarkModeService } from './services/dark-mode.service';
 import { HeaderComponent } from './components/header/header.component';
 import { JKAnimeComponent } from './pages/jkanime/jkanime.component';
@@ -10,6 +11,8 @@ import { FooterComponent } from './components/footer/footer.component';
   selector: 'app-root',
   standalone: true,
   imports: [
+    HttpClientModule,
+
     CommonModule,
     RouterOutlet,
     HeaderComponent,

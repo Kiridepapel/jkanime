@@ -1,14 +1,19 @@
 .section {
-  @apply w-full h-full flex flex-wrap transition-all
+  @apply w-full h-full flex flex-wrap py-6 justify-center content-start transition-all
     pl-plr-section pr-plr-section
     max-2xl:pl-plr-section-2xl max-2xl:pr-plr-section-2xl
     max-xl:pl-plr-section-xl max-xl:pr-plr-section-xl
-    max-md:pl-4 max-md:pr-4
+    max-sm:pl-4 max-sm:pr-4
     text-gray-800 dark:text-white;
   
     &.header {
-      @apply max-2xl:pl-5 max-2xl:pr-5;
+      @apply max-2xl:pl-5 max-2xl:pr-5 max-md:justify-between;
       flex-wrap: nowrap;
+    }
+    
+    &.center {
+      @apply content-center min-h-base flex-col;
+      height: 100%;
     }
 }
 

@@ -22,6 +22,9 @@ module.exports = {
         "button": "#1D95CF",
         "button-hover": "#146E9A",
         "button-hover-dark": "#777EA7",
+        // otros
+        "fondo-scroll": "#F1F1F1",
+        "fondo-dark-scroll": "#575D7B",
       },
       spacing: {
         // sections
@@ -30,15 +33,28 @@ module.exports = {
         "plr-section-xl": "10.25%",
         // top header
         "header": "76px",
+        // otros
+        "1.25": "5px",
       },
       height: {
         "header": "76px",
         "options-header": "calc(100vh - 76px)",
         "footer": "112px",
+        "section-one": "950px",
       },
       minHeight: {
-        "base": "calc(100vh - 76px)",
-        "test": '400px'
+        "base": "calc(100vh - (76px + 112px))",
+        "test": '400px',
+      },
+      minWidth: {
+        "90": "360px",
+      },
+      fontFamily: {
+        "oswald": ["Oswald", "sans-serif"],
+        "mulish": ["Mulish", "sans-serif"],
+      },
+      fontSize: {
+        "13": "13px",
       },
     },
   },

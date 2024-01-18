@@ -1,9 +1,80 @@
-@import '../../../assets/styles/utils.scss';
+@import "../../../assets/styles/utils.scss";
+@import "../../../assets/styles/loaders.scss";
 
+// Titles in all page
+.title {  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    @apply bg-secondary;
+  }
+}
+
+// Temporada de Invierno 2024
 .jkinfo {
   background: #f69d13 url("https://cdn.jkdesu.com/jkinfo.png") left center;
 
   .infoc {
     background: rgb(0 0 0 / 66%);
+  }
+}
+
+// Slider
+.slider {
+  min-height: 397px;
+}
+
+// Button active
+.active {
+  @apply bg-secondary-alter transition-all duration-500 ease-in-out;
+}
+
+.last-animes {
+  // * Scroll
+  &::-webkit-scrollbar {
+    width: 8px; /* Ancho */
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-fondo-scroll dark:bg-fondo-dark-scroll; /* Color de fondo */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-secondary dark:bg-secondary-alter rounded; /* Color principal */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    @apply bg-secondary; /* Color de la barra al hacer hover */
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: [ThumbColor] [TrackColor];
+
+  .last-chapter {
+    min-height: 94px;
+    transition: background .3s ease-in-out;
+
+    &:hover {
+      h4 {
+        @apply decoration-black dark:decoration-white;
+      }
+    }
+  
+    img {
+      width: 114px;
+      height: 73px;
+    }
+  
+    p {
+      margin-top: 2px;
+    }
   }
 }
