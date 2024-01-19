@@ -40,7 +40,7 @@ module.exports = {
       height: {
         "header": "76px",
         "options-header": "calc(100vh - 76px)",
-        "footer": "112px",
+        "footer": "76px",
         "section-one": "950px",
         "150": "600px",
         "140": "560px",
@@ -48,7 +48,7 @@ module.exports = {
         "112": "448px",
       },
       minHeight: {
-        "base": "calc(100vh - (76px + 112px))",
+        "base": "calc(100vh - (76px + 76px))",
         "test": '400px',
       },
       minWidth: {
