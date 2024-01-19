@@ -13,7 +13,7 @@ import { HomePageDTO } from '../../models/page.model';
 export class JKAnimeComponent {
   public isLoading = true;
   public page = 1;
-  public homeData: HomePageDTO = new HomePageDTO();
+  public homeData!: HomePageDTO;
   
   constructor(private animeService: AnimeService) {}
 
@@ -21,9 +21,7 @@ export class JKAnimeComponent {
     try {
       await this.animeService.getGenericData("page/" + this.page).then((data: any) => {
         this.homeData = data;
-        
       });
-      
     } finally {
       this.isLoading = false;
     }
@@ -33,6 +31,5 @@ export class JKAnimeComponent {
     let alterNumber = index == 0 ? 1 : 0;
     document.getElementsByClassName("buttons")[0].children[alterNumber].classList.remove("active");
     document.getElementsByClassName("buttons")[0].children[index].classList.add("active");
-
   }
 }

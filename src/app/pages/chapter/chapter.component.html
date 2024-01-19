@@ -1,9 +1,85 @@
 @defer(when !isLoading) {
-  <section class="section min-h-base py-6 justify-center items-start bg-section-one dark:bg-section-one-dark">
-    <span class="text-gray-800 dark:text-white">chapter works!</span>
+<!-- @defer(when true) { -->
+  <section class="section flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
+    <article class="w-full min-h-8 px-4 max-md:px-0 flex justify-between items-center max-lg:flex-col max-lg:justify-start max-lg:gap-3">
+      <h1 class="text-2xl font-normal font-oswald max-w-full whitespace-nowrap overflow-ellipsis inline-block overflow-hidden">
+        {{ chapterData.name }}
+      </h1>
+      <div class="options justify-center ml-12 flex gap-2 text-nowrap max-md:flex-wrap max-lg:ml-0 text-sm font-mulish font-normal
+        text-gray-700 dark:text-black">
+        <button class="bg-gray-200 hover:bg-zinc-300 transition-all duration-700 border border-gray-300 px-4 py-1 rounded-md">
+          Japones Sub. Esp
+        </button>
+        <button class="bg-gray-200 hover:bg-zinc-300 transition-all duration-700 border border-gray-300 px-4 py-1 rounded-md">
+          <i class="fa-solid fa-star"></i>
+        </button>
+        <button class="bg-gray-200 hover:bg-zinc-300 transition-all duration-700 border border-gray-300 px-4 py-1 rounded-md">
+          <i class="fa-solid fa-eye"></i>
+        </button>
+        <button class="bg-gray-200 hover:bg-zinc-300 transition-all duration-700 border border-gray-300 px-4 py-1 rounded-md">
+          <i class="fa-solid fa-lightbulb"></i>
+        </button>
+      </div>
+    </article>
+
+    <article class="w-full h-20 max-md:h-16 scroll px-5 flex justify-start items-center gap-3 rounded-md overflow-x-auto bg-secondary">
+      <!-- <P class="text-base max-md:text-sm font-mulish font-bold text-zinc-100">Servidores:</P> -->
+      @for(srcOption of chapterData.srcOptions; track srcOption) {
+        <a (click)="loadSrcOption(srcOption.url)" class="text-base font-bold font-mulish transition-all duration-700 px-3 py-2 rounded-md
+          max-md:text-sm max-md:py-1 cursor-pointer bg-white hover:bg-zinc-300 text-secondary">
+          {{ srcOption.name }}
+        </a>
+      }
+    </article>
+
+    <article class="w-full px-5 max-md:px-0 flex flex-col justify-start items-center gap-5">
+      <iframe
+        class="w-full h-150 max-2xl:h-140 max-xl:h-128 max-lg:h-112 max-md:h-96 rounded bg-black"
+        [src]="actualSrcOption"
+        loading="lazy"
+        width="560"
+        height="315"
+        title="Video player"
+        frameborder="0"
+        allowtransparency="true"
+        allowfullscreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+      </iframe>
+    </article>
+
+    <div class="w-full h-10 max-sm:h-full px-5 max-md:px-0 flex max-sm:flex-col gap-5 max-sm:gap-3 text-white">
+      <div class="h-full flex-grow-0 flex-shrink-0 w-[calc(40%-20px)] max-sm:h-10 max-sm:w-full">
+        @if (chapterData.previousChapterUrl) {
+          <a [href]="chapterData.previousChapterUrl" class="w-full h-full flex justify-center items-center gap-3 text-sm text-center rounded transition-all duration-700
+            bg-primary-alter hover:bg-primary-darkness"><i class="fa-solid fa-arrow-trend-down rotate-180 text-sm"></i>Capitulo anterior
+          </a>
+        } @else {
+          <button type="button" class="w-full h-full grid place-items-center text-sm text-center rounded transition-all duration-700
+            bg-zinc-400 hover:bg-zinc-400" disabled>Este es el primer capítulo
+          </button>
+        }
+      </div>
+      <div class="h-full cursor-pointer grid place-items-center flex-grow-0 flex-shrink-0 w-1/5 max-sm:w-full max-sm:h-10 rounded transition-all duration-700
+        bg-gray-500 hover:bg-gray-600">
+        <a [href]="animeUrl">
+          <i class="fa-solid fa-bars text-sm text-center"></i>
+        </a>
+      </div>
+      <div class="h-full flex-grow-0 flex-shrink-0 w-[calc(40%-20px)] max-sm:h-10 max-sm:w-full">
+        @if (chapterData.nextChapterUrl) {
+          <a [href]="chapterData.nextChapterUrl" class="w-full h-full flex justify-center items-center gap-3 text-sm text-center rounded transition-all duration-700
+            bg-primary-alter hover:bg-primary-darkness">Siguiente capitulo<i class="fa-solid fa-arrow-trend-down text-sm"></i>
+          </a>
+        } @else {
+          <button type="button" class="w-full h-full grid place-items-center text-sm text-center rounded transition-all duration-700
+            bg-zinc-400 hover:bg-zinc-400" disabled>No hay más capítulos
+          </button>
+        }
+      </div>
+    </div>
   </section>
 } @placeholder {
   <section class="section center bg-section-one dark:bg-section-one-dark">
-    <div class="loader-2"></div>
+    <div class="loader-1"></div>
   </section>
 }

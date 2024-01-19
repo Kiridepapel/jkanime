@@ -1,5 +1,5 @@
 .section {
-  @apply w-full h-full flex flex-wrap py-6 justify-center content-start transition-all
+  @apply w-full h-full flex flex-wrap py-6 transition-all
     pl-plr-section pr-plr-section
     max-2xl:pl-plr-section-2xl max-2xl:pr-plr-section-2xl
     max-xl:pl-plr-section-xl max-xl:pr-plr-section-xl
@@ -12,7 +12,7 @@
     }
     
     &.center {
-      @apply content-center min-h-base flex-col;
+      @apply content-center justify-center min-h-base flex-col;
       height: 100%;
     }
 }
@@ -20,4 +20,27 @@
 .button {
   @apply h-full transition-all
     bg-button hover:bg-button-hover dark:bg-section-two-dark dark:hover:bg-button-hover-dark;
+}
+
+.scroll {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-fondo-scroll dark:bg-fondo-dark-scroll; /* Color de fondo */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-secondary dark:bg-secondary-alter rounded; /* Color principal */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    @apply bg-secondary; /* Color de la barra al hacer hover */
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
 }

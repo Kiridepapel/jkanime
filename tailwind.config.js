@@ -7,6 +7,7 @@ module.exports = {
       colors: {
         "primary": "#4DA8E2",
         "primary-alter": "#1D95CF",
+        "primary-darkness": "#0069D9",
         "secondary": "#FB9800",
         "secondary-alter": "#DC821B",
         // header
@@ -41,6 +42,10 @@ module.exports = {
         "options-header": "calc(100vh - 76px)",
         "footer": "112px",
         "section-one": "950px",
+        "150": "600px",
+        "140": "560px",
+        "128": "512px",
+        "112": "448px",
       },
       minHeight: {
         "base": "calc(100vh - (76px + 112px))",

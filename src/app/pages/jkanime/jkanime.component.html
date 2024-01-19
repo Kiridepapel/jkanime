@@ -22,7 +22,7 @@
           <button (click)="select(0)" class="w-2/4 h-full rounded-l-lg active">Animes</button>
           <button (click)="select(1)" class="w-2/4 h-full rounded-r-lg">Donghuas</button>
         </div>
-        <div class="last-animes w-full h-full overflow-y-auto rounded-lg p-1.25 bg-white border-gray-700 dark:bg-section-two-dark">
+        <div class="last-animes scroll w-full h-full overflow-y-auto rounded-lg p-1.25 bg-white border-gray-700 dark:bg-section-two-dark">
           @for(chapter of homeData.lastChapters; track chapter) {
             <a href="/{{ chapter.url }}" class="last-chapter w-full flex justify-between items-center p-2 gap-2
               border-b border-gray-200 dark:border-gray-700
@@ -50,6 +50,6 @@
   </section>
 } @placeholder {
   <section class="section center bg-section-one dark:bg-section-one-dark">
-    <div class="loader-2"></div>
+    <div class="loader-1"></div>
   </section>
 }

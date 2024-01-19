@@ -34,27 +34,6 @@
 }
 
 .last-animes {
-  // * Scroll
-  &::-webkit-scrollbar {
-    width: 8px; /* Ancho */
-  }
-
-  &::-webkit-scrollbar-track {
-    @apply bg-fondo-scroll dark:bg-fondo-dark-scroll; /* Color de fondo */
-  }
-
-  &::-webkit-scrollbar-thumb {
-    @apply bg-secondary dark:bg-secondary-alter rounded; /* Color principal */
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    @apply bg-secondary; /* Color de la barra al hacer hover */
-  }
-
-  &::-webkit-scrollbar-button {
-    display: none;
-  }
-
   scrollbar-width: thin;
   scrollbar-color: [ThumbColor] [TrackColor];
 
