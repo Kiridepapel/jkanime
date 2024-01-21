@@ -29,7 +29,7 @@ export class ChapterComponent {
     const uri = window.location.href.replace((environment.FRONTEND_URL), "");
     this.animeUrl = uri.split("/")[0];
     
-    try {      
+    try {
       await this.animeService.getGenericData(uri).then((data: any) => {
         this.chapterData = data;
         this.chapterData.name = this.chapterData.name.toUpperCase();
@@ -45,22 +45,27 @@ export class ChapterComponent {
   public loadSrcOption(index: number, url: string) {
     // this.actualSrcOption = url;
     // this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    this.select(1);
+    this.select(index);
   }
 
   public select(index: number) {
-    document.querySelectorAll(".options").forEach((item: any) => {
-      console.log("index: " + index);
-      console.log("actualSrcOption: " + this.actualSrcOption);
-      console.log("remover clase a actualSrcLoadIndex: " + this.actualSrcLoadIndex);
-      console.log("agregar clase a index: " + item[index]);
-      console.log("------------------");
-    })
-
+    console.log(index);
+    // Encuentra el contenedor padre con la clase 'options'
+    const optionsContainer = document.querySelector('.options');
+  
+    if (optionsContainer) {
+      // Obtiene todos los elementos 'a' dentro del contenedor
+      const links = optionsContainer.querySelectorAll('a');
+  
+      // Elimina la clase 'active' de todos los enlaces
+      links.forEach(link => link.classList.remove('active'));
+  
+      // Agrega la clase 'active' al enlace en el índice especificado
+      if (links[index]) {
+        links[index].classList.add('active');
+      }
+    }
+  
     this.actualSrcLoadIndex = index;
-
-    // let alterNumber = index == 0 ? 1 : 0;
-    // document.getElementsByClassName("options")[0].children[alterNumber].classList.remove("active");
-    // document.getElementsByClassName("options")[0].children[index].classList.add("active");
   }
 }

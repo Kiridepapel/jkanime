@@ -1,16 +1,21 @@
-import { AnimeDTO } from "./individual.model";
+import { ChapterDTO, LastAnimeInfoDTO, TopDTO } from "./individual.model";
 
 export class HomePageDTO {
-  lastChapters!: AnimeDTO[];
-  allAnimes!: AnimeDTO[];
-  emisionAnimes!: AnimeDTO[];
+  sliderAnimes!: ChapterDTO[];
+  ovasOnasSpecials!: LastAnimeInfoDTO[];
+  animesProgramming!: ChapterDTO[];
+  donghuasProgramming!: ChapterDTO[];
+  topAnimes!: TopDTO[];
+  latestAddedAnimes!: ChapterDTO[];
+  latestAddedList!: ChapterDTO[];
 }
+
 
 export class AnimeInfoDTO {
   name!: string;
   sinopsis!: string;
   imgUrl!: string;
-  chapters!: AnimeDTO[];
+  chapters!: ChapterDTO[];
   genres!: string[];
 }
 

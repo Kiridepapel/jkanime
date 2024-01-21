@@ -22,11 +22,12 @@
       </div>
     </article>
 
-    <article class="w-full h-20 max-md:h-16 scroll px-5 flex justify-start items-center gap-3 rounded-md overflow-x-auto bg-secondary">
+    <article class="options w-full h-20 max-md:h-16 scroll px-5 flex justify-start items-center gap-3 rounded-md overflow-x-auto bg-secondary">
       <!-- <P class="text-base max-md:text-sm font-mulish font-bold text-zinc-100">Servidores:</P> -->
-      <ng-container class="options" *ngFor="let srcOption of chapterData.srcOptions; let index = index">
+      <ng-container class="" *ngFor="let srcOption of chapterData.srcOptions; let index = index">
         <a (click)="loadSrcOption(index, srcOption.url)" class="font-bold font-mulish transition-all duration-700 px-3 py-2 rounded-md
-           max-md:py-1 cursor-pointer bg-white hover:bg-zinc-300 text-secondary">
+           max-md:py-1 cursor-pointer border border-secondary bg-white hover:bg-zinc-300 text-secondary"
+           [ngClass]="{'active': index === actualSrcLoadIndex}">
           {{ srcOption.name }}
         </a>
       </ng-container>

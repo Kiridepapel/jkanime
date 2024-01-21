@@ -48,12 +48,9 @@
     }
   
     img {
-      width: 114px;
-      height: 73px;
-    }
-  
-    p {
-      margin-top: 2px;
+      flex: 0 0 112px;
+      object-fit: cover;
+      padding: 3px 0;
     }
   }
 }
