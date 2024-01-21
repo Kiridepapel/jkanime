@@ -14,13 +14,13 @@ export class DirectoryComponent {
 
   constructor(private animeService: AnimeService) {}
   
-  async ngOnInit(){
-    try {
-      await this.animeService.getGenericData("test").then((data: any) => {
-        this.data = data;
-      });
-    } finally {
-      this.isLoading = false;
-    }
-  }
+  // async ngOnInit(){
+  //   try {
+  //     await this.animeService.getGenericData("test").then((data: any) => {
+  //       this.data = data;
+  //     });
+  //   } finally {
+  //     this.isLoading = false;
+  //   }
+  // }
 }

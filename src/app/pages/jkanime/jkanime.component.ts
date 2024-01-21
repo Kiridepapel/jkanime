@@ -28,18 +28,6 @@ export class JKAnimeComponent {
     }
   }
 
-  showHeight(event: MouseEvent): void {
-    // Acceder al elemento que disparó el evento
-    const target = event.target as HTMLElement;
-
-    // Obtener el tamaño del elemento
-    const height = target.offsetHeight;
-    const width = target.offsetWidth;
-
-    // Aquí puedes hacer lo que necesites con las dimensiones
-    console.log(`Altura: ${height}, Ancho: ${width}`);
-}
-
   gotTo(url: string) {
     this.router.navigate(["/" + url]);
   }

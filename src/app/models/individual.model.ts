@@ -1,12 +1,13 @@
-export class ChapterDTO {
+export class ChapterDataDTO {
   imgUrl!: string;
   chapter!: string;
   name?: string;
   date?: string;
   url!: string;
+  state?: boolean;
 }
 
-export class TopDTO {
+export class TopDataDTO {
   name!: string;
   imgUrl!: string;
   likes!: number;
@@ -14,7 +15,7 @@ export class TopDTO {
   url!: string;
 }
 
-export class LastAnimeInfoDTO {
+export class LastAnimeDataDTO {
   name!: string;
   imgUrl!: string;
   url!: string;

@@ -3,7 +3,7 @@
   <section class="section min-h-base text-sm max-md:text-[12px] flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
     <article class="w-full min-h-8 px-4 max-md:px-0 flex justify-between items-center max-lg:flex-col max-lg:justify-start max-lg:gap-3">
       <h1 class="text-2xl font-normal font-oswald max-w-full whitespace-nowrap overflow-ellipsis inline-block overflow-hidden">
-        {{ chapterData.name }}
+        {{ chapter.name }} - {{ chapter.actualChapterNumber }}
       </h1>
       <div class="options justify-center ml-12 flex gap-2 text-nowrap max-md:flex-wrap max-lg:ml-0 font-mulish font-normal
         text-gray-700 dark:text-black">
@@ -24,7 +24,7 @@
 
     <article class="options w-full h-20 max-md:h-16 scroll px-5 flex justify-start items-center gap-3 rounded-md overflow-x-auto bg-secondary">
       <!-- <P class="text-base max-md:text-sm font-mulish font-bold text-zinc-100">Servidores:</P> -->
-      <ng-container class="" *ngFor="let srcOption of chapterData.srcOptions; let index = index">
+      <ng-container class="" *ngFor="let srcOption of chapter.srcOptions; let index = index">
         <a (click)="loadSrcOption(index, srcOption.url)" class="font-bold font-mulish transition-all duration-700 px-3 py-2 rounded-md
            max-md:py-1 cursor-pointer border border-secondary bg-white hover:bg-zinc-300 text-secondary"
            [ngClass]="{'active': index === actualSrcLoadIndex}">
@@ -50,8 +50,8 @@
 
     <div class="w-full h-10 max-sm:h-full px-5 max-md:px-0 flex max-sm:flex-col gap-5 max-sm:gap-3 text-white">
       <div class="h-full flex-grow-0 flex-shrink-0 w-[calc(40%-20px)] max-sm:h-10 max-sm:w-full">
-        @if (chapterData.previousChapterUrl) {
-          <a [href]="chapterData.previousChapterUrl" class="w-full h-full flex justify-center items-center gap-3 text-center rounded transition-all duration-700
+        @if (chapter.havePreviousChapter) {
+          <a [href]="getPreviousChapterUrl()" class="w-full h-full flex justify-center items-center gap-3 text-center rounded transition-all duration-700
             bg-primary-alter hover:bg-primary-darkness"><i class="fa-solid fa-arrow-trend-down rotate-180"></i>Capitulo anterior
           </a>
         } @else {
@@ -62,13 +62,13 @@
       </div>
       <div class="h-full max-sm:order-3 cursor-pointer grid place-items-center flex-grow-0 flex-shrink-0 w-1/5 max-sm:w-full max-sm:h-10 rounded transition-all duration-700
         bg-gray-500 hover:bg-gray-600">
-        <a [href]="animeUrl">
+        <a [href]="goToAnime()">
           <i class="fa-solid fa-bars text-center"></i>
         </a>
       </div>
       <div class="h-full flex-grow-0 flex-shrink-0 w-[calc(40%-20px)] max-sm:h-10 max-sm:w-full">
-        @if (chapterData.nextChapterUrl) {
-          <a [href]="chapterData.nextChapterUrl" class="w-full h-full flex justify-center items-center gap-3 text-center rounded transition-all duration-700
+        @if (chapter.haveNextChapter) {
+          <a [href]="getNextChapterUrl()" class="w-full h-full flex justify-center items-center gap-3 text-center rounded transition-all duration-700
             bg-primary-alter hover:bg-primary-darkness">Siguiente capitulo<i class="fa-solid fa-arrow-trend-down"></i>
           </a>
         } @else {

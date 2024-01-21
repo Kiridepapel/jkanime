@@ -24,7 +24,7 @@
         </div>
         <div class="last-animes scroll w-full h-full overflow-y-auto rounded-lg p-1.25 bg-white border-gray-700 dark:bg-section-two-dark">
           @for(chapter of homeData.animesProgramming; track chapter) {
-            <a (click)="gotTo(chapter.url)" class="cursor-pointer last-chapter w-full flex justify-between items-center p-2 gap-2
+            <a href="{{chapter.url}}" class="cursor-pointer last-chapter w-full flex justify-between items-center p-2 gap-2
               border-b border-gray-200 dark:border-gray-700
               hover:bg-gray-200 dark:hover:bg-section-one-dark">
               <div class="flex items-start">
@@ -33,7 +33,11 @@
                   <h4 class="font-bold underline decoration-transparent duration-300 ease-in-out text-gray-600 dark:text-white">{{ chapter.name }}</h4>
                   <p class="font-semibold mt-[2px] text-secondary">{{ chapter.chapter }}</p>
                   <p class="inline-block font-normal mt-[2px] mr-2 text-gray-400">{{ chapter.date || 'Desconocido' }}</p>
-                  <p class="inline-block w-2 h-2 rounded-[50%] bg-green-400" (mouseenter)="showHeight($event)"></p>
+                  @if (chapter.state) {
+                    <p class="inline-block w-2 h-2 rounded-[50%] bg-green-400"></p>
+                  } @else {
+                    <p class="inline-block w-2 h-2 rounded-[50%] bg-gray-400"></p>
+                  }
                 </div>
               </div>
               <img src="../../../assets/imgs/flecha.svg" alt="Ir" class="max-w-6 max-h-8">
