@@ -1,4 +1,8 @@
-<div class="section header justify-center content-center py-0 gap-10 max-md:justify-between relative">
+<div class="w-full h-header sticky flex justify-center max-lg:justify-between max-lg:section max-lg:px-5 gap-10 bg-primary text-white dark:bg-header-color-dark transition-all duration-600">
+
+  <!-- <div class="justify-center content-center py-0 gap-10 max-md:justify-between relative
+h-header top-0 z-10 bg-primary text-white dark:bg-header-color-dark
+transition-all duration-600 max-2xl:pl-5 max-2xl:pr-5 flex-nowrap flex-row"> -->
   
   <div class="flex justify-center items-center gap-10 text-white">
     <!-- Logo in desktop -->
@@ -14,7 +18,7 @@
       <img src="../../../assets/imgs/jk.webp" alt="">
     </a>
     <!-- Options in desktop -->
-    <div class="options justify-center items-center gap-2 flex max-md:hidden" [class.expanded]="navState">
+    <div class="options justify-center items-center gap-2 flex max-lg:hidden" [class.expanded]="navState">
       <a href="/directorio" class="button text rounded-lg grid place-items-center px-5 py-2">Directorio</a>
       <a href="/horario" class="button text rounded-lg grid place-items-center px-5 py-2">Horario</a>
       <a href="/top" class="button text rounded-lg grid place-items-center px-5 py-2">Top</a>
@@ -27,9 +31,9 @@
     </div>
     <!-- Options in mobile -->
     <div class="options justify-center items-center gap-2 hidden max-md:flex" [class.expanded]="navState">
-      <a href="/directorio" class="button text rounded-lg grid place-items-center px-5 py-2 w-full">Directorio</a>
-      <a href="/horario" class="button text rounded-lg grid place-items-center px-5 py-2 w-full">Horario</a>
-      <a href="/top" class="button text rounded-lg grid place-items-center px-5 py-2 w-full">Top</a>
+      <a href="/directorio" class="button text rounded-lg grid place-items-center w-full basis-10">Directorio</a>
+      <a href="/horario" class="button text rounded-lg grid place-items-center w-full basis-10">Horario</a>
+      <a href="/top" class="button text rounded-lg grid place-items-center w-full basis-10">Top</a>
     </div>
   </div>
 
@@ -46,12 +50,12 @@
       </button>
     </form>
     <!-- Profile button -->
-    <a class="cursor-pointer text-4xl max-md:text-3xl w-7 text-white">
+    <a class="cursor-pointer text-4xl max-lg:text-3xl w-7 text-white">
       <i class="fa fa-user-circle"></i>
     </a>
   </div>
 
-  <button class="menu bg-transparent border-none cursor-pointer flex p-0" (click)="toggleNav()"
+  <button class="menu hidden max-lg:flex items-center bg-transparent border-none cursor-pointer p-0" (click)="toggleNav()"
     onclick="this.classList.toggle('opened'); this.setAttribute('aria-expanded', this.classList.contains('opened'))" aria-label="Main Menu">
     <svg width="36" height="36" viewBox="0 0 100 100">
       <path class="line line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />

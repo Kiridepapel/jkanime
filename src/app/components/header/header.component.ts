@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { DarkModeService } from '../../services/dark-mode.service';
 import { Router } from '@angular/router';
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
   public navState: boolean = false;
+
+  @Input() data: any;
 
   constructor(
     private router: Router,

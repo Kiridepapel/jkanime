@@ -25,6 +25,13 @@ import { FooterComponent } from './components/footer/footer.component';
 export class AppComponent {
   title = 'JKanime';
 
+  myData: any = {
+    title: 'JKanime',
+    description: 'JKanime es un sitio web de anime online gratis sin restricciones.',
+    image: 'https://jkanime.net/img/logo.png',
+    url: 'https://jkanime.net/',
+  };
+
   constructor(private darkModeService: DarkModeService) {}
 
   ngOnInit() {

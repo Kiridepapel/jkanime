@@ -48,7 +48,7 @@
 
 @media screen and (max-width: 768px) {
   .options  {
-    @apply h-options-header top-header w-screen absolute left-0 flex-col justify-start gap-4 p-5 transition-all duration-300 ease-in-out bg-primary dark:bg-header-color-dark;
+    @apply h-options-header top-header w-full absolute left-0 flex-col justify-start gap-4 p-5 transition-all duration-300 ease-in-out bg-primary dark:bg-header-color-dark;
 
     &.expanded {
       transform: translateX(0%);

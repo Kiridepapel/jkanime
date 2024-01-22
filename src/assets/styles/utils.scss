@@ -6,10 +6,10 @@
     max-sm:pl-4 max-sm:pr-4
     text-gray-800 dark:text-white;
   
-    &.header {
-      @apply max-2xl:pl-5 max-2xl:pr-5 max-md:justify-between;
-      flex-wrap: nowrap;
-    }
+    // &.header {
+    //   @apply ;
+    //   flex-wrap: nowrap;
+    // }
     
     &.center {
       @apply content-center justify-center min-h-base flex-col;
