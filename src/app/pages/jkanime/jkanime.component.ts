@@ -3,6 +3,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { AnimeService } from '../../services/anime.service';
 import { HomePageDTO } from '../../models/page.model';
 import { Router } from '@angular/router';
+import { ChapterDataDTO } from '../../models/individual.model';
 
 @Component({
   selector: 'app-jkanime',
@@ -13,8 +14,8 @@ import { Router } from '@angular/router';
 })
 export class JKAnimeComponent {
   public isLoading = true;
-  public page = 1;
   public homeData!: HomePageDTO;
+  public activeList!: ChapterDataDTO[];
   
   constructor(private animeService: AnimeService, private router: Router) {}
 
@@ -22,6 +23,7 @@ export class JKAnimeComponent {
     try {
       await this.animeService.getGenericData("animes").then((data: any) => {
         this.homeData = data;
+        this.activeList = this.homeData.animesProgramming;
       });
     } finally {
       this.isLoading = false;
@@ -36,5 +38,7 @@ export class JKAnimeComponent {
     let alterNumber = index == 0 ? 1 : 0;
     document.getElementsByClassName("buttons")[0].children[alterNumber].classList.remove("active");
     document.getElementsByClassName("buttons")[0].children[index].classList.add("active");
+
+    this.activeList = index == 0 ? this.homeData.animesProgramming : this.homeData.donghuasProgramming;
   }
 }

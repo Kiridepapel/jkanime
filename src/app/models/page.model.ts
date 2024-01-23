@@ -26,7 +26,7 @@ export class ChapterDTO {
   havePreviousChapter!: boolean;
   haveNextChapter!: boolean;
   nextChapterDate?: string;
-  state!: string;
+  inEmision!: boolean;
 
   // External
   lastChapterNumber!: number;

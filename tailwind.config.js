@@ -26,6 +26,7 @@ module.exports = {
         // otros
         "fondo-scroll": "#F1F1F1",
         "fondo-dark-scroll": "#575D7B",
+        "white-alter": "#dfdfdf"
       },
       spacing: {
         // sections

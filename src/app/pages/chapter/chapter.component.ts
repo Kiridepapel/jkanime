@@ -13,12 +13,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './chapter.component.scss'
 })
 export class ChapterComponent {
-  public animeUrl!: string; // Pagina del anime
-  public actualSrcLoadIndex = 0; // Indice del src option cargado actualmente
-  public actualSrcOption!: SafeResourceUrl; // Url del src option cargado actualmente
-
-  public isLoading = true; // Se vuelve false cuando se termina de recibir todos los datos del backend
+  public animeUrl!: string; // Pagina del path del anime
+  public isFetchingData = true; // Se vuelve false cuando se termina de recibir todos los datos del backend
   public chapter!: ChapterDTO; // Información del capítulo recibido del backend
+  public mainSrcIndex = 0; // Indice del src cargado inicialmente
+  public mainSrcOption!: SafeResourceUrl; // Url del src cargado inicialmente
 
   constructor(
     private animeService: AnimeService, 
@@ -32,56 +31,40 @@ export class ChapterComponent {
     try {
       await this.animeService.getGenericData(uri).then((data: any) => {
         this.chapter = data;
-        this.chapter.name = this.chapter.name.toUpperCase();
-        // Sanear la URL antes de asignarla
-        this.actualSrcOption = this.sanitizer.bypassSecurityTrustResourceUrl(this.chapter.srcOptions[0]?.url);
-        this.select(this.actualSrcLoadIndex);
+        this.mainSrcOption = this.sanitizer.bypassSecurityTrustResourceUrl(this.chapter.srcOptions[0]?.url);
+        this.selectSrc(this.mainSrcIndex, this.chapter.srcOptions[this.mainSrcIndex]?.url);
       });
     } finally {
-      this.isLoading = false;
+      this.isFetchingData = false;
     }
   }
 
   public getPreviousChapterUrl() {
-    // if (RegExp('^[0-9]+$').test(this.chapter.actualChapterNumber)) {
-    //   return `${this.animeUrl}/${Number(this.chapter.actualChapterNumber) - 1}`;
-    // } else {
-    //   return this.chapter.actualChapterNumber;
-    // }
     return `${this.animeUrl}/${Number(this.chapter.actualChapterNumber) - 1}`;
   }
 
   public goToAnime() {
-    // this.rout
+    window.location.href = this.animeUrl;
   }
 
   public getNextChapterUrl() {
-    return `${this.animeUrl}/${this.chapter.actualChapterNumber + 1}`;
+    return `${this.animeUrl}/${Number(this.chapter.actualChapterNumber) + 1}`;
   }
 
-  public loadSrcOption(index: number, url: string) {
-    // this.actualSrcOption = url;
-    // this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    this.select(index);
-  }
-
-  public select(index: number) {
-    // Encuentra el contenedor padre con la clase 'options'
+  public selectSrc(index: number, url: string) {
     const optionsContainer = document.querySelector('.options');
-  
+
     if (optionsContainer) {
-      // Obtiene todos los elementos 'a' dentro del contenedor
+      this.mainSrcOption = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+
       const links = optionsContainer.querySelectorAll('a');
-  
-      // Elimina la clase 'active' de todos los enlaces
       links.forEach(link => link.classList.remove('active'));
   
-      // Agrega la clase 'active' al enlace en el índice especificado
       if (links[index]) {
         links[index].classList.add('active');
       }
     }
   
-    this.actualSrcLoadIndex = index;
+    this.mainSrcIndex = index;
   }
 }

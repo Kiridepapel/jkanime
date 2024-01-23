@@ -1,9 +1,9 @@
-@defer(when !isLoading) {
+@defer(when !isFetchingData) {
 <!-- @defer(when true) { -->
-  <section class="section min-h-base text-sm max-md:text-[12px] flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
+  <section class="section min-h-base text-sm max-lg:text-[12px] flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
     <article class="w-full min-h-8 px-4 max-md:px-0 flex justify-between items-center max-lg:flex-col max-lg:justify-start max-lg:gap-3">
       <h1 class="text-2xl font-normal font-oswald max-w-full whitespace-nowrap overflow-ellipsis inline-block overflow-hidden">
-        {{ chapter.name }} - {{ chapter.actualChapterNumber }}
+        {{ chapter.name.toUpperCase() }} - {{ chapter.actualChapterNumber }}
       </h1>
       <div class="options justify-center ml-12 flex gap-2 text-nowrap max-md:flex-wrap max-lg:ml-0 font-mulish font-normal
         text-gray-700 dark:text-black">
@@ -25,9 +25,9 @@
     <article class="options w-full h-20 max-md:h-16 scroll px-5 flex justify-start items-center gap-3 rounded-md overflow-x-auto bg-secondary">
       <!-- <P class="text-base max-md:text-sm font-mulish font-bold text-zinc-100">Servidores:</P> -->
       <ng-container class="" *ngFor="let srcOption of chapter.srcOptions; let index = index">
-        <a (click)="loadSrcOption(index, srcOption.url)" class="font-bold font-mulish transition-all duration-700 px-3 py-2 rounded-md
-           max-md:py-1 cursor-pointer border border-secondary bg-white hover:bg-zinc-300 text-secondary"
-           [ngClass]="{'active': index === actualSrcLoadIndex}">
+        <a (click)="selectSrc(index, srcOption.url)" class="font-bold font-mulish transition-all duration-700 px-3 py-2 rounded-md
+           max-md:py-1 cursor-pointer border border-secondary bg-white hover:bg-white-alter text-secondary"
+           [ngClass]="{'active': index === mainSrcIndex}">
           {{ srcOption.name }}
         </a>
       </ng-container>
@@ -36,7 +36,7 @@
     <article class="w-full px-5 max-md:px-0 flex flex-col justify-start items-center gap-5">
       <iframe
         class="w-full h-150 max-2xl:h-140 max-xl:h-128 max-lg:h-112 max-md:h-96 rounded bg-black"
-        [src]="actualSrcOption"
+        [src]="mainSrcOption"
         loading="lazy"
         width="560"
         height="315"
@@ -48,8 +48,9 @@
       </iframe>
     </article>
 
-    <div class="w-full h-10 max-sm:h-full px-5 max-md:px-0 flex max-sm:flex-col gap-5 max-sm:gap-3 text-white">
-      <div class="h-full flex-grow-0 flex-shrink-0 w-[calc(40%-20px)] max-sm:h-10 max-sm:w-full">
+    <div class="w-full h-10 max-md:h-full px-5 max-md:px-0 flex max-md:flex-col gap-5 max-md:gap-3 text-white">
+      <!-- Capitulo anterior -->
+      <div class="h-full flex-grow-0 flex-shrink-0 w-[calc(40%-20px)] max-md:h-10 max-md:w-full">
         @if (chapter.havePreviousChapter) {
           <a [href]="getPreviousChapterUrl()" class="w-full h-full flex justify-center items-center gap-3 text-center rounded transition-all duration-700
             bg-primary-alter hover:bg-primary-darkness"><i class="fa-solid fa-arrow-trend-down rotate-180"></i>Capitulo anterior
@@ -60,20 +61,24 @@
           </button>
         }
       </div>
-      <div class="h-full max-sm:order-3 cursor-pointer grid place-items-center flex-grow-0 flex-shrink-0 w-1/5 max-sm:w-full max-sm:h-10 rounded transition-all duration-700
-        bg-gray-500 hover:bg-gray-600">
-        <a [href]="goToAnime()">
-          <i class="fa-solid fa-bars text-center"></i>
-        </a>
-      </div>
-      <div class="h-full flex-grow-0 flex-shrink-0 w-[calc(40%-20px)] max-sm:h-10 max-sm:w-full">
+      <!-- Lista de capítulos -->
+      <a [href]="animeUrl" class="max-md:h-10 max-md:order-3 cursor-pointer grid place-items-center flex-grow-0 flex-shrink-0 w-1/5 max-md:w-full rounded
+        bg-gray-500 hover:bg-gray-600 transition-all duration-700 max-lg:text-[14px]">
+        <i class="fa-solid fa-bars text-center"></i>
+      </a>
+      <!-- Siguiente capítulo -->
+      <div class="h-full flex-grow-0 flex-shrink-0 w-[calc(40%-20px)] max-md:h-10 max-md:w-full">
         @if (chapter.haveNextChapter) {
           <a [href]="getNextChapterUrl()" class="w-full h-full flex justify-center items-center gap-3 text-center rounded transition-all duration-700
-            bg-primary-alter hover:bg-primary-darkness">Siguiente capitulo<i class="fa-solid fa-arrow-trend-down"></i>
+            bg-primary-alter hover:bg-primary-darkness">Siguiente capítulo<i class="fa-solid fa-arrow-trend-down"></i>
           </a>
         } @else {
-          <button type="button" class="w-full h-full grid place-items-center text-center rounded transition-all duration-700
-            bg-zinc-400 hover:bg-zinc-400" disabled>No hay más capítulos
+          <button type="button" class="w-full h-full grid place-items-center text-center rounded transition-all duration-700 bg-zinc-400 hover:bg-zinc-400" disabled>
+            @if (chapter.inEmision) {
+              Proximo capítulo {{ chapter.nextChapterDate }}
+            } @else {
+              No hay más capítulos
+            }
           </button>
         }
       </div>

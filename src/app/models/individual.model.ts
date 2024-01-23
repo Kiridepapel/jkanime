@@ -1,7 +1,8 @@
 export class ChapterDataDTO {
-  imgUrl!: string;
-  chapter!: string;
   name?: string;
+  imgUrl!: string;
+  type!: string;
+  chapter!: string;
   date?: string;
   url!: string;
   state?: boolean;
