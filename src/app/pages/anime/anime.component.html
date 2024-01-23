@@ -1,6 +1,16 @@
 @defer(when !isLoading) {
-  <section class="section min-h-base py-6 justify-center items-start bg-section-one dark:bg-section-one-dark">
-    <span class="text-gray-800 dark:text-white">anime works!</span>
+  <section class="section min-h-base py-6 flex-col justify-start items-center gap-3 bg-section-one dark:bg-section-one-dark">
+    <p class="text-gray-800 dark:text-white">{{ animeData.name }}!</p>
+    <div>
+      <iframe
+        width="560"
+        height="315"
+        [src]="ytSrcTrailer"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
   </section>
 } @placeholder {
   <section class="section center bg-section-one dark:bg-section-one-dark">

@@ -20,9 +20,12 @@ export class JKAnimeComponent {
   constructor(private animeService: AnimeService, private router: Router) {}
 
   async ngOnInit() {
+    document.title = "Cargando...";
+    
     try {
-      await this.animeService.getGenericData("animes").then((data: any) => {
+      await this.animeService.getGenericData("animes").then((data: HomePageDTO) => {
         this.homeData = data;
+        document.title = "Ver ánime online";
         this.activeList = this.homeData.animesProgramming;
       });
     } finally {

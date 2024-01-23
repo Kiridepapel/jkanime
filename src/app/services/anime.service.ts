@@ -13,10 +13,6 @@ export class AnimeService {
 
   constructor(private http: HttpClient, private errorService: ErrorService, private router: Router) { }
 
-  test() {
-    
-  }
-
   public async getGenericData(uri: string): Promise<any> {
     try {
       const data = await this.http.get(this.backendUrl + uri).toPromise();

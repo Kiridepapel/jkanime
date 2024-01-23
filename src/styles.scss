@@ -2,3 +2,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-fondo-scroll dark:bg-fondo-dark-scroll; /* Color de fondo */
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary dark:bg-primary-alter rounded; /* Color principal */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary; /* Color de la barra al hacer hover */
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}

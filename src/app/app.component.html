@@ -1,12 +1,5 @@
-<!-- @defer(on viewport) { -->
 <body class="min-h-screen flex flex-col bg-section-one dark:bg-section-one-dark">
-  <app-header [data]="title"></app-header>
+  <app-header class="sticky z-10 top-0"></app-header>
   <router-outlet></router-outlet>
-  <app-footer class="h-footer bottom-0 bg-primary text-white dark:bg-footer-color-dark
-    transition-all duration-600"></app-footer>
+  <app-footer class="h-footer bottom-0 bg-primary text-white dark:bg-footer-color-dark transition-all duration-600"></app-footer>
 </body>
-<!-- } @placeholder {
-  <div class="loading">
-    <div class="loader-1"></div>
-  </div>
-} -->

@@ -24,7 +24,7 @@ module.exports = {
         "button-hover": "#146E9A",
         "button-hover-dark": "#777EA7",
         // otros
-        "fondo-scroll": "#F1F1F1",
+        "fondo-scroll": "#e6e6e6",
         "fondo-dark-scroll": "#575D7B",
         "white-alter": "#dfdfdf"
       },

@@ -24,10 +24,10 @@
         </div>
         <div class="last-animes scroll w-full h-full overflow-y-auto rounded-lg p-1.25 bg-white border-gray-700 dark:bg-section-two-dark">
           @for(chapter of activeList; track chapter) {
-            <a href="{{chapter.url}}" class="cursor-pointer last-chapter w-full flex justify-between items-center p-2 gap-2
+            <a [href]="chapter.url" class="cursor-pointer last-chapter w-full flex justify-between items-center p-2 gap-2
               border-b border-gray-200 dark:border-gray-700 hover:bg-white-alter dark:hover:bg-section-one-dark">
               <div class="flex items-start">
-                <img src="{{ chapter.imgUrl }}" alt="Image of {{ chapter.name }}" class="w-28 h-20 rounded-md mr-3">
+                <img [src]="chapter.imgUrl" alt="Image of {{ chapter.name }}" class="w-28 h-20 rounded-md mr-3">
                 <div class="font-mulish text-13 leading-[18px]">
                   <h4 class="font-bold underline decoration-transparent duration-300 ease-in-out text-gray-600 dark:text-white">
                     {{ chapter.name }}

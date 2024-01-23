@@ -13,8 +13,6 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   public navState: boolean = false;
 
-  @Input() data: any;
-
   constructor(
     private router: Router,
     private darkModeService: DarkModeService,
