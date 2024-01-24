@@ -14,12 +14,10 @@ export class AnimeInfoDTO {
   name!: string;
   imgUrl!: string;
   sinopsis!: string;
-  likes!: number;
+  trailer!: string;
   
   data!: {[key: string]: any}
-  alternativeTitles!: {[key: string]: any}
-
-  ytTrailerId!: string;
+  recomendations!: LastAnimeDataDTO[];
 }
 
 export class ChapterDTO {

@@ -14,7 +14,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class AnimeComponent {
   public isLoading = true;
   public animeData!: AnimeInfoDTO;
-  public ytSrcTrailer!: SafeResourceUrl;
+  public trailer!: SafeResourceUrl;
 
   constructor(
     private animeService: AnimeService,
@@ -27,12 +27,19 @@ export class AnimeComponent {
 
     try {
       await this.animeService.getGenericData(uri).then((data: AnimeInfoDTO) => {
-        document.title = data.name;
-        this.animeData = data;
-        this.ytSrcTrailer = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${data.ytTrailerId}`);
+        this.manipulateData(data);
       });
     } finally {
       this.isLoading = false;
+    }
+  }
+
+  private manipulateData(data: AnimeInfoDTO) {
+    this.animeData = data;
+    document.title = this.animeData.name;
+    // Trailer
+    if (this.animeData.trailer) {
+      this.trailer = this.sanitizer.bypassSecurityTrustResourceUrl(this.animeData.trailer);
     }
   }
 }
