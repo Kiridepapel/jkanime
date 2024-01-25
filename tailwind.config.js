@@ -10,6 +10,8 @@ module.exports = {
         "primary-darkness": "#0069D9",
         "secondary": "#FB9800",
         "secondary-alter": "#DC821B",
+        "tertiary": "#027BFF",
+        "tertiary-alter": "#0069D9",
         // header
         "header-color-dark": "#1A1A1A",
         // main
@@ -26,7 +28,10 @@ module.exports = {
         // otros
         "fondo-scroll": "#e6e6e6",
         "fondo-dark-scroll": "#575D7B",
-        "white-alter": "#dfdfdf"
+        "white-alter": "#EFEFEF",
+        "dark-alter": "#3D3D3D",
+        // text
+        "link": "#C3CDFF",
       },
       spacing: {
         // sections

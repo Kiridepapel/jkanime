@@ -1,19 +1,102 @@
 @defer(when !isLoading) {
-  <section class="section min-h-base py-6 flex-col justify-start items-center gap-3 bg-section-one dark:bg-section-one-dark">
-    <p class="text-gray-800 dark:text-white">{{ animeData.name }}!</p>
-    <div>
-      @if (animeData.trailer) {
-        <iframe
-          width="560"
-          height="315"
-          [src]="trailer"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-      } @else {
-        <p>asd</p>
-      }
+  <!-- Contenedor -->
+  <section class="section min-h-base py-6 gap-3 bg-section-one dark:bg-section-one-dark">
+    <!-- Contenido -->
+    <div class="w-full h-full flex justify-start p-5 rounded-xl gap-4 max-[500px]:flex-col max-md:gap-0
+      bg-[#EEEEEE] dark:bg-section-two-dark text-dark-alter dark:text-white-alter">
+      <!-- Sección 1 -->
+      <div class="min-w-[240px] h-full max-md:min-w-[180px]">
+        <img [src]="animeData.imgUrl" alt="Image of {{ animeData.name }}" class="min-w-full min-h-[370px] max-md:min-h-[300px] rounded-md object-cover">
+        <button class="w-full h-10 flex mt-3 bg-secondary text-white-alter rounded-md">
+          <div class="min-w-[50px] h-full grid place-items-center bg-secondary-alter rounded-tl-md rounded-bl-md">
+            <span class="font-semibold text-sm">666</span>
+          </div>
+          <div class="w-full h-full flex justify-center items-center bg-secondary rounded-tr-md rounded-br-md">
+            <span class="text-[15px] inline mr-2">Me gusta</span>
+            <i class="fa-solid fa-thumbs-up inline text-[13px] text-white-alter"></i>
+          </div>
+        </button>
+      </div>
+      <!-- Sección 2 -->
+      <div class="ml-5 max-[500px]:ml-0 max-[500px]:mt-2 basis-full">
+        <!-- Título y subtítulo -->
+        <div class="flex justify-between mb-3 text-inherit max-md:flex-col max-md:gap-2 max-[500px]:mb-5">
+          <div class="mb-1 max-md:order-2 flex flex-col gap-4 dark:text-white">
+            <h1 class="font-mulish text-3xl font-bold max-md:text-center max-lg:text-2xl text-dark-alter text-inherit">{{ animeData.name }}</h1>
+            @if (!isEquals(animeData.name, animeData.alternativeName)) {
+              <p class="font-mulish text-[15px] max-md:text-center text-gray-600 dark:text-gray-300">{{ animeData.alternativeName }}</p>
+            }
+          </div>
+          <button class="min-w-[50px] w-[50px] h-[42px] ml-5 bg-tertiary grid place-items-center rounded-[4px] max-md:order-1 max-md:w-full max-md:ml-0 max-md:mb-3">
+            <i class="fa-solid fa-star text-xs text-white-alter"></i>
+          </button>
+        </div>
+        <!-- Botones de sinopsis y de información -->
+        <div class="options mb-5 w-full h-[36px] max-md:h-[72px] max-lg:flex max-md:flex-col gap3 bg-white text-dark-alter font-semibold text-sm hidden">
+          <!-- Para ocultar y mostrar los botones, cambiar este max-lg ..., y también el CSS .showing -->
+          <button (click)="select(0)" [ngClass]="{'active': selectedIndex === 0}" class="grow-0 shrink-0 basis-2/4 max-md:h-[36px] active">Sinopsis</button>
+          <button (click)="select(1)" [ngClass]="{'active': selectedIndex === 1}" class="grow-0 shrink-0 basis-2/4 max-md:h-[36px]">Información</button>
+        </div>
+        <!-- Sinopsis -->
+        <p class="block text-lg max-lg:text-base mb-5" [ngClass]="{'showing': selectedIndex === 1}">{{ animeData.sinopsis }}</p>
+        <!-- Información -->
+        <div class="gap-[4%] max-xl:gap-4 flex max-xl:flex-col w-full showing" [ngClass]="{'showing': selectedIndex === 0}">
+          <ul class="grow-0 shrink-0 basis-[48%] flex flex-col gap-[6px] pl-5">
+            @for (item of objectEntries(animeData.data); track $index) {
+              @if (!isObject(item[1])) {
+                <li class="flex flex-wrap">
+                  <span class="item">{{ changeName(item[0]) }}: </span>
+                  <!-- Status -->
+                  @if (item[0] === 'status') {
+                    @if (item[1] === 'En emisión') {
+                      <div class="px-2 py-1 flex justify-center items-center gap-2 text-sm rounded-md bg-green-500 text-white">
+                        <i class="text-[10px] fa-solid fa-circle"></i>
+                        <span class="text-[14px]">{{ firstUppercase(item[1]) }}</span>
+                      </div>
+                    } @else if (item[1] === 'Completada') {
+                      <div class="px-2 py-1 flex justify-center items-center gap-2 text-sm rounded-md bg-red-500 text-white">
+                        <i class="text-[10px] fa-solid fa-circle"></i>
+                        <span class="text-[14px]">{{ firstUppercase(item[1]) }}</span>
+                      </div>
+                    }
+                  <!-- Date -->
+                  } @else if (item[0] === 'lastUpdate') {
+                    <span class="links text-blue-500 dark:text-link">{{ parseAndFormatDate(item[1]) }}</span>
+                  } @else {
+                    <span class="links text-blue-500 dark:text-link">{{ firstUppercase(item[1]) }}</span>
+                  }
+                </li>
+              } @else {
+                <li class="flex flex-wrap">
+                  <span class="item">{{ singularOrPlural(item[0], objectEntries(item[1])) }}: </span>
+                  <div class="links flex flex-wrap text-blue-500 dark:text-link">
+                    @for (subItem of objectEntries(item[1]); track $index) {
+                      <a href="{{ subItem[1].url }}">{{ firstUppercase(subItem[1].name) }}</a>
+                      <!-- Coloca una coma, siempre y cuando el elemento iterado no sea el último -->
+                      @if ($index < (objectEntries(item[1]).length - 1)) {
+                        <span class="text-dark-alter dark:text-white mr-[3px]">,</span>
+                      }
+                    }
+                  </div>
+                </li>
+              }
+            }
+          </ul>
+          <div class="grow-0 shrink-0 basis-[48%]">
+            <!-- Títulos alternativos -->
+            @if (animeData.trailer) {
+              <h2 class="mb-1 text-black font-semibold text-lg">Trailer (compartido por fraxi12)</h2>
+              <iframe
+                class="max-w-[80%] w-full h-[181px] max-[500px]:h-[240px] max-[400px]:h-[190px] max-md:h-52 max-md:min-w-full max-xl:w-[300px] max-xl:h-[181px] rounded-md"
+                [src]="trailer"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            }
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 } @placeholder {

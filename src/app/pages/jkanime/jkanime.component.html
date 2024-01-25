@@ -18,12 +18,12 @@
       <!-- Ultimos episodios -->
       <section class="h-section-one min-w-90 flex flex-col gap-5 w-4/12 max-lg:min-w-min max-lg:w-full pl-4 pt-2 max-lg:p-0">
         <h3 class="title font-oswald relative flex items-center uppercase px-5 h-8 font-semibold text-lg">PROGRAMACIÓN</h3>
-        <div class="buttons font-mulish w-full h-9 rounded-lg bg-secondary text-white max-2xl:text-sm">
+        <div class="options font-mulish w-full h-9 rounded-lg bg-secondary text-white max-2xl:text-sm">
           <button (click)="select(0)" class="w-2/4 h-full rounded-l-lg active">Animes</button>
           <button (click)="select(1)" class="w-2/4 h-full rounded-r-lg">Donghuas</button>
         </div>
         <div class="last-animes scroll w-full h-full overflow-y-auto rounded-lg p-1.25 bg-white border-gray-700 dark:bg-section-two-dark">
-          @for(chapter of activeList; track chapter) {
+          @for(chapter of activeList; track $index) {
             <a [href]="chapter.url" class="cursor-pointer last-chapter w-full flex justify-between items-center p-2 gap-2
               border-b border-gray-200 dark:border-gray-700 hover:bg-white-alter dark:hover:bg-section-one-dark">
               <div class="flex items-start">

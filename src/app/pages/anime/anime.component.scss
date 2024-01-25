@@ -1,2 +1,26 @@
 @import "../../../assets/styles/utils.scss";
 @import "../../../assets/styles/loaders.scss";
+
+$key-width: 108px;
+
+.active {
+  @apply bg-tertiary text-white-alter;
+}
+
+.showing {
+  @apply max-lg:hidden;
+}
+
+.item {
+  list-style-type: square;
+  display: list-item;
+  flex-basis: $key-width;
+}
+
+.links {
+  flex-basis: calc(100% - $key-width);
+
+  a {
+    @apply hover:text-secondary;
+  }
+}

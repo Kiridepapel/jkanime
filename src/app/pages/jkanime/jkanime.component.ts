@@ -39,8 +39,8 @@ export class JKAnimeComponent {
 
   public select(index: number) {
     let alterNumber = index == 0 ? 1 : 0;
-    document.getElementsByClassName("buttons")[0].children[alterNumber].classList.remove("active");
-    document.getElementsByClassName("buttons")[0].children[index].classList.add("active");
+    document.getElementsByClassName("options")[0].children[alterNumber].classList.remove("active");
+    document.getElementsByClassName("options")[0].children[index].classList.add("active");
 
     this.activeList = index == 0 ? this.homeData.animesProgramming : this.homeData.donghuasProgramming;
   }
