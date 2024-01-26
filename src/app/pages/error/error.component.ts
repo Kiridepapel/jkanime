@@ -10,7 +10,8 @@ import { ErrorService } from '../../services/error.service';
   styleUrl: './error.component.scss'
 })
 export class ErrorComponent {
-  errorData: ResponseDTO = {
+  
+  public errorData: ResponseDTO = {
     message: "Oops! Ocurrió un error inesperado.",
     status: 500
   };
@@ -18,7 +19,7 @@ export class ErrorComponent {
   constructor(private errorService: ErrorService) {}
 
   ngOnInit() {
-    this.errorService.currentError.subscribe(data => {
+    this.errorService.currentError.subscribe((data: any) => {
       if (data) {
         this.errorData = data;
       }

@@ -34,7 +34,7 @@ export class ChapterComponent {
     try {
       await this.animeService.getGenericData(uri).then((data: any) => {
         this.chapter = data;
-        document.title = this.chapter.name + " " + this.chapter.actualChapterNumber;
+        document.title = this.chapter.name + " " + this.chapter.actualChapter;
         this.mainSrcOption = this.sanitizer.bypassSecurityTrustResourceUrl(this.chapter.srcOptions[0]?.url);
         this.selectSrc(this.mainSrcIndex, this.chapter.srcOptions[this.mainSrcIndex]?.url);
       });
@@ -44,7 +44,7 @@ export class ChapterComponent {
   }
 
   public getPreviousChapterUrl() {
-    return `${this.animeUrl}/${Number(this.chapter.actualChapterNumber) - 1}`;
+    return `${this.animeUrl}/${Number(this.chapter.actualChapter) - 1}`;
   }
 
   public goToAnime() {
@@ -52,7 +52,7 @@ export class ChapterComponent {
   }
 
   public getNextChapterUrl() {
-    return `${this.animeUrl}/${Number(this.chapter.actualChapterNumber) + 1}`;
+    return `${this.animeUrl}/${Number(this.chapter.actualChapter) + 1}`;
   }
 
   public selectSrc(index: number, url: string) {
@@ -70,5 +70,10 @@ export class ChapterComponent {
     }
   
     this.mainSrcIndex = index;
+  }
+
+  // Muestra el día de la última actualización del anime
+  public parseAndFormatDate(value: string, showYear: boolean): string {
+    return this.animeService.parseAndFormatDate(value, showYear);
   }
 }

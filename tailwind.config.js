@@ -32,6 +32,7 @@ module.exports = {
         "dark-alter": "#3D3D3D",
         // text
         "link": "#C3CDFF",
+        "link": "#C3CDFF",
       },
       spacing: {
         // sections

@@ -7,6 +7,7 @@ import { PremiereComponent } from './pages/premiere/premiere.component';
 import { AnimeComponent } from './pages/anime/anime.component';
 import { ChapterComponent } from './pages/chapter/chapter.component';
 import { ErrorComponent } from './pages/error/error.component';
+import { SearchComponent } from './pages/search/search.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: JKAnimeComponent },
@@ -21,8 +22,14 @@ export const routes: Routes = [
   { path: 'top', component: TopComponent },
 
   // Rutas dinámicas
+  // Búsqueda
+  { path: 'search', component: SearchComponent },
+  { path: 'search/:anime', component: SearchComponent },
+  // Animes
   { path: ':anime', component: AnimeComponent },
   { path: ':anime/:chapter', component: ChapterComponent },
+
+  // http://localhost:4200/?s=Shigatsu%20wa%20Kimi%20no%20Uso:%20Moments
 
   // Ruta comodín para manejar URLs no encontradas
   { path: '**', component: ErrorComponent },

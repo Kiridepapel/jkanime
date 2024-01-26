@@ -3,7 +3,7 @@
   <section class="section min-h-base text-sm max-lg:text-[12px] flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
     <article class="w-full min-h-8 px-4 max-md:px-0 flex justify-between items-center max-lg:flex-col max-lg:justify-start max-lg:gap-3">
       <h1 class="text-2xl font-normal font-oswald max-w-full whitespace-nowrap overflow-ellipsis inline-block overflow-hidden">
-        {{ chapter.name.toUpperCase() }} - {{ chapter.actualChapterNumber }}
+        {{ chapter.name.toUpperCase() }} - {{ chapter.actualChapter }}
       </h1>
       <div class="options justify-center ml-12 flex gap-2 text-nowrap max-md:flex-wrap max-lg:ml-0 font-mulish font-normal
         text-gray-700 dark:text-black">
@@ -75,7 +75,7 @@
         } @else {
           <button type="button" class="w-full h-full grid place-items-center text-center rounded transition-all duration-700 bg-zinc-400 hover:bg-zinc-400" disabled>
             @if (chapter.inEmision) {
-              Proximo capítulo {{ chapter.nextChapterDate }}
+              Proximo capítulo {{ parseAndFormatDate(chapter.nextChapterDate!, false) }}
             } @else {
               No hay más capítulos
             }
