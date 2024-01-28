@@ -20,7 +20,10 @@ export class AnimeComponent {
   // public areAlternativeTitlesVisible: boolean = false;
   private orderData = ["type", "genres", "studio", "director", "language", "year", "cast", "censured", "emited", "status", "lastUpdate", "chapters", "duration", "quality"];
   private orderAltTitles = ["synonyms", "english", "japanese", "corean"];
-  private orderHistory = ["prequel", "sequel", "alternativeVersion", "completeVersion", "additional", "summary", "includedCharacters"];
+  private orderHistory = ["prequel", "sequel", "other", "alternativeVersion", "completeVersion", "additional", "summary", "includedCharacters"];
+  private removeTwoPointsOnUrl = [
+    "One Piece"
+  ]
 
   constructor(
     private animeService: AnimeService,
@@ -45,6 +48,7 @@ export class AnimeComponent {
   // Manipula los datos obtenidos de la API
   private manipulateData(data: AnimeInfoDTO) {
     this.animeData = data;
+    
     // Ordenar los títulos alternativos solo si existen (si está disponible el ánime en el proveedor 1)
     if (this.animeData.data) {
       document.title = this.animeData.name;
@@ -128,6 +132,7 @@ export class AnimeComponent {
     map.set("additional", "Adicional");
     map.set("summary", "Resumen");
     map.set("includedCharacters", "Personajes incluidos");
+    map.set("other", "Otro");
     // Recomendations
     return map.get(name);
   }
@@ -166,9 +171,20 @@ export class AnimeComponent {
   }
 
   public searchAnime(value: string): string {
-    let cases = ['\\(Serie\\)', '\\(Original\\)', '\\(Especial\\)', '\\(Pelicula\\)', '\\(OVA\\)'];
+    let cases = ['\\(Serie\\)', '\\(Original\\)', '\\(Especial\\)', '\\(Pelicula\\)', '\\(OVA\\)', '\\(ONA\\)'];
     let regex = new RegExp(cases.join('|'), 'g');
     let name = value.replace(regex, '').replace(/\(\)/g, '').trim();
+
+    name = name.replaceAll(',', '').replaceAll(' - ', '').replaceAll(':', '').replaceAll('.', '').trim();
+    
+    this.removeTwoPointsOnUrl.forEach((item) => {
+      if (name.includes(item)) {
+        name = "search/" + item.replaceAll(' ', '-').toLowerCase();
+      } else {
+        name = name.replaceAll(' ', '-').toLowerCase();
+      }
+    });
+
     return name;
   }
 

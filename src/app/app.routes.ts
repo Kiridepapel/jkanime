@@ -29,8 +29,6 @@ export const routes: Routes = [
   { path: ':anime', component: AnimeComponent },
   { path: ':anime/:chapter', component: ChapterComponent },
 
-  // http://localhost:4200/?s=Shigatsu%20wa%20Kimi%20no%20Uso:%20Moments
-
   // Ruta comodín para manejar URLs no encontradas
   { path: '**', component: ErrorComponent },
 ];

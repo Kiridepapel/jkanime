@@ -113,7 +113,8 @@
                   @for(item of objectEntries(animeData.history); track $index) {
                     <h3 class="font-bold text-dark-alter dark:text-white-alter">{{ singularOrPlural(item[0], objectEntries(item[1])) }}</h3>
                     @for (subItem of objectEntries(item[1]); track $index) {
-                      <a class="inline" href="/?s={{ searchAnime(subItem[1]) }}">{{ firstUppercase(subItem[1]) }}</a>
+                      <!-- <a class="inline cursor-pointer" href="/search/{{ searchAnime(subItem[1]) }}">{{ firstUppercase(subItem[1]) }}</a> -->
+                      <a class="inline cursor-pointer" [href]="searchAnime(subItem[1])">{{ firstUppercase(subItem[1]) }}</a>
                       <br>
                     }
                   }
