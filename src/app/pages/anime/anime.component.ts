@@ -168,7 +168,8 @@ export class AnimeComponent {
   public searchAnime(value: string): string {
     let cases = ['\\(Serie\\)', '\\(Original\\)', '\\(Especial\\)', '\\(Pelicula\\)', '\\(OVA\\)'];
     let regex = new RegExp(cases.join('|'), 'g');
-    return value.replace(' ', '+').replace(regex, '').replace(/\(\)/g, '');
+    let name = value.replace(regex, '').replace(/\(\)/g, '').trim();
+    return name;
   }
 
 }

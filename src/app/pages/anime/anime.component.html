@@ -88,7 +88,7 @@
           <div class="grow-0 shrink-0 basis-[48%]">
             <!-- Títulos alternativos -->
             @if (animeData.alternativeTitles) {
-              <div>
+              <div class="mb-5">
                 <button class="font-mulish cursor-text font-bold text-lg text-tertiary">
                   <h2 class="inline mr-2">Títulos alternativos</h2>
                   <i class="fa-solid fa-chevron-down text-base font-bold"></i>
@@ -104,7 +104,7 @@
             }
             <!-- Historial -->
             @if (animeData.history) {
-              <div class="mt-5">
+              <div class="mb-5">
                 <button class="font-mulish cursor-text font-bold text-lg text-tertiary">
                   <h2 class="inline mr-2">Historial</h2>
                   <i class="fa-solid fa-chevron-down text-base font-bold"></i>
@@ -122,7 +122,7 @@
             }
             <!-- Trailer -->
             @if (animeData.trailer) {
-              <h2 class="mt-5 mb-1 font-mulish font-bold text-lg text-tertiary">Trailer (compartido por fraxi12)</h2>
+              <h2 class="mb-1 font-mulish font-bold text-lg text-tertiary">Trailer (compartido por fraxi12)</h2>
               <iframe
                 class="max-w-[80%] w-full h-[181px] max-[500px]:h-[240px] max-[400px]:h-[190px] max-md:h-52 max-md:min-w-full max-xl:w-[300px] max-xl:h-[181px] rounded-md"
                 [src]="trailer"
