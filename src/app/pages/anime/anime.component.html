@@ -1,24 +1,47 @@
 @defer(when !isLoading) {
   <!-- Contenedor -->
-  <section class="section min-h-base py-6 gap-3 bg-section-one dark:bg-section-one-dark">
+  <section class="section py-6 gap-3 bg-section-one dark:bg-section-one-dark">
     <!-- Contenido -->
-    <div class="w-full h-full flex justify-start p-5 rounded-xl gap-4 max-[500px]:flex-col max-md:gap-0
+    <div class="w-full h-full flex justify-start p-5 pb-7 rounded-xl gap-4 m-2 max-md:flex-col max-md:gap-0 max-sm:m-0
       bg-[#EEEEEE] dark:bg-section-two-dark text-dark-alter dark:text-white-alter">
       <!-- Sección 1 -->
-      <div class="min-w-[240px] w-[240px] h-full max-md:min-w-[180px] max-md:w-full">
-        <img [src]="animeData.imgUrl" alt="Image of {{ animeData.name }}" class="min-w-full min-h-[370px] max-md:min-h-[300px] rounded-md object-cover">
-        <button class="w-full h-10 flex mt-3 bg-secondary text-white-alter rounded-md">
+      <div class="min-w-[245px] max-sm:min-w-full h-full max-sm:w-full">
+        <img [src]="animeData.imgUrl" alt="Image of {{ animeData.name }}" class="min-w-[w-[245px] w-[245px] min-h-[405px] h-[405px] m-auto mb-5 rounded-md object-cover">
+        <button class="w-full h-10 flex bg-secondary text-white-alter rounded-md">
           <span class="flex justify-center items-center h-full px-3 font-semibold text-sm bg-secondary-alter rounded-tl-md rounded-bl-md">{{ animeData.likes || 0 }}</span>
-          <div class="w-full h-full flex justify-center items-center bg-secondary rounded-tr-md rounded-br-md">
-            <span class="text-[15px] inline mr-2">Me gusta</span>
-            <i class="fa-solid fa-thumbs-up inline text-[13px] text-white-alter"></i>
+          <div class="w-full h-full flex justify-center items-center bg-secondary text-white rounded-tr-md rounded-br-md">
+            <span class="text-sm mr-2 font-semibold">Me gusta</span>
+            <i class="fa-solid fa-thumbs-up inline text-[13px]"></i>
           </div>
         </button>
+        <div class="w-full h-full mt-2 text-sm bg-tertiary text-white-alter rounded-md flex">
+          <div class="w-full flex flex-col justify-center items-center py-2">
+            <div>
+              <i class="fa-solid fa-eye font-bold mr-1"></i>
+              <span class="font-semibold">{{ calcFromLikes('m') }}</span>
+            </div>
+            <p class="max-sm:hidden">Mirando</p>
+          </div>
+          <div class="w-full flex flex-col justify-center items-center py-2">
+            <div>
+              <i class="fa-solid fa-circle-check font-bold mr-1"></i>
+              <span class="font-semibold">{{ calcFromLikes('v') }}</span>
+            </div>
+            <p class="max-sm:hidden">Visto</p>
+          </div>
+          <div class="w-full flex flex-col justify-center items-center py-2">
+            <div>
+              <i class="fa-solid fa-circle-pause font-bold mr-1"></i>
+              <span class="font-semibold">{{ calcFromLikes('p') }}</span>
+            </div>
+            <p class="max-sm:hidden">Por ver</p>
+          </div>
+        </div>
       </div>
       <!-- Sección 2 -->
-      <div class="ml-5 max-[500px]:ml-0 max-[500px]:mt-2 basis-full">
+      <div class="ml-3 max-md:ml-0 max-md:mt-2 basis-full">
         <!-- Título y subtítulo -->
-        <div class="flex justify-between mb-3 text-inherit max-md:flex-col max-md:gap-2 max-[500px]:mb-5">
+        <div class="flex justify-between mb-3 text-inherit max-md:flex-col max-md:gap-2 max-md:mb-5">
           <div class="mb-1 max-md:order-2 flex flex-col gap-4 dark:text-white">
             <h1 class="font-mulish text-3xl font-bold max-md:text-center max-lg:text-2xl text-dark-alter text-inherit">{{ animeData.name }}</h1>
             <p class="font-mulish text-[15px] max-md:text-center text-gray-600 dark:text-gray-300">{{ animeData.alternativeName }}</p>
@@ -29,13 +52,13 @@
         </div>
         <!-- Botones de sinopsis y de información -->
         <div class="mb-5 w-full h-[36px] max-md:h-[72px] max-lg:flex max-md:flex-col gap3 bg-white text-dark-alter font-semibold text-sm hidden">
-          <button (click)="select(0)" [ngClass]="{'active': selectedIndex === 0}" class="grow-0 shrink-0 basis-2/4 max-md:h-[36px] active">Sinopsis</button>
-          <button (click)="select(1)" [ngClass]="{'active': selectedIndex === 1}" class="grow-0 shrink-0 basis-2/4 max-md:h-[36px]">Información</button>
+          <button (click)="selectInfo(0)" [ngClass]="{'active-1': activeInfoIndex === 0}" class="grow-0 shrink-0 basis-2/4 max-md:h-[36px]">Sinopsis</button>
+          <button (click)="selectInfo(1)" [ngClass]="{'active-1': activeInfoIndex === 1}" class="grow-0 shrink-0 basis-2/4 max-md:h-[36px]">Información</button>
         </div>
         <!-- Sinopsis -->
-        <p class="block text-lg max-lg:text-base mb-5 font-mulish" [ngClass]="{'showing': selectedIndex === 1}">{{ animeData.sinopsis }}</p>
+        <p class="block text-lg max-lg:text-base mb-5 font-mulish" [ngClass]="{'showing-1': activeInfoIndex === 1}">{{ animeData.sinopsis }}</p>
         <!-- Información -->
-        <div class="gap-[4%] max-xl:gap-5 flex max-xl:flex-col w-full showing" [ngClass]="{'showing': selectedIndex === 0}">
+        <div class="gap-[4%] max-xl:gap-5 flex max-xl:flex-col w-full showing" [ngClass]="{'showing-1': activeInfoIndex === 0}">
           <ul class="grow-0 shrink-0 basis-[48%] flex flex-col gap-[6px] pl-5">
             @for (item of objectEntries(animeData.data); track $index) {
               <!-- Si el value es un simple string -->
@@ -88,12 +111,12 @@
           <div class="grow-0 shrink-0 basis-[48%]">
             <!-- Títulos alternativos -->
             @if (animeData.alternativeTitles) {
-              <div class="mb-5">
-                <button class="font-mulish cursor-text font-bold text-lg text-tertiary">
+              <div class="mb-5 acc show">
+                <button (click)="activate(0)" class="flex justify-between items-center cursor-text font-mulish font-bold text-lg text-tertiary">
                   <h2 class="inline mr-2">Títulos alternativos</h2>
-                  <i class="fa-solid fa-chevron-down text-base font-bold"></i>
+                  <i class="fa-solid fa-chevron-down text-sm"></i>
                 </button>
-                <div class="font-mulish text-dark-alter dark:text-white-alter">
+                <div class="acc-content font-mulish text-dark-alter dark:text-white-alter">
                   @for(item of objectEntries(animeData.alternativeTitles); track $index) {
                     <h3 class="font-bold dark:text-blue-200">{{ changeNameAltTitle(item[0]) }}</h3>
                     <p class="inline">{{ firstUppercase(item[1]) }}</p>
@@ -104,19 +127,21 @@
             }
             <!-- Historial -->
             @if (animeData.history) {
-              <div class="mb-5">
-                <button class="font-mulish cursor-text font-bold text-lg text-tertiary">
+              <div class="mb-5 acc show">
+                <button (click)="activate(1)" class="flex justify-between items-center cursor-text font-mulish font-bold text-lg text-tertiary">
                   <h2 class="inline mr-2">Historial</h2>
-                  <i class="fa-solid fa-chevron-down text-base font-bold"></i>
+                  <i class="fa-solid fa-chevron-down text-sm font-bold"></i>
                 </button>
-                <div class="links font-mulish">
-                  @for(item of objectEntries(animeData.history); track $index) {
-                    <h3 class="font-bold text-dark-alter dark:text-white-alter">{{ singularOrPlural(item[0], objectEntries(item[1])) }}</h3>
-                    @for (subItem of objectEntries(item[1]); track $index) {
-                      <!-- <a class="inline cursor-pointer" href="/search/{{ searchAnime(subItem[1]) }}">{{ firstUppercase(subItem[1]) }}</a> -->
-                      <a class="inline cursor-pointer" [href]="searchAnime(subItem[1])">{{ firstUppercase(subItem[1]) }}</a>
-                      <br>
-                    }
+                <div class="acc-content links font-mulish flex flex-col gap-1">
+                  @for (item of objectEntries(animeData.history); track $index) {
+                    <li class="flex flex-col">
+                      <h3 class="font-bold text-dark-alter dark:text-white-alter">{{ singularOrPlural(item[0], objectEntries(item[1])) }}</h3>
+                      @for (subItem of objectEntries(item[1]); track $index) {
+                        <div class="block">
+                          <a class="inline cursor-pointer" [href]="searchAnime(subItem[1].url)">{{ firstUppercase(subItem[1].name) }} ({{ subItem[1].type }})</a>
+                        </div>
+                      }
+                    </li>
                   }
                 </div>
               </div>
@@ -125,7 +150,13 @@
             @if (animeData.trailer) {
               <h2 class="mb-1 font-mulish font-bold text-lg text-tertiary">Trailer (compartido por fraxi12)</h2>
               <iframe
-                class="max-w-[80%] w-full h-[181px] max-[500px]:h-[240px] max-[400px]:h-[190px] max-md:h-52 max-md:min-w-full max-xl:w-[300px] max-xl:h-[181px] rounded-md"
+                class="rounded-md
+                  w-[85%] h-[186px]
+                  max-[1666px]:w-full max-[1666px]:h-48
+                  max-xl:w-96 max-xl:h-60 max-lg:w-[80%] max-lg:h-56
+                  max-[950px]:w-full max-[850px]:h-48
+                  max-md:h-72 max-sm:h-80
+                  max-[550px]:h-64 max-[450px]:h-56 max-[400px]:h-48 max-[375px]:h-[181px]"
                 [src]="trailer"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -139,6 +170,74 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="section font-mulish bg-section-one dark:bg-section-one-dark">
+    <!-- Chapters, Characters, Social -->
+    <div class="w-full h-full m-2 mb-6 max-sm:mx-0 flex rounded-[5px] max-lg:text-sm max-lg:font-semibold bg-section-two text-dark-alter">
+      <button class="w-full h-10 rounded-tl-[5px] rounded-bl-[5px]"  (click)="selectTab(0)" [ngClass]="{'active-2': activeTabIndex === 0}">Capítulos</button>
+      <button class="w-full h-10 border-x border-dark-alter border-opacity-10" (click)="selectTab(1)" [ngClass]="{'active-2': activeTabIndex === 1}">Personajes</button>
+      <button class="w-full h-10 rounded-tr-[5px] rounded-br-[5px]"  (click)="selectTab(2)" [ngClass]="{'active-2': activeTabIndex === 2}">Social</button>
+    </div>
+    <!-- Last chapter -->
+    <div class="w-full h-full mb-6 flex rounded-md bg-white border dark:border-none">
+      <div class="bg-secondary px-5 rounded-tl-md rounded-bl-md flex justify-center items-center">
+        <i class="fa-solid fa-play text-2xl text-white-alter"></i>
+      </div>
+      <div class="w-full h-full px-4 py-3 flex justify-center items-center gap-2 max-md:gap-1 max-sm:gap-[2px] text-[15px] max-md:text-sm max-sm:flex-col">
+        <span class="text-dark-alter font-extrabold text-nowrap">Último capítulo:</span>
+        <a class="text-tertiary max-sm:text-center" href="{{ uri }}/{{ animeData.lastChapter }}">{{ animeData.name }} - {{ animeData.lastChapter }}</a>
+        @if (true) {
+          <span class="text-white-alter text-sm px-2 py-[2px] bg-secondary rounded-md">Nuevo</span>
+        }
+      </div>
+    </div>
+    <!-- Chapters -->
+    <div class="w-full h-full mx-2 mb-6 max-sm:mx-0 flex justify-between items-center gap-6 max-md:flex-col max-md:items-start text-dark-alter dark:text-white-alter">
+      <h2 class="border-l-4 border-secondary inline text-2xl max-md:text-[23px] font-semibold font-oswald pl-5 uppercase">Capítulos</h2>
+      <div class="max-md:w-full">
+        <button (click)="changeChaptersListFormat()" class="max-md:inline max-md:w-[calc(50%-4px)] max-md:mr-1 mr-2 w-11 h-10 rounded-[4px] max-md:mb-2 bg-tertiary text-white-alter">
+          <i class="fa-solid fa-bars text-sm" [ngClass]="{'fa-table-cells-large': chaptersListFormat}"></i>
+        </button>
+        <button class="max-md:inline max-md:w-[calc(50%-4px)] max-md:mr-0 max-md:ml-1 mr-2 w-48 h-10 max-lg:w-32 rounded-[4px] max-md:mb-2 bg-tertiary text-white-alter">
+          <i class="fa-solid fa-arrow-down-long text-sm mr-2"></i>
+          <span class="text-[15px]">Invertir</span>
+        </button>
+        <input
+          type="text"
+          placeholder="Buscar capítulo, solo número..."
+          class="text-start outline-none max-md:ml-0 pl-3 min-w-60 w-auto h-10 max-md:block max-md:w-full text-[15px] max-md:text-sm rounded-[4px] border border-opacity-20 border-dark-alter text-dark-alter"
+        >
+      </div>
+    </div>
+    <!-- Next chapter -->
+    <div class="w-full h-full mb-4 px-4 py-3 flex justify-center items-center text-[15px] max-md:text-sm max-sm:flex-col rounded-md border dark:border-none bg-section-two">
+      <span class="font-extrabold text-nowrap text-dark-alter">Próximo capítulo</span>
+      <span class="ml-1 max-sm:ml-0 max-sm:text-center text-black">{{ parseAndFormatDate(animeData.nextChapterDate, false) }}</span>
+    </div>
+    <!-- Chapter list -->
+    @if (chapterList != null) {
+      <div class="w-full h-full mb-6 mx-2 max-sm:mx-0 gap-x-7 gap-y-4 flex flex-wrap">
+        @for (item of chapterList; track $index) {
+          <a [href]="item.url" class="relative h-[150px] w-[calc(25%-21px)] max-lg:w-[calc(50%-14px)] max-[550px]:w-full">
+            <div class="absolute top-2 left-2 px-3 py-[2px] rounded-lg text-[10px] font-bold bg-dark-alter text-white-alter z-40">
+              <span>Capítulo {{ item.chapter }}</span>
+              @if (true) {
+                <i class="ml-2 fa-solid fa-check text-secondary"></i>
+              }
+            </div>
+            <div class="w-full h-full rounded-md">
+              <div class="group w-full h-full rounded-md flex justify-center items-center hover:bg-primary hover:bg-opacity-70 relative z-50 transition-all duration-500">
+                <i class="fa-solid fa-circle-play text-6xl text-white-alter group-hover:opacity-100 opacity-0 transition-opacity duration-500"></i>
+              </div>
+              <img [src]="item.imgUrl" class="w-full h-full rounded-md object-cover absolute top-0 left-0 z-30">
+            </div>
+          </a>
+        }
+      </div>
+    }
+    <!-- <p class="block text-lg max-lg:text-base mb-5 font-mulish" [ngClass]="{'showing-1': activeInfoIndex === 1}">{{ animeData.sinopsis }}</p>
+    <div class="gap-[4%] max-xl:gap-5 flex max-xl:flex-col w-full showing" [ngClass]="{'showing-1': activeInfoIndex === 0}"> -->
   </section>
 } @placeholder {
   <section class="section center bg-section-one dark:bg-section-one-dark">

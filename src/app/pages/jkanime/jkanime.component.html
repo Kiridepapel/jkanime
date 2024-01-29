@@ -1,5 +1,5 @@
 @defer(when !isLoading) {
-  <section class="section gap-6 bg-section-one dark:bg-section-one-dark">
+  <section class="section py-6 gap-6 bg-section-one dark:bg-section-one-dark">
     <article class="jkinfo w-full h-28 rounded-xl bg-gray-800">
       <div class="infoc w-full h-full rounded-xl flex flex-col justify-center items-center">
         <h2 class="text-xl pb-3 text-white">Temporada Invierno 2024</h2>
@@ -36,7 +36,7 @@
                     }
                   </h4>
                   <p class="font-semibold mt-[2px] text-secondary">{{ chapter.chapter }}</p>
-                  <p class="inline-block font-normal mt-[2px] mr-2 text-gray-400">{{ chapter.date || 'Hace poco' }}</p>
+                  <p class="inline-block mt-[2px] mr-2 text-gray-400 font-semibold">{{ chapter.date || 'Hace poco' }}</p>
                   @if (chapter.state) {
                     <p class="inline-block w-2 h-2 rounded-[50%] bg-green-400"></p>
                   } @else {
@@ -52,10 +52,10 @@
     </article>
   </section>
   
-  <section class="section min-h-test py-6 justify-center items-center bg-section-two dark:bg-section-two-dark">
+  <section class="section py-6 min-h-test justify-center items-center bg-section-two dark:bg-section-two-dark">
   </section>
   
-  <section class="section min-h-test py-6 justify-center items-center bg-section-one dark:bg-section-one-dark">
+  <section class="section py-6 min-h-test justify-center items-center bg-section-one dark:bg-section-one-dark">
   </section>
 } @placeholder {
   <section class="section center bg-section-one dark:bg-section-one-dark">

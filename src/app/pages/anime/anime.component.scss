@@ -3,11 +3,15 @@
 
 $key-width: 108px;
 
-.active {
+.active-1 {
   @apply bg-tertiary text-white-alter;
 }
 
-.showing {
+.active-2 {
+  @apply bg-primary text-white-alter;
+}
+
+.showing-1 {
   @apply max-lg:hidden;
 }
 
@@ -15,13 +19,50 @@ $key-width: 108px;
   list-style-type: square;
   display: list-item;
   flex-basis: $key-width;
+  // color: #8999e6;
 }
 
+.test {
+  color: #000;
+}
 .links {
   flex-basis: calc(100% - $key-width);
   @apply text-blue-500 dark:text-link;
 
   a {
     @apply hover:text-secondary transition-colors duration-300 ease-in-out;
+  }
+}
+
+.acc {
+  .acc-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all .6s ease-in-out;
+  }
+
+
+  &.show {
+    .acc-content {
+      max-height: 100vh;
+      opacity: 1;
+    }
+
+    i {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

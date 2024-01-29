@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment-prod';
 import { AnimeInfoDTO } from '../../models/page.model';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { ChapterDataDTO } from '../../models/individual.model';
 
 @Component({
   selector: 'app-anime',
@@ -15,14 +16,19 @@ import { CommonModule } from '@angular/common';
 export class AnimeComponent {
   public isLoading = true; // Cargando los datos recibidos de la API
   public animeData!: AnimeInfoDTO; // Datos del anime
+  public chapterList!: ChapterDataDTO[]; // Lista de capítulos
+  public chaptersListFormat: boolean = false;
+
   public trailer!: SafeResourceUrl; // URL del trailer
-  public selectedIndex: number = 0; // Tab activo
+  public activeInfoIndex: number = 0;
+  public activeTabIndex: number = 0;
+  public uri!: string;
   // public areAlternativeTitlesVisible: boolean = false;
   private orderData = ["type", "genres", "studio", "director", "language", "year", "cast", "censured", "emited", "status", "lastUpdate", "chapters", "duration", "quality"];
   private orderAltTitles = ["synonyms", "english", "japanese", "corean"];
   private orderHistory = ["prequel", "sequel", "other", "alternativeVersion", "completeVersion", "additional", "summary", "includedCharacters"];
-  private removeTwoPointsOnUrl = [
-    "One Piece"
+  private removeUrlSpecialCases = [
+    "one-piece"
   ]
 
   constructor(
@@ -33,11 +39,10 @@ export class AnimeComponent {
   // Obtiene los datos de la API y espera a que se carguen
   async ngOnInit() {
     document.title = 'Cargando...';
-    const uri = window.location.href.replace(environment.FRONTEND_URL, '');
-    console.log(uri);
+    this.uri = window.location.href.replace(environment.FRONTEND_URL, '');
 
     try {
-      await this.animeService.getGenericData(uri).then((data: AnimeInfoDTO) => {
+      await this.animeService.getGenericData(this.uri).then((data: AnimeInfoDTO) => {
         this.manipulateData(data);
       });
     } finally {
@@ -45,26 +50,64 @@ export class AnimeComponent {
     }
   }
   
-  // Manipula los datos obtenidos de la API
+  // Manipula los datos recibidos de la API
   private manipulateData(data: AnimeInfoDTO) {
     this.animeData = data;
-    
-    // Ordenar los títulos alternativos solo si existen (si está disponible el ánime en el proveedor 1)
-    if (this.animeData.data) {
+
+    if (this.animeData.data != null) {
       document.title = this.animeData.name;
       this.animeData.imgUrl = this.animeData.imgUrl.split('?')[0];
       this.animeData.data = this.reorderData(data, this.orderData, 'data');
     }
-    if (this.animeData.alternativeTitles) {
+    if (this.animeData.alternativeTitles != null) {
       this.animeData.alternativeTitles = this.reorderData(data, this.orderAltTitles, 'alternativeTitles');
     }
-    if (this.animeData.history) {
+    if (this.animeData.history != null) {
       this.animeData.history = this.reorderData(data, this.orderHistory, 'history');
     }
-    // Si existe el trailer, sanitizar la url para poder usarla en el iframe (es de YT)
-    if (this.animeData.trailer) {
+    if (this.animeData.trailer != null) {
       this.trailer = this.sanitizer.bypassSecurityTrustResourceUrl(this.animeData.trailer);
     }
+    if (this.animeData.firstChapter != null && this.animeData.lastChapter != null) {
+      this.chapterList = this.createChapterList();
+    }
+  }
+
+  private createChapterList(): ChapterDataDTO[] {
+    let list: ChapterDataDTO[] = [];
+
+    for (let i = this.animeData.firstChapter; i <= this.animeData.lastChapter; i++) {
+      let chapterData: ChapterDataDTO = {
+        imgUrl: this.animeData.imgUrl,
+        chapter: i.toString(),
+        url: this.uri + "/" + i.toString()
+      };
+      list.push(chapterData);
+    }
+
+    return list;
+  }
+
+  public changeChaptersListFormat() {
+    this.chaptersListFormat = !this.chaptersListFormat;
+  }
+
+  public calcFromLikes(is: string): number {
+    if (!this.animeData.likes) {
+      this.animeData.likes = 0;
+    }
+
+    if (is === 'm') { // calcula la cantidad de personas mirando en base a los likes (siempre debe)
+      return Math.floor(this.animeData.likes / 4.5112);
+    }
+    if (is === 'v') { // calcula la cantidad de personas visto en base a los likes
+      return Math.floor(this.animeData.likes / 2.2523);
+    }
+    if (is === 'p') { // calcula la cantidad de personas por ver en base a los likes
+      return Math.floor(this.animeData.likes / 16.5232);
+    }
+
+    return 0;
   }
 
   private reorderData(animeData: AnimeInfoDTO, list: string[], type: string): {[key: string]: any} {
@@ -92,8 +135,12 @@ export class AnimeComponent {
   }
   
   // Selecciona el tab activo
-  public select(index: number) {
-    this.selectedIndex = index;
+  public selectInfo(index: number) {
+    this.activeInfoIndex = index;
+  }
+
+  public selectTab(index: number) {
+    this.activeTabIndex = index;
   }
 
   // Obtiene las keys de un map en forma de array
@@ -170,22 +217,18 @@ export class AnimeComponent {
     return this.animeService.parseAndFormatDate(value, showYear);
   }
 
-  public searchAnime(value: string): string {
-    let cases = ['\\(Serie\\)', '\\(Original\\)', '\\(Especial\\)', '\\(Pelicula\\)', '\\(OVA\\)', '\\(ONA\\)'];
-    let regex = new RegExp(cases.join('|'), 'g');
-    let name = value.replace(regex, '').replace(/\(\)/g, '').trim();
-
-    name = name.replaceAll(',', '').replaceAll(' - ', '').replaceAll(':', '').replaceAll('.', '').trim();
-    
-    this.removeTwoPointsOnUrl.forEach((item) => {
-      if (name.includes(item)) {
-        name = "search/" + item.replaceAll(' ', '-').toLowerCase();
-      } else {
-        name = name.replaceAll(' ', '-').toLowerCase();
+  public searchAnime(url: string): string {
+    this.removeUrlSpecialCases.forEach((item) => {
+      if (url.includes(item)) {
+        url = "search/" + item;
       }
     });
 
-    return name;
+    return url;
+  }
+
+  public activate(index: number) {
+    document.querySelectorAll(".acc")[index]!.classList.toggle("show");
   }
 
 }
