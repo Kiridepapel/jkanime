@@ -1,28 +1,28 @@
 @defer(when !isFetchingData) {
 <!-- @defer(when true) { -->
-  <section class="section py-6 text-sm max-lg:text-[12px] flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
+  <section class="section py-6 text-sm max-lg:text-[13px] flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
     <div class="w-full min-h-8 px-4 max-md:px-0 flex justify-between items-center max-lg:flex-col max-lg:justify-start max-lg:gap-3">
       <h1 class="text-2xl font-normal font-oswald max-w-full whitespace-nowrap overflow-ellipsis inline-block overflow-hidden">
         {{ chapter.name.toUpperCase() }} - {{ chapter.actualChapter }}
       </h1>
       <div class="options justify-center ml-12 flex gap-2 text-nowrap max-md:flex-wrap max-lg:ml-0 font-mulish font-normal
         text-gray-700 dark:text-black">
-        <button class="bg-gray-200 hover:bg-zinc-300 transition-all duration-700 border border-gray-300 px-4 py-1 rounded-md">
+        <button class="bg-gray-200 hover:bg-zinc-300 transition-all duration-700 border border-gray-300 px-4 py-1 rounded-md max-md:text-[13px]">
           Japones Sub. Esp
         </button>
-        <button class="bg-gray-200 hover:bg-zinc-300 transition-all duration-700 border border-gray-300 px-4 py-1 rounded-md">
+        <button class="bg-gray-200 hover:bg-zinc-300 transition-all duration-700 border border-gray-300 px-4 py-1 rounded-md max-md:text-[13px]">
           <i class="fa-solid fa-star"></i>
         </button>
-        <button class="bg-gray-200 hover:bg-zinc-300 transition-all duration-700 border border-gray-300 px-4 py-1 rounded-md">
+        <button class="bg-gray-200 hover:bg-zinc-300 transition-all duration-700 border border-gray-300 px-4 py-1 rounded-md max-md:text-[13px]">
           <i class="fa-solid fa-eye"></i>
         </button>
-        <button class="bg-gray-200 hover:bg-zinc-300 transition-all duration-700 border border-gray-300 px-4 py-1 rounded-md">
+        <button class="bg-gray-200 hover:bg-zinc-300 transition-all duration-700 border border-gray-300 px-4 py-1 rounded-md max-md:text-[13px]">
           <i class="fa-solid fa-lightbulb"></i>
         </button>
       </div>
     </div>
 
-    <div (wheel)="horizontalScroll($event)" class="options w-full h-20 max-md:h-16 scroll px-5 flex justify-start items-center gap-3 rounded-md overflow-x-auto bg-secondary">
+    <div (wheel)="horizontalScroll($event)" class="options scroll scroll-secondary w-full h-20 max-md:h-16 max-[500px]:text-[13px] px-5 flex justify-start items-center gap-3 rounded-md overflow-x-auto bg-secondary border-r-4 border-l-4 border-secondary">
       <!-- <P class="text-base max-md:text-sm font-mulish font-bold text-zinc-100">Servidores:</P> -->
       @for (srcOption of chapter.srcOptions; track $index) {
         <a (click)="selectSrc($index, srcOption.url)" class="font-bold font-mulish transition-all duration-700 px-3 py-2 rounded-md

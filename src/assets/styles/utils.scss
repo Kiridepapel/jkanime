@@ -44,3 +44,17 @@
     display: none;
   }
 }
+
+.scroll-secondary {
+  &::-webkit-scrollbar-thumb {
+    @apply bg-[#c97c24] dark:bg-[#c97c24] rounded; /* Color principal */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#b47124] dark:bg-[#b47124]; /* Color de la barra al hacer hover */
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-secondary dark:bg-secondary; /* Color de fondo */
+  }
+}

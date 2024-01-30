@@ -181,14 +181,15 @@
     <!-- Last chapter -->
     @if (animeData.lastChapter != null && isNewestChapter(28)) {
       <div class="w-full h-full mb-6 flex rounded-md bg-white">
-        <div class="bg-secondary px-5 rounded-tl-md rounded-bl-md flex justify-center items-center">
+        <a href="{{ uri }}/{{ animeData.lastChapter }}" class="bg-secondary hover:bg-secondary-alter transition-colors duration-500 px-5 rounded-tl-md rounded-bl-md flex justify-center items-center">
           <i class="fa-solid fa-play text-2xl text-white-alter"></i>
-        </div>
+        </a>
         <div class="w-full h-full px-4 py-3 flex justify-center items-center gap-2 max-md:gap-1 max-sm:gap-[2px] text-[15px] max-md:text-sm max-sm:flex-col">
-          <span class="text-dark-alter font-extrabold text-nowrap">Último capítulo:</span>
-          <a class="text-tertiary max-sm:text-center font-bold" href="{{ uri }}/{{ animeData.lastChapter }}">Capítulo {{ animeData.lastChapter }}</a>
+          <span class="text-dark-alter font-extrabold text-nowrap">Último capítulo:
+            <a class="text-tertiary ml-[3px] font-bold" href="{{ uri }}/{{ animeData.lastChapter }}">Capítulo {{ animeData.lastChapter }}</a>
+          </span>
           @if (isNewestChapter(7)) {
-            <span class="text-white-alter text-sm px-2 py-[2px] bg-secondary rounded-md">Nuevo</span>
+            <span class="text-white-alter text-sm px-2 py-[2px] max-sm:mt-1 ml-1 max-sm:ml-0 bg-secondary rounded-md">Nuevo</span>
           }
         </div>
       </div>
