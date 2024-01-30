@@ -23,11 +23,6 @@
   }
 }
 
-// Slider
-.slider {
-  min-height: 397px;
-}
-
 // Button active
 .active {
   @apply bg-secondary-alter transition-all duration-500 ease-in-out;
@@ -53,4 +48,9 @@
       padding: 3px 0;
     }
   }
+}
+
+.index {
+  position: relative;
+  z-index: 200;
 }

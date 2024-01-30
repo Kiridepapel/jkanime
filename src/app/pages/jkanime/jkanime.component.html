@@ -1,28 +1,50 @@
 @defer(when !isLoading) {
   <section class="section py-6 gap-6 bg-section-one dark:bg-section-one-dark">
-    <article class="jkinfo w-full h-28 rounded-xl bg-gray-800">
+    <!-- <div class="jkinfo w-full h-28 rounded-xl bg-gray-800">
       <div class="infoc w-full h-full rounded-xl flex flex-col justify-center items-center">
         <h2 class="text-xl pb-3 text-white">Temporada Invierno 2024</h2>
         <a href="/directorio/estrenos" class="py-2 px-56 max-md:px-8 transition-colors rounded-md cursor-pointer
           bg-gray-100 text-black hover:bg-primary hover:text-white">Ver más
         </a>
       </div>
-    </article>
+    </div> -->
     
-    <article class="flex w-full h-full max-lg:flex-col gap-4 max-lg:gap-6">
-      <!-- Slider y Especiales -->
-      <section class="flex flex-col gap-4 w-8/12 max-h-section-one max-lg:w-full">
-        <div class="slider w-full bg-gray-500 rounded-md"></div>
-        <div class="h-full w-full bg-gray-500 max-lg:hidden"></div>
+    <div class="flex w-full h-full max-xl:flex-col max-xl:items-center maxm gap-4 max-xl:gap-6">
+      <section class="flex flex-col gap-4 w-8/12 max-h-section-one max-xl:w-[80%] max-lg:w-full pt-6 max-sm:pt-0">
+        <!-- Slider -->
+        <div class="relative w-full min-h-[397px] max-sm:min-h-[427px] bg-gray-500 rounded-md py-[50px] pl-[50px] pr-[25px] max-sm:py-[40px] max-sm:pl-[25px]">
+          @for (item of homeData.sliderAnimes; track $index) {
+            @if ($index === 2) {
+              <div class="h-full index">
+                <h3 class="text-[42px] max-2xl:text-[36px] max-sm:text-[30px] font-bold font-oswald mb-2 text-white-alter">{{ item.name }}</h3>
+                <a [href]="item.url" class="text-[14px] font-bold font-mulish uppercase tracking-[2px] h-[47.5px] inline-flex gap-[6px] text-white-alter">
+                  <span class="h-full flex items-center px-5 rounded-tl-[4px] rounded-bl-[4px] bg-secondary ">Ver ahora</span>
+                  <div class="inline-flex items-center h-full px-1  rounded-tr-[4px] rounded-br-[4px] bg-secondary">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </div>
+                </a>
+              </div>
+              <div class="absolute top-0 left-0 w-full h-full rounded-md z-40 bg-black bg-opacity-40"></div>
+              <img [src]="item.imgUrl" class="absolute top-0 left-0 w-full h-full rounded-md max-md:object-cover z-30" alt="Image of {{ item.name }}">
+            }
+          }
+        </div>
+        <!-- Especiales -->
+        <div class="w-full h-full max-xl:hidden">
+          <h2 class="border-l-4 border-secondary text-dark-alter dark:text-white-alter text-2xl max-md:text-[23px] font-semibold font-oswald pl-4 h-8 flex items-center uppercase">OVAS / ONAS / ESPECIALES</h2>
+          <div class="w-full h-[calc(100%-3rem)] bg-gray-400 mt-4">
+
+          </div>
+        </div>
       </section>
       <!-- Ultimos episodios -->
-      <section class="h-section-one min-w-90 flex flex-col gap-5 w-4/12 max-lg:min-w-min max-lg:w-full pl-4 pt-2 max-lg:p-0">
-        <h3 class="title font-oswald relative flex items-center uppercase px-5 h-8 font-semibold text-lg">PROGRAMACIÓN</h3>
-        <div class="options text-[15px] font-mulish w-full h-10 rounded-lg bg-secondary text-white max-2xl:text-sm">
+      <section class="h-section-one min-w-90 flex flex-col gap-5 w-4/12 max-xl:min-w-min max-xl:w-[80%] max-lg:w-full pl-4 pt-6 max-sm:pt-0 max-xl:p-0">
+        <h2 class="border-l-4 border-secondary text-dark-alter dark:text-white-alter text-xl max-md:text-[23px] font-semibold font-oswald pl-4 h-8 flex items-center uppercase">PROGRAMACIÓN</h2>
+        <div class="options text-[15px] font-mulish w-full h-10 rounded-lg bg-secondary text-white-alter max-2xl:text-[15px]">
           <button (click)="select(0)" class="w-2/4 h-full rounded-l-lg active">Animes</button>
           <button (click)="select(1)" class="w-2/4 h-full rounded-r-lg">Donghuas</button>
         </div>
-        <div class="last-animes scroll w-full h-full overflow-y-auto rounded-lg p-1.25 bg-white border-gray-700 dark:bg-section-two-dark">
+        <div class="last-animes scroll w-full h-full overflow-y-auto rounded-lg p-1.25 bg-white-alter border-gray-700 dark:bg-section-two-dark">
           @for(chapter of activeList; track $index) {
             <a [href]="chapter.url" class="cursor-pointer last-chapter w-full flex justify-between items-center p-2 gap-2
               border-b border-gray-200 dark:border-gray-700 hover:bg-white-alter dark:hover:bg-section-one-dark">
@@ -49,7 +71,7 @@
           }
         </div>
       </section>
-    </article>
+    </div>
   </section>
   
   <section class="section py-6 min-h-test justify-center items-center bg-section-two dark:bg-section-two-dark">

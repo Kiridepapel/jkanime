@@ -81,9 +81,9 @@ export class AnimeComponent {
     if (this.chaptersListFormat === 'table') {
       this.chaptersListFormat = 'list';
     } else if (this.chaptersListFormat === 'list') {
-      this.chaptersListFormat = 'cards';
-    } else {
       this.chaptersListFormat = 'table';
+    // } else {
+    //   this.chaptersListFormat = 'table';
     }
   }
 
