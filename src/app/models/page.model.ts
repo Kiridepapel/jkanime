@@ -22,9 +22,11 @@ export class AnimeInfoDTO {
   alternativeTitles!: {[key: string]: any}
   history!: {[key: string]: any}
 
-  nextChapterDate!: string;
   firstChapter!: number;
   lastChapter!: number;
+  lastChapterDate!: string;
+
+  nextChapterDate!: string;
 
   // recomendations!: LastAnimeDataDTO[];
 }

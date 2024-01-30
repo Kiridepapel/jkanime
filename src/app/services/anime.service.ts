@@ -61,4 +61,12 @@ export class AnimeService {
       return "Desconocido"
     }
   }
+
+  public modifyDate(date: string, daysToAdd: number, index: number): string {
+    
+    let newDate = parse(date, 'MMMM d, yyyy', new Date(), { locale: es });
+    newDate.setDate(newDate.getDate() + (daysToAdd * index));
+
+    return format(newDate, 'MMMM d, yyyy', { locale: es });
+  }
 }

@@ -171,73 +171,142 @@
       </div>
     </div>
   </section>
-
   <section class="section font-mulish bg-section-one dark:bg-section-one-dark">
     <!-- Chapters, Characters, Social -->
-    <div class="w-full h-full m-2 mb-6 max-sm:mx-0 flex rounded-[5px] max-lg:text-sm max-lg:font-semibold bg-section-two text-dark-alter">
+    <div class="w-full h-full mx-2 mb-6 max-sm:mx-0 flex rounded-[5px] max-lg:text-sm max-lg:font-semibold bg-section-two text-dark-alter">
       <button class="w-full h-10 rounded-tl-[5px] rounded-bl-[5px]"  (click)="selectTab(0)" [ngClass]="{'active-2': activeTabIndex === 0}">Capítulos</button>
       <button class="w-full h-10 border-x border-dark-alter border-opacity-10" (click)="selectTab(1)" [ngClass]="{'active-2': activeTabIndex === 1}">Personajes</button>
       <button class="w-full h-10 rounded-tr-[5px] rounded-br-[5px]"  (click)="selectTab(2)" [ngClass]="{'active-2': activeTabIndex === 2}">Social</button>
     </div>
     <!-- Last chapter -->
-    <div class="w-full h-full mb-6 flex rounded-md bg-white border dark:border-none">
-      <div class="bg-secondary px-5 rounded-tl-md rounded-bl-md flex justify-center items-center">
-        <i class="fa-solid fa-play text-2xl text-white-alter"></i>
+    @if (animeData.lastChapter != null && isNewestChapter(28)) {
+      <div class="w-full h-full mb-6 flex rounded-md bg-white">
+        <div class="bg-secondary px-5 rounded-tl-md rounded-bl-md flex justify-center items-center">
+          <i class="fa-solid fa-play text-2xl text-white-alter"></i>
+        </div>
+        <div class="w-full h-full px-4 py-3 flex justify-center items-center gap-2 max-md:gap-1 max-sm:gap-[2px] text-[15px] max-md:text-sm max-sm:flex-col">
+          <span class="text-dark-alter font-extrabold text-nowrap">Último capítulo:</span>
+          <a class="text-tertiary max-sm:text-center font-bold" href="{{ uri }}/{{ animeData.lastChapter }}">Capítulo {{ animeData.lastChapter }}</a>
+          @if (isNewestChapter(7)) {
+            <span class="text-white-alter text-sm px-2 py-[2px] bg-secondary rounded-md">Nuevo</span>
+          }
+        </div>
       </div>
-      <div class="w-full h-full px-4 py-3 flex justify-center items-center gap-2 max-md:gap-1 max-sm:gap-[2px] text-[15px] max-md:text-sm max-sm:flex-col">
-        <span class="text-dark-alter font-extrabold text-nowrap">Último capítulo:</span>
-        <a class="text-tertiary max-sm:text-center" href="{{ uri }}/{{ animeData.lastChapter }}">{{ animeData.name }} - {{ animeData.lastChapter }}</a>
-        @if (true) {
-          <span class="text-white-alter text-sm px-2 py-[2px] bg-secondary rounded-md">Nuevo</span>
-        }
-      </div>
-    </div>
+    }
     <!-- Chapters -->
     <div class="w-full h-full mx-2 mb-6 max-sm:mx-0 flex justify-between items-center gap-6 max-md:flex-col max-md:items-start text-dark-alter dark:text-white-alter">
       <h2 class="border-l-4 border-secondary inline text-2xl max-md:text-[23px] font-semibold font-oswald pl-5 uppercase">Capítulos</h2>
-      <div class="max-md:w-full">
-        <button (click)="changeChaptersListFormat()" class="max-md:inline max-md:w-[calc(50%-4px)] max-md:mr-1 mr-2 w-11 h-10 rounded-[4px] max-md:mb-2 bg-tertiary text-white-alter">
-          <i class="fa-solid fa-bars text-sm" [ngClass]="{'fa-table-cells-large': chaptersListFormat}"></i>
-        </button>
-        <button class="max-md:inline max-md:w-[calc(50%-4px)] max-md:mr-0 max-md:ml-1 mr-2 w-48 h-10 max-lg:w-32 rounded-[4px] max-md:mb-2 bg-tertiary text-white-alter">
-          <i class="fa-solid fa-arrow-down-long text-sm mr-2"></i>
-          <span class="text-[15px]">Invertir</span>
-        </button>
-        <input
-          type="text"
-          placeholder="Buscar capítulo, solo número..."
-          class="text-start outline-none max-md:ml-0 pl-3 min-w-60 w-auto h-10 max-md:block max-md:w-full text-[15px] max-md:text-sm rounded-[4px] border border-opacity-20 border-dark-alter text-dark-alter"
-        >
-      </div>
+      @if (chapterList != null && animeData.lastChapter != null) {
+        <div class="max-md:w-full">
+          <button (click)="alterChaptersListFormat()" class="max-md:inline max-md:w-[calc(50%-4px)] max-md:mr-1 mr-2 w-11 h-10 rounded-[4px] max-md:mb-2 bg-tertiary text-white-alter">
+            <!-- <i class="fa-solid fa-bars text-sm" [ngClass]="{'fa-table-cells-large': chaptersListFormat}"></i> -->
+            <i class="fa-solid text-sm"
+              [ngClass]="{
+                'fa-table-cells-large': chaptersListFormat === 'cards',
+                'fa-bars': chaptersListFormat === 'table',
+                'fa-clone': chaptersListFormat === 'list',
+              }">
+            </i>
+          </button>
+          <button (click)="changeSortChapterList()" [ngClass]="{'rotate': sort}" class="max-md:inline max-md:w-[calc(50%-4px)] max-md:mr-0 max-md:ml-1 mr-2 w-48 h-10 max-lg:w-32 rounded-[4px] max-md:mb-2 bg-tertiary text-white-alter">
+            <i class="fa-solid fa-arrow-down-long text-sm mr-2"></i>
+            <span class="text-[15px]">Invertir</span>
+          </button>
+          <input
+            type="number"
+            placeholder="Buscar capítulo (número)"
+            value="0"
+            [(ngModel)]="searchChapter"
+            (input)="filterChapters()"
+            class="text-start outline-none max-md:ml-0 px-3 min-w-60 w-auto h-10 max-md:block max-md:w-full text-[15px] max-md:text-sm rounded-[4px] border border-opacity-20 border-dark-alter text-dark-alter"
+          >
+        </div>
+      }
     </div>
     <!-- Next chapter -->
-    <div class="w-full h-full mb-4 px-4 py-3 flex justify-center items-center text-[15px] max-md:text-sm max-sm:flex-col rounded-md border dark:border-none bg-section-two">
-      <span class="font-extrabold text-nowrap text-dark-alter">Próximo capítulo</span>
-      <span class="ml-1 max-sm:ml-0 max-sm:text-center text-black">{{ parseAndFormatDate(animeData.nextChapterDate, false) }}</span>
-    </div>
-    <!-- Chapter list -->
-    @if (chapterList != null) {
-      <div class="w-full h-full mb-6 mx-2 max-sm:mx-0 gap-x-7 gap-y-4 flex flex-wrap">
-        @for (item of chapterList; track $index) {
-          <a [href]="item.url" class="relative h-[150px] w-[calc(25%-21px)] max-lg:w-[calc(50%-14px)] max-[550px]:w-full">
-            <div class="absolute top-2 left-2 px-3 py-[2px] rounded-lg text-[10px] font-bold bg-dark-alter text-white-alter z-40">
-              <span>Capítulo {{ item.chapter }}</span>
-              @if (true) {
-                <i class="ml-2 fa-solid fa-check text-secondary"></i>
-              }
-            </div>
-            <div class="w-full h-full rounded-md">
-              <div class="group w-full h-full rounded-md flex justify-center items-center hover:bg-primary hover:bg-opacity-70 relative z-50 transition-all duration-500">
-                <i class="fa-solid fa-circle-play text-6xl text-white-alter group-hover:opacity-100 opacity-0 transition-opacity duration-500"></i>
-              </div>
-              <img [src]="item.imgUrl" class="w-full h-full rounded-md object-cover absolute top-0 left-0 z-30">
-            </div>
-          </a>
-        }
+    @if (animeData.data['status'] === 'En emisión' && animeData.nextChapterDate != null) {
+      <div class="w-full h-full mb-4 px-4 py-3 flex justify-center items-center text-[15px] max-md:text-sm max-sm:flex-col rounded-md bg-section-two">
+        <span class="font-extrabold text-nowrap text-dark-alter">Próximo capítulo</span>
+        <span class="ml-1 max-sm:ml-0 max-sm:text-center text-black">{{ parseAndFormatDate(animeData.nextChapterDate, false) }}</span>
       </div>
     }
-    <!-- <p class="block text-lg max-lg:text-base mb-5 font-mulish" [ngClass]="{'showing-1': activeInfoIndex === 1}">{{ animeData.sinopsis }}</p>
-    <div class="gap-[4%] max-xl:gap-5 flex max-xl:flex-col w-full showing" [ngClass]="{'showing-1': activeInfoIndex === 0}"> -->
+    <!-- Chapter list -->
+    @if (chapterList != null && animeData.lastChapter != null) {
+      <div class="chapters w-full max-h-[482px] h-[482px] max-lg:max-h-[964px] max-lg:h-[964px] mb-6 mx-2 max-sm:mx-0 gap-x-7 gap-y-4 flex content-start flex-wrap overflow-auto sm:overscroll-y-none">
+        @if (chaptersListFormat === 'table' || chaptersListFormat === 'cards') {
+          @for (item of chapterList; track $index) {
+            <a [href]="item.url" class="relative h-[150px] w-[calc(25%-21px)] max-lg:w-[calc(50%-14px)] max-[550px]:w-full">
+              <div class="absolute top-2 left-2 px-3 py-[2px] rounded-lg text-[10px] font-bold bg-dark-alter text-white-alter z-40">
+                <span>Capítulo {{ item.chapter }}</span>
+                @if (true) {
+                  <i class="ml-2 fa-solid fa-check text-secondary"></i>
+                }
+              </div>
+              <div class="w-full h-full rounded-md">
+                <div class="group w-full h-full rounded-md flex justify-center items-center hover:bg-primary hover:bg-opacity-70 relative z-50 transition-all duration-500">
+                  <i class="fa-solid fa-circle-play text-6xl text-white-alter group-hover:opacity-100 opacity-0 transition-opacity duration-500"></i>
+                </div>
+                <img [src]="item.imgUrl" class="w-full h-full rounded-md object-cover absolute top-0 left-0 z-30">
+              </div>
+            </a>
+          }
+        } @else if (chaptersListFormat === 'list') {
+          <div class="border w-full rounded-md text-dark-alter dark:text-white-alter border-section-two dark:border-[#2b2e3a] dark:bg-[#2b2e3a] text-[15px] max-md:text-sm">
+            <div class="sticky top-0 w-full h-10 flex justify-between items-center font-bold bg-section-one dark:bg-section-one-dark rounded-tl-md transition-all duration-500">
+              <div class="w-[350px] max-sm:basis-[70%] pl-4">
+                <i class="fa-solid fa-hashtag text-[12px]"></i>
+                <span class="pl-2">Capítulo</span>
+              </div>
+              <div class="w-full max-sm:w-[350px] pl-4 max-md:pl-3 max-sm:hidden">
+                <i class="fa-solid fa-code text-[12px]"></i>
+                <span class="pl-2">Título</span>
+              </div>
+              <div class="w-[300px] max-lg:w-[200px] max-[500px]:hidden pl-4 max-md:pl-3">
+                <i class="fa-solid fa-tag text-[12px]"></i>
+                <span class="pl-2">Sub</span>
+              </div>
+              <div class="w-full px-4 max-md:pl-3">
+                <i class="fa-regular fa-calendar text-[12px]"></i>
+                <span class="pl-2">Fecha</span>
+              </div>
+            </div>
+            <div class="w-full rounded-bl-md rounded-br-md">
+              @for (item of chapterList; track $index) {
+                @if ($index % 2 == 0) {
+                  <a [href]="item.url" class="bg-[#e4e4e4] dark:bg-[#2b2e3a] w-full h-[36.7px] py-1 flex justify-between items-center dark:hover:bg-primary hover:text-white-alter hover:bg-primary transition-all duration-500">
+                    <div class="w-[350px] h-full max-sm:hidden pl-4 flex items-center gap-3">
+                      <img [src]="item.imgUrl" class="w-6 h-full rounded-sm" alt="Chapter {{ item.chapter }} image">
+                      <span>{{ item.chapter }}</span>
+                    </div>
+                    <span class="w-full max-sm:basis-[70%] h-[34px] flex items-center pl-4">Capítulo {{ item.chapter }}</span>
+                    <div class="w-[300px] max-lg:w-[200px] max-[500px]:hidden ml-4">
+                      <span class="text-[12px] font-semibold px-2 py-[2px] rounded-[4px] bg-primary text-white-alter">Sub</span>
+                    </div>
+                    <span class="w-full px-4">{{ item.date }}</span>
+                  </a>
+                } @else {
+                  <a [href]="item.url" class="bg-section-one dark:bg-section-one-dark w-full h-[36.7px] py-1 flex justify-between items-center dark:hover:bg-primary hover:text-white-alter hover:bg-primary transition-all duration-500">
+                    <div class="w-[350px] h-full max-sm:hidden pl-4 flex items-center gap-3">
+                      <img [src]="item.imgUrl" class="w-6 h-full rounded-sm" alt="Chapter {{ item.chapter }} image">
+                      <span>{{ item.chapter }}</span>
+                    </div>
+                    <span class="w-full max-sm:basis-[70%] h-[34px] flex items-center pl-4">Capítulo {{ item.chapter }}</span>
+                    <div class="w-[300px] max-lg:w-[200px] max-[500px]:hidden ml-4">
+                      <span class="text-[12px] font-semibold px-2 py-[2px] rounded-[4px] bg-primary text-white-alter">Sub</span>
+                    </div>
+                    <span class="w-full px-4">{{ item.date }}</span>
+                  </a>
+                }
+              }
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="mb-6 mx-2 w-full flex items-center">
+        <p class="text-white-alter font-medium">No hay capítulos programados</p>
+      </div>
+    }
   </section>
 } @placeholder {
   <section class="section center bg-section-one dark:bg-section-one-dark">

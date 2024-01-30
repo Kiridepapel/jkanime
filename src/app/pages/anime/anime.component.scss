@@ -30,7 +30,22 @@ $key-width: 108px;
   @apply text-blue-500 dark:text-link;
 
   a {
-    @apply hover:text-secondary transition-colors duration-300 ease-in-out;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: #FB9800;
+    }
+  }
+}
+
+i {
+  transition: all .4s ease-in-out;
+}
+
+.rotate {  
+  i {
+    transition: all .4s ease-in-out;
+    transform: rotate(180deg);
   }
 }
 
@@ -39,7 +54,9 @@ $key-width: 108px;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: all .6s ease-in-out;
+    transition:
+      max-height .6s ease-in-out,
+      opacity .6s ease-in-out;
   }
 
 
@@ -53,6 +70,18 @@ $key-width: 108px;
       transform: rotate(180deg);
     }
   }
+}
+
+.chapters {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-fondo-scroll dark:bg-[#2b2e3a]; /* Color de fondo */
+  }
+
 }
 
 @keyframes fade {

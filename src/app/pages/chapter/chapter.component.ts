@@ -43,6 +43,14 @@ export class ChapterComponent {
     }
   }
 
+  horizontalScroll(event: WheelEvent): void {
+    let scrollAmout: number = 100;
+    event.preventDefault();
+    const element = event.currentTarget as HTMLElement;
+    const scrollAmount = event.deltaY < 0 ? -scrollAmout : scrollAmout;
+    element.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  }
+
   public getPreviousChapterUrl() {
     return `${this.animeUrl}/${Number(this.chapter.actualChapter) - 1}`;
   }

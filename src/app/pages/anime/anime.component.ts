@@ -5,11 +5,12 @@ import { AnimeInfoDTO } from '../../models/page.model';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ChapterDataDTO } from '../../models/individual.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-anime',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './anime.component.html',
   styleUrl: './anime.component.scss',
 })
@@ -17,7 +18,10 @@ export class AnimeComponent {
   public isLoading = true; // Cargando los datos recibidos de la API
   public animeData!: AnimeInfoDTO; // Datos del anime
   public chapterList!: ChapterDataDTO[]; // Lista de capítulos
-  public chaptersListFormat: boolean = false;
+  // Chapters list
+  public chaptersListFormat: string = 'table'; // table, list, cards
+  public sort: boolean = false;
+  public searchChapter: string = '';
 
   public trailer!: SafeResourceUrl; // URL del trailer
   public activeInfoIndex: number = 0;
@@ -69,27 +73,86 @@ export class AnimeComponent {
       this.trailer = this.sanitizer.bypassSecurityTrustResourceUrl(this.animeData.trailer);
     }
     if (this.animeData.firstChapter != null && this.animeData.lastChapter != null) {
-      this.chapterList = this.createChapterList();
+      this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter);
     }
   }
 
-  private createChapterList(): ChapterDataDTO[] {
-    let list: ChapterDataDTO[] = [];
+  public alterChaptersListFormat() {
+    if (this.chaptersListFormat === 'table') {
+      this.chaptersListFormat = 'list';
+    } else if (this.chaptersListFormat === 'list') {
+      this.chaptersListFormat = 'cards';
+    } else {
+      this.chaptersListFormat = 'table';
+    }
+  }
 
-    for (let i = this.animeData.firstChapter; i <= this.animeData.lastChapter; i++) {
+  public changeSortChapterList() {
+    this.sort = !this.sort;
+    this.chapterList.reverse();
+  }
+
+  public alterSort() {
+    this.sort = !this.sort;
+  }
+
+  public filterChapters() {
+    console.log(this.searchChapter);
+    if (!this.searchChapter) {
+      // Si el input está vacío, mostrar todos los capítulos
+      this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter);
+    } else {
+      // Filtrar la lista de capítulos
+      this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter)
+        .filter(chapter => chapter.chapter.startsWith(this.searchChapter));
+    }
+  }
+
+  private createChapterList(first: number, last: number): ChapterDataDTO[] {
+    let list: ChapterDataDTO[] = [];
+    let counter: number = last - 1;
+
+    for (let i = first; i <= last; i++) {
       let chapterData: ChapterDataDTO = {
+        // hacer que el string 1 se convierta en 01 y asi los primeros 9 numeros
+        name: this.animeData.name,
         imgUrl: this.animeData.imgUrl,
         chapter: i.toString(),
-        url: this.uri + "/" + i.toString()
+        url: this.uri + "/" + i.toString(),
+        date: this.firstUppercase(this.modifyDate(this.animeData.lastChapterDate, -(counter * 7), first))
       };
       list.push(chapterData);
+      counter--;
     }
 
     return list;
   }
 
-  public changeChaptersListFormat() {
-    this.chaptersListFormat = !this.chaptersListFormat;
+  public modifyDate(date: string, quantity: number, index: number) {
+    if (index === this.animeData.lastChapter) {
+      return date;
+    } else {
+      return this.animeService.modifyDate(date, quantity, index);
+    }
+  }
+  
+  public isNewestChapter(daysBefore: number): boolean {
+    if (this.animeData.lastChapterDate != null) {
+      const spanishMonths = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+      let [monthStr, dayStr, yearStr] = this.animeData.lastChapterDate.split(/[\s,]+/);
+      let month = spanishMonths.indexOf(monthStr.toLowerCase());
+      let day = parseInt(dayStr);
+      let year = parseInt(yearStr);
+  
+      const lastChapterDate = new Date(year, month, day);
+      const currentDate = new Date();
+      const oneWeekInMillis = daysBefore * 24 * 60 * 60 * 1000; // Milisegundos en una semana
+      let value = currentDate.getTime() - lastChapterDate.getTime() <= oneWeekInMillis;
+      
+      return value;
+    } else {
+      return false;
+    }
   }
 
   public calcFromLikes(is: string): number {
