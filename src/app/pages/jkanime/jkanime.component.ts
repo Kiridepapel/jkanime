@@ -4,11 +4,14 @@ import { AnimeService } from '../../services/anime.service';
 import { HomePageDTO } from '../../models/page.model';
 import { Router } from '@angular/router';
 import { ChapterDataDTO } from '../../models/individual.model';
+import { ChapterItemComponent } from '../../components/chapter-item/chapter-item.component';
+import { CommonModule } from '@angular/common';
+import { TagComponent } from '../../components/tag/tag.component';
 
 @Component({
   selector: 'app-jkanime',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, ChapterItemComponent, TagComponent, CommonModule],
   templateUrl: './jkanime.component.html',
   styleUrl: './jkanime.component.scss',
 })
@@ -16,6 +19,7 @@ export class JKAnimeComponent {
   public isLoading = true;
   public homeData!: HomePageDTO;
   public activeList!: ChapterDataDTO[];
+  public topTimer: number = 0;
   
   constructor(private animeService: AnimeService, private router: Router) {}
 
@@ -32,6 +36,27 @@ export class JKAnimeComponent {
       this.isLoading = false;
     }
   }
+
+  public getGridArea(position: number): string {
+    switch (position) {
+      case 1: return "one"
+      case 2: return "two"
+      case 3: return "three"
+      case 4: return "four"
+      case 5: return "five"
+      case 6: return "six"
+      case 7: return "seven"
+      case 8: return "eight"
+      case 9: return "nine"
+      case 10: return "ten"
+    }
+    return "";
+  }
+
+  public removeTv(url: string): string {
+    return url.replace('(TV)', '').trim();
+  }
+    
 
   gotTo(url: string) {
     this.router.navigate(["/" + url]);

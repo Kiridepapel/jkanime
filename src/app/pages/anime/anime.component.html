@@ -233,22 +233,11 @@
     <!-- Chapter list -->
     @if (chapterList != null && animeData.lastChapter != null) {
       <div class="chapters w-full max-h-[482px] h-[482px] max-lg:max-h-[964px] max-lg:h-[964px] mb-6 mx-2 max-sm:mx-0 gap-x-7 gap-y-4 flex content-start flex-wrap overflow-auto sm:overscroll-y-none">
-        @if (chaptersListFormat === 'table' || chaptersListFormat === 'cards') {
+        @if (chaptersListFormat === 'table') {
           @for (item of chapterList; track $index) {
-            <a [href]="item.url" class="relative h-[150px] w-[calc(25%-21px)] max-lg:w-[calc(50%-14px)] max-[550px]:w-full">
-              <div class="absolute top-2 left-2 px-3 py-[2px] rounded-lg text-[10px] font-bold bg-dark-alter text-white-alter z-40">
-                <span>Capítulo {{ item.chapter }}</span>
-                @if (true) {
-                  <i class="ml-2 fa-solid fa-check text-secondary"></i>
-                }
-              </div>
-              <div class="w-full h-full rounded-md">
-                <div class="group w-full h-full rounded-md flex justify-center items-center hover:bg-primary hover:bg-opacity-70 relative z-50 transition-all duration-500">
-                  <i class="fa-solid fa-circle-play text-6xl text-white-alter group-hover:opacity-100 opacity-0 transition-opacity duration-500"></i>
-                </div>
-                <img [src]="item.imgUrl" class="w-full h-full rounded-md object-cover absolute top-0 left-0 z-30">
-              </div>
-            </a>
+            <app-chapter-item class="h-[150px] w-[calc(25%-21px)] max-lg:w-[calc(50%-14px)] max-[550px]:w-full" [type]="2"
+              [chapter]="item.chapter" [imgUrl]="item.imgUrl" [url]="item.url" [viewed]="false"
+            ></app-chapter-item>
           }
         } @else if (chaptersListFormat === 'list') {
           <div class="border w-full rounded-md text-dark-alter dark:text-white-alter border-section-two dark:border-[#2b2e3a] dark:bg-[#2b2e3a] text-[15px] max-md:text-sm">

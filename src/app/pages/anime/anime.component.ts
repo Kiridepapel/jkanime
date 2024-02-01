@@ -6,11 +6,12 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ChapterDataDTO } from '../../models/individual.model';
 import { FormsModule } from '@angular/forms';
+import { ChapterItemComponent } from '../../components/chapter-item/chapter-item.component';
 
 @Component({
   selector: 'app-anime',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ChapterItemComponent],
   templateUrl: './anime.component.html',
   styleUrl: './anime.component.scss',
 })
@@ -30,7 +31,7 @@ export class AnimeComponent {
   // public areAlternativeTitlesVisible: boolean = false;
   private orderData = ["type", "genres", "studio", "director", "language", "year", "cast", "censured", "emited", "status", "lastUpdate", "chapters", "duration", "quality"];
   private orderAltTitles = ["synonyms", "english", "japanese", "corean"];
-  private orderHistory = ["prequel", "sequel", "other", "alternativeVersion", "completeVersion", "additional", "summary", "includedCharacters"];
+  private orderHistory = ["prequel", "sequel", "derived", "other", "alternativeVersion", "completeVersion", "additional", "summary", "includedCharacters"];
   private removeUrlSpecialCases = [
     "one-piece"
   ]
@@ -237,6 +238,7 @@ export class AnimeComponent {
     // History
     map.set("prequel", "Precuela");
     map.set("sequel", "Secuela");
+    map.set("derived", "Derivado");
     map.set("alternativeVersion", "Versión alternativa");
     map.set("completeVersion", "Versión completa");
     map.set("additional", "Adicional");

@@ -22,9 +22,6 @@ $key-width: 108px;
   // color: #8999e6;
 }
 
-.test {
-  color: #000;
-}
 .links {
   flex-basis: calc(100% - $key-width);
   @apply text-blue-500 dark:text-link;
@@ -82,16 +79,4 @@ i {
     @apply bg-fondo-scroll dark:bg-[#2b2e3a]; /* Color de fondo */
   }
 
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }

@@ -1,5 +1,7 @@
 @defer(when !isLoading) {
-  <section class="section py-6 gap-6 bg-section-one dark:bg-section-one-dark">
+  <!-- 1. Main animes -->
+  <section class="section pt-12 pb-6 max-sm:pt-4 max-sm:pb-8 bg-section-one dark:bg-section-one-dark">
+    <!-- 1.1. Spring season -->
     <!-- <div class="jkinfo w-full h-28 rounded-xl bg-gray-800">
       <div class="infoc w-full h-full rounded-xl flex flex-col justify-center items-center">
         <h2 class="text-xl pb-3 text-white">Temporada Invierno 2024</h2>
@@ -9,15 +11,15 @@
       </div>
     </div> -->
     
-    <div class="flex w-full h-full max-xl:flex-col max-xl:items-center maxm gap-4 max-xl:gap-6">
-      <section class="flex flex-col gap-4 w-8/12 max-h-section-one max-xl:w-[80%] max-lg:w-full pt-6 max-sm:pt-0">
-        <!-- Slider -->
-        <div class="relative w-full min-h-[397px] max-sm:min-h-[427px] bg-gray-500 rounded-md py-[50px] pl-[50px] pr-[25px] max-sm:py-[40px] max-sm:pl-[25px]">
+    <div class="flex w-full h-full max-xl:flex-col max-xl:items-center gap-8 max-xl:gap-6">
+      <section class="flex flex-col gap-4 w-full max-xl:w-[80%] max-lg:w-full">
+        <!-- 1.2.1. Slider -->
+        <div class="relative w-full min-h-[397px] max-sm:min-h-[427px] rounded-md py-[50px] pl-[50px] pr-[25px] max-sm:py-[40px] max-sm:pl-[25px] overflow-hidden">
           @for (item of homeData.sliderAnimes; track $index) {
-            @if ($index === 2) {
-              <div class="h-full index">
+            @if ($index === 0) {
+              <div class="h-full relative z-[200]">
                 <h3 class="text-[42px] max-2xl:text-[36px] max-sm:text-[30px] font-bold font-oswald mb-2 text-white-alter">{{ item.name }}</h3>
-                <a [href]="item.url" class="text-[14px] font-bold font-mulish uppercase tracking-[2px] h-[47.5px] inline-flex gap-[6px] text-white-alter">
+                <a [href]="item.url" class="text-[13px] font-bold font-mulish uppercase tracking-[2px] h-[47.5px] inline-flex gap-[6px] text-white-alter">
                   <span class="h-full flex items-center px-5 rounded-tl-[4px] rounded-bl-[4px] bg-secondary ">Ver ahora</span>
                   <div class="inline-flex items-center h-full px-1  rounded-tr-[4px] rounded-br-[4px] bg-secondary">
                     <i class="fa-solid fa-chevron-right"></i>
@@ -25,31 +27,40 @@
                 </a>
               </div>
               <div class="absolute top-0 left-0 w-full h-full rounded-md z-40 bg-black bg-opacity-40"></div>
-              <img [src]="item.imgUrl" class="absolute top-0 left-0 w-full h-full rounded-md max-md:object-cover z-30" alt="Image of {{ item.name }}">
+              <img [src]="item.imgUrl" class="slide-img absolute top-[-25px] left-0 w-full h-[calc(100%+25px)] rounded-md max-md:object-cover z-30" alt="Image of {{ item.name }}">
             }
           }
         </div>
-        <!-- Especiales -->
-        <div class="w-full h-full max-xl:hidden">
-          <h2 class="border-l-4 border-secondary text-dark-alter dark:text-white-alter text-2xl max-md:text-[23px] font-semibold font-oswald pl-4 h-8 flex items-center uppercase">OVAS / ONAS / ESPECIALES</h2>
-          <div class="w-full h-[calc(100%-3rem)] bg-gray-400 mt-4">
-
+        <!-- 1.2.2. Ovas, Onas, Especials -->
+        <div class="h-full max-xl:hidden">
+          <h2 class="border-l-4 border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] font-semibold font-oswald pl-4 flex items-center uppercase">OVAS / ONAS / ESPECIALES</h2>
+          <div class="h-[calc(100%-4rem)] grid grid-cols-4 grid-rows-2 gap-x-8 gap-y-4 max-[1750px]:gap-x-6 max-[1650px]:gap-x-4 mt-4">
+            @for (item of homeData.ovasOnasSpecials; track $index) {
+              <div class="h-[195px]">
+                <app-chapter-item class="w-full h-[150px]" [type]="1" fitPosition="top" animTo="bottom" fitObject="fill"
+                  [imgUrl]="item.imgUrl" [url]="item.url" [category]="item.type"
+                ></app-chapter-item>
+                <div class="flex items-start mt-[5px] pr-[5px] h-[40px]">
+                  <span class="text-[12px] font-mulish font-bold line-clamp clamp-2">{{ item.name }}</span>
+                </div>
+              </div>
+            }
           </div>
         </div>
       </section>
-      <!-- Ultimos episodios -->
-      <section class="h-section-one min-w-90 flex flex-col gap-5 w-4/12 max-xl:min-w-min max-xl:w-[80%] max-lg:w-full pl-4 pt-6 max-sm:pt-0 max-xl:p-0">
-        <h2 class="border-l-4 border-secondary text-dark-alter dark:text-white-alter text-xl max-md:text-[23px] font-semibold font-oswald pl-4 h-8 flex items-center uppercase">PROGRAMACIÓN</h2>
+      <!-- 1.3. Last chapters (right) -->
+      <section class="h-[855px] min-w-[360px] w-[360px] max-2xl:min-w-[330px] max-xl:w-[80%] max-lg:w-full max-sm:min-w-full flex flex-col gap-5">
+        <h2 class="border-l-4 self-start border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] font-semibold font-oswald pl-4 flex items-center uppercase">PROGRAMACIÓN</h2>
         <div class="options text-[15px] font-mulish w-full h-10 rounded-lg bg-secondary text-white-alter max-2xl:text-[15px]">
           <button (click)="select(0)" class="w-2/4 h-full rounded-l-lg active">Animes</button>
           <button (click)="select(1)" class="w-2/4 h-full rounded-r-lg">Donghuas</button>
         </div>
-        <div class="last-animes scroll w-full h-full overflow-y-auto rounded-lg p-1.25 bg-white-alter border-gray-700 dark:bg-section-two-dark">
+        <div class="last-animes w-full h-full overflow-auto rounded-lg p-[5px] bg-white-alter border-gray-700 dark:bg-section-two-dark">
           @for(chapter of activeList; track $index) {
             <a [href]="chapter.url" class="cursor-pointer last-chapter w-full flex justify-between items-center p-2 gap-2
               border-b border-gray-200 dark:border-gray-700 hover:bg-white-alter dark:hover:bg-section-one-dark">
-              <div class="flex items-start">
-                <img [src]="chapter.imgUrl" alt="Image of {{ chapter.name }}" class="w-28 h-20 rounded-md mr-3">
+              <div class="flex items-start w-full">
+                <img [src]="chapter.imgUrl" alt="Image of {{ chapter.name }}" class="w-28 h-20 rounded-md mr-3" [ngClass]="{'object-top' : chapter.date === undefined}">
                 <div class="font-mulish text-13 leading-[18px]">
                   <h4 class="font-bold underline decoration-transparent duration-300 ease-in-out text-gray-600 dark:text-white">
                     {{ chapter.name }}
@@ -66,7 +77,7 @@
                   }
                 </div>
               </div>
-              <img src="../../../assets/imgs/flecha.svg" alt="Ir" class="max-w-6 max-h-8">
+              <img src="../../../assets/imgs/flecha.svg" alt="Ir" class="max-w-6 max-h-8 max-[350px]:hidden">
             </a>
           }
         </div>
@@ -74,10 +85,121 @@
     </div>
   </section>
   
-  <section class="section py-6 min-h-test justify-center items-center bg-section-two dark:bg-section-two-dark">
+  <!-- 2. Top -->
+  <section class="section py-6 justify-center items-center flex-col gap-4 bg-section-two dark:bg-section-two-dark">
+    <div class="w-full h-full max-xl:w-[80%] max-lg:w-full">
+      <h2 class="border-l-4 self-start border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald mb-6 pl-4 flex items-center uppercase">TOP ANIMES
+        <div class="text-secondary-alter max-[350px]:hidden">
+          <i class="fa-regular fa-clock px-2 text-[22px] max-md:text-[21px] pt-[2px]"></i>
+          <span>ACTUALIZA EN {{ topTimer }}9:99</span>
+        </div>
+      </h2>
+      <div class="top font-mulish">
+        @for (item of homeData.topAnimes; track $index) {
+          <a [href]="item.url" class="relative top-child rounded-[6px] text-white-alter group" [ngClass]="getGridArea(item.position)">
+            <!-- Position tag -->
+            <div class="absolute w-7 h-6 top-3 left-3 flex justify-center items-center rounded-[5px]"
+              [ngClass]="{
+                'bg-red-600': item.position === 1,
+                'bg-primary': item.position === 2 || item.position === 3 || item.position === 4,
+                'bg-secondary': item.position === 5 || item.position === 6 || item.position === 7 || item.position === 8 || item.position === 9 || item.position === 10
+              }">
+              <span class="text-[14px]">{{ item.position }}</span>
+            </div>
+            <!-- Image -->
+            <img class="object-cover object-top max-xl:object-top max-w-full max-h-full w-full h-full rounded-[6px]" [src]="item.imgUrl" alt="">
+            @if (item.position === 1) {
+              <!-- Transition hover 1 -->
+              <div class="absolute top-0 left-0 w-full flex justify-center items-center h-0 z-[40] group-hover:h-full transition-all duration-500 rounded-[6px] bg-secondary-alter bg-opacity-90
+                opacity-0 group-hover:opacity-100 text-2xl">
+                <i class="fa-solid fa-thumbs-up pr-2"></i>
+                <h4 class="opacity-0 group-hover:opacity-100 transition-opacity duration-500">{{ item.likes }}</h4>
+              </div>
+              <!-- Anime name 1 -->
+              <div class="absolute bottom-3 left-3 text-[16px] px-2 py-1 rounded-[5px] bg-[#3D3D3D] max-xl:w-full max-xl:bottom-0 max-xl:left-0 z-[50]">
+                <p class="line-clamp clamp-2 max-xl:text-[15px] max-md:text-[14px] max-sm:text-[13px]">{{ removeTv(item.name) }}</p>
+              </div>
+            } @else {
+              <!-- Transition hover X -->
+              @if (item.position === 2 || item.position === 3 || item.position === 4) {
+                <div class="absolute top-0 left-0 w-full flex justify-center items-center h-0 z-[40] group-hover:h-full transition-all duration-500 rounded-[6px] bg-secondary-alter bg-opacity-90
+                  opacity-0 group-hover:opacity-100 text-xl">
+                  <i class="fa-solid fa-thumbs-up pr-2"></i>
+                  <h4 class="opacity-0 group-hover:opacity-100 transition-opacity duration-500">{{ item.likes }}</h4>
+                </div>
+              } @else {
+                <div class="absolute top-0 left-0 w-full flex justify-center items-center h-0 z-[40] group-hover:h-full transition-all duration-500 rounded-[6px] bg-secondary-alter bg-opacity-90
+                opacity-0 group-hover:opacity-100 text-[16px]">
+                  <i class="fa-solid fa-thumbs-up pr-2"></i>
+                  <h4 class="">{{ item.likes }}</h4>
+                </div>
+              }
+              <!-- Anime name X -->
+              <div class="w-full absolute bottom-0 left-0 px-2 py-1 rounded-[5px] bg-[#3D3D3D] z-[50]">
+                <p class="line-clamp clamp-2 max-xl:text-[15px] max-md:text-[14px] max-sm:text-[13px]" 
+                  [ngClass]="{
+                    'text-[14px]': item.position === 2 || item.position === 3 || item.position === 4,
+                    'text-[13px]': item.position === 5 || item.position === 6 || item.position === 7 || item.position === 8 || item.position === 9 || item.position === 10
+                  }">{{ removeTv(item.name) }}
+                </p>
+              </div>
+            }
+          </a>
+        }
+      </div>
+      <div class="w-full flex justify-center items-center mt-6 max-xl:mt-8 max-xl:mb-2">
+        <a href="/top" class="group text-dark-alter dark:text-white-alter hover:text-primary hover:pl-2 dark:hover:text-primary transition-all duration-500 cursor-pointer text-[18px] max-md:text-[16px]">
+          <i class="group-hover:rotate-180 transition-transform duration-500 fa-solid fa-arrow-down-long"></i>
+          <span class="px-2 text-[20px] max-md:text-[18px]">Ver lista completa</span>
+          <i class="group-hover:rotate-180 transition-transform duration-500 fa-solid fa-arrow-down-long"></i> 
+        </a>
+      </div>
+    </div>
   </section>
   
-  <section class="section py-6 min-h-test justify-center items-center bg-section-one dark:bg-section-one-dark">
+  <section class="section pt-6 pb-12 bg-section-one dark:bg-section-one-dark">
+    <div class="w-full h-full flex max-xl:flex-col max-xl:items-center gap-8 max-xl:gap-6">
+      <!--  -->
+      <section class="flex flex-col w-full max-xl:w-[80%] max-lg:w-full">
+        <h2 class="border-l-4 self-start mb-6 border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">ÚLTIMOS ÁNIMES AGREGADOS</h2>
+        <div class="w-full h-full grid grid-cols-4 max-[1650px]:grid-cols-3 max-xl:grid-cols-4 max-md:grid-cols-3 max-[500px]:grid-cols-2 gap-x-7 gap-y-5 max-xl:gap-x-5 max-xl:gap-y-3">
+          @for (item of homeData.latestAddedAnimes; track $index) {
+            <div class="max-w-full h-[340px]">
+              <app-chapter-item class="w-full h-[255px]" [type]="0" animTo="top"
+                [imgUrl]="item.imgUrl" [url]="item.url" [category]="item.type"
+              ></app-chapter-item>
+              <!-- <div class="w-full h-[255px] bg-gray-500"></div> -->
+              <div class="w-full h-full">
+                <!-- <p>hola 1</p>
+                <p>hola 2</p>
+                <p>hola 3</p>
+                <p>hola 4</p> -->
+                <!-- <app-tag class="inline" [type]="1" [category]="item.state"></app-tag> -->
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+      <!--  -->
+      <section class="min-w-[360px] w-[360px] h-fit max-2xl:min-w-[330px] max-xl:w-[80%] max-lg:w-full max-sm:min-w-full flex flex-col p-[13px] max-xl:pt-6 rounded-lg bg-white-alter dark:bg-section-two-dark">
+        <h2 class="border-l-4 self-start mb-6 border-secondary text-dark-alter dark:text-white-alter text-[22px] max-2xl:text-[20px] max-lg:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">LISTADO DE ÚLTIMOS AGREGADOS</h2>
+        <div class="w-full h-full">
+          @for (item of homeData.latestAddedList; track $index) {
+            @if ($index % 2 === 0) {
+              <a [href]="item.url" class="cursor-pointer w-full py-[5px] pl-2 pr-3 flex items-center gap-2 bg-section-two dark:bg-section-two-dark hover:bg-primary hover:text-white-alter dark:hover:bg-[#8488A2] transition-colors duration-500">
+                <i class="fa-solid fa-circle-chevron-right font-[13px] text-secondary"></i>
+                <span class="text-[12px] font-mulish line-clamp clamp-3">{{ item.name }}</span>
+              </a>
+            } @else {
+              <a [href]="item.url" class="cursor-pointer w-full py-[5px] pl-2 pr-3 flex items-center gap-2 bg-section-one dark:bg-section-one-dark hover:bg-primary hover:text-white-alter dark:hover:bg-[#8488A2] transition-colors duration-500">
+                <i class="fa-solid fa-circle-chevron-right font-[13px] text-secondary"></i>
+                <span class="text-[12px] font-mulish line-clamp clamp-3">{{ item.name }}</span>
+              </a>
+            }
+          }
+        </div>
+      </section>
+    </div>
   </section>
 } @placeholder {
   <section class="section center bg-section-one dark:bg-section-one-dark">
