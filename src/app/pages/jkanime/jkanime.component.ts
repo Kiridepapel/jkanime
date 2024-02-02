@@ -19,7 +19,7 @@ export class JKAnimeComponent {
   public isLoading = true;
   public homeData!: HomePageDTO;
   public activeList!: ChapterDataDTO[];
-  public topTimer: number = 0;
+  public timer: any;
   
   constructor(private animeService: AnimeService, private router: Router) {}
 

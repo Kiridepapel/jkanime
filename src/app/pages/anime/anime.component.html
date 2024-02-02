@@ -1,9 +1,9 @@
 @defer(when !isLoading) {
-  <!-- Contenedor -->
+  <!-- Section 1 -->
   <section class="section py-6 gap-3 bg-section-one dark:bg-section-one-dark">
     <!-- Contenido -->
     <div class="w-full h-full flex justify-start p-5 pb-7 rounded-xl gap-4 m-2 max-md:flex-col max-md:gap-0 max-sm:m-0
-      bg-[#EEEEEE] dark:bg-section-two-dark text-dark-alter dark:text-white-alter">
+    bg-[#e9e9e9] dark:bg-section-two-dark text-dark-alter dark:text-white-alter">
       <!-- Sección 1 -->
       <div class="min-w-[245px] max-sm:min-w-full h-full max-sm:w-full">
         <img [src]="animeData.imgUrl" alt="Image of {{ animeData.name }}" class="min-w-[w-[245px] w-[245px] min-h-[405px] h-[405px] m-auto mb-5 rounded-md object-cover">
@@ -171,6 +171,7 @@
       </div>
     </div>
   </section>
+  <!-- Section 2 -->
   <section class="section font-mulish bg-section-one dark:bg-section-one-dark">
     <!-- Chapters, Characters, Social -->
     <div class="w-full h-full mx-2 mb-6 max-sm:mx-0 flex rounded-[5px] max-lg:text-sm max-lg:font-semibold bg-section-two text-dark-alter">
@@ -180,7 +181,7 @@
     </div>
     <!-- Last chapter -->
     @if (animeData.lastChapter != null && isNewestChapter(28)) {
-      <div class="w-full h-full mb-6 flex rounded-md bg-white">
+      <div class="w-full h-full mb-6 flex rounded-md bg-section-two dark:bg-white">
         <a href="{{ uri }}/{{ animeData.lastChapter }}" class="bg-secondary hover:bg-secondary-alter transition-colors duration-500 px-5 rounded-tl-md rounded-bl-md flex justify-center items-center">
           <i class="fa-solid fa-play text-2xl text-white-alter"></i>
         </a>
