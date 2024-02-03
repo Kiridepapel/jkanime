@@ -50,25 +50,6 @@
   }
 }
 
-.line-clamp {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  &.clamp-1 {
-    -webkit-line-clamp: 1;
-  }
-
-  &.clamp-2 {
-    -webkit-line-clamp: 2;
-  }
-
-  &.clamp-3 {
-    -webkit-line-clamp: 3;
-  }
-}
-
 .top {
   width: 100%;
   height: 100%;

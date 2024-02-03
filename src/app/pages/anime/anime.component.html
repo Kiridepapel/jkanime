@@ -186,7 +186,7 @@
           <i class="fa-solid fa-play text-2xl text-white-alter"></i>
         </a>
         <div class="w-full h-full px-4 py-3 flex justify-center items-center gap-2 max-md:gap-1 max-sm:gap-[2px] text-[15px] max-md:text-sm max-sm:flex-col">
-          <span class="text-dark-alter font-extrabold text-nowrap">Último capítulo:
+          <span class="text-dark-alter font-extrabold text-nowrap max-[300px]:flex max-[300px]:flex-col max-[300px]:items-center">Último capítulo:
             <a class="text-tertiary ml-[3px] font-bold" href="{{ uri }}/{{ animeData.lastChapter }}">Capítulo {{ animeData.lastChapter }}</a>
           </span>
           @if (isNewestChapter(7)) {
@@ -233,7 +233,7 @@
     }
     <!-- Chapter list -->
     @if (chapterList != null && animeData.lastChapter != null) {
-      <div class="chapters w-full max-h-[482px] h-[482px] max-lg:max-h-[964px] max-lg:h-[964px] mb-6 mx-2 max-sm:mx-0 gap-x-7 gap-y-4 flex content-start flex-wrap overflow-auto sm:overscroll-y-none">
+      <div class="chapters w-full h-full max-h-[482px] max-lg:max-h-[964px] mb-6 mx-2 max-sm:mx-0 gap-x-7 gap-y-4 flex content-start flex-wrap overflow-auto sm:overscroll-y-none">
         @if (chaptersListFormat === 'table') {
           @for (item of chapterList; track $index) {
             <app-chapter-item class="h-[150px] w-[calc(25%-21px)] max-lg:w-[calc(50%-14px)] max-[550px]:w-full" [type]="2"
@@ -263,26 +263,26 @@
             <div class="w-full rounded-bl-md rounded-br-md">
               @for (item of chapterList; track $index) {
                 @if ($index % 2 == 0) {
-                  <a [href]="item.url" class="bg-[#e4e4e4] dark:bg-[#2b2e3a] w-full h-[36.7px] py-1 flex justify-between items-center dark:hover:bg-primary hover:text-white-alter hover:bg-primary transition-all duration-500">
+                  <a [href]="item.url" class="bg-[#e4e4e4] dark:bg-[#2b2e3a] w-full h-[36.7px] py-1 flex justify-between items-center group dark:hover:bg-primary hover:text-white-alter hover:bg-primary transition-all duration-500">
                     <div class="w-[350px] h-full max-sm:hidden pl-4 flex items-center gap-3">
                       <img [src]="item.imgUrl" class="w-6 h-full rounded-sm" alt="Chapter {{ item.chapter }} image">
                       <span>{{ item.chapter }}</span>
                     </div>
                     <span class="w-full max-sm:basis-[70%] h-[34px] flex items-center pl-4">Capítulo {{ item.chapter }}</span>
                     <div class="w-[300px] max-lg:w-[200px] max-[500px]:hidden ml-4">
-                      <span class="text-[12px] font-semibold px-2 py-[2px] rounded-[4px] bg-primary text-white-alter">Sub</span>
+                      <span class="text-[12px] font-semibold px-2 py-[2px] rounded-[4px] bg-primary group-hover:bg-primary-alter transition-colors duration-500 text-white-alter">Sub</span>
                     </div>
                     <span class="w-full px-4">{{ item.date }}</span>
                   </a>
                 } @else {
-                  <a [href]="item.url" class="bg-section-one dark:bg-section-one-dark w-full h-[36.7px] py-1 flex justify-between items-center dark:hover:bg-primary hover:text-white-alter hover:bg-primary transition-all duration-500">
+                  <a [href]="item.url" class="bg-section-one dark:bg-section-one-dark w-full h-[36.7px] py-1 flex justify-between items-center group dark:hover:bg-primary hover:text-white-alter hover:bg-primary transition-all duration-500">
                     <div class="w-[350px] h-full max-sm:hidden pl-4 flex items-center gap-3">
                       <img [src]="item.imgUrl" class="w-6 h-full rounded-sm" alt="Chapter {{ item.chapter }} image">
                       <span>{{ item.chapter }}</span>
                     </div>
                     <span class="w-full max-sm:basis-[70%] h-[34px] flex items-center pl-4">Capítulo {{ item.chapter }}</span>
                     <div class="w-[300px] max-lg:w-[200px] max-[500px]:hidden ml-4">
-                      <span class="text-[12px] font-semibold px-2 py-[2px] rounded-[4px] bg-primary text-white-alter">Sub</span>
+                      <span class="text-[12px] font-semibold px-2 py-[2px] rounded-[4px] bg-primary group-hover:bg-primary-alter transition-colors duration-500 text-white-alter">Sub</span>
                     </div>
                     <span class="w-full px-4">{{ item.date }}</span>
                   </a>

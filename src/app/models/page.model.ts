@@ -1,8 +1,8 @@
-import { ChapterDataDTO, LastAnimeDataDTO, LinkDTO, TopDataDTO } from "./individual.model";
+import { ChapterDataDTO, AnimeDataDTO, LinkDTO, TopDataDTO } from "./individual.model";
 
 export class HomePageDTO {
   sliderAnimes!: ChapterDataDTO[];
-  ovasOnasSpecials!: LastAnimeDataDTO[];
+  ovasOnasSpecials!: AnimeDataDTO[];
   animesProgramming!: ChapterDataDTO[];
   donghuasProgramming!: ChapterDataDTO[];
   topAnimes!: TopDataDTO[];
@@ -47,4 +47,10 @@ export class ChapterDTO {
   firstChapter!: number;
   lastChapter!: number;
   lastChapterDate!: string;
+}
+
+export class SearchDTO {
+  lastPage?: number;
+  searchList!: AnimeDataDTO[];
+  message?: string;
 }

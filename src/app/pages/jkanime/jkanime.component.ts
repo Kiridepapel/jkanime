@@ -7,11 +7,12 @@ import { ChapterDataDTO } from '../../models/individual.model';
 import { ChapterItemComponent } from '../../components/chapter-item/chapter-item.component';
 import { CommonModule } from '@angular/common';
 import { TagComponent } from '../../components/tag/tag.component';
+import { AnimeItemComponent } from '../../components/anime-item/anime-item.component';
 
 @Component({
   selector: 'app-jkanime',
   standalone: true,
-  imports: [ButtonComponent, ChapterItemComponent, TagComponent, CommonModule],
+  imports: [ButtonComponent, AnimeItemComponent, ChapterItemComponent, CommonModule],
   templateUrl: './jkanime.component.html',
   styleUrl: './jkanime.component.scss',
 })

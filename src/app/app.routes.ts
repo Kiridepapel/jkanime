@@ -23,8 +23,9 @@ export const routes: Routes = [
 
   // Rutas dinámicas
   // Búsqueda
-  { path: 'search', component: SearchComponent },
-  { path: 'search/:anime', component: SearchComponent },
+  { path: 'buscar', component: SearchComponent },
+  { path: 'buscar/:anime', component: SearchComponent },
+  { path: 'buscar/:anime/:page', component: SearchComponent },
   // Animes
   { path: ':anime', component: AnimeComponent },
   { path: ':anime/:chapter', component: ChapterComponent },

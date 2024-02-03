@@ -16,7 +16,7 @@ export class TopDataDTO {
   url!: string;
 }
 
-export class LastAnimeDataDTO {
+export class AnimeDataDTO {
   name!: string;
   imgUrl!: string;
   url!: string;

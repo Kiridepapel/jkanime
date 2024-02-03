@@ -2,11 +2,16 @@
   @apply
     w-full h-full px-[20.25%] max-2xl:px-[15.25%] max-xl:px-[10.25%] max-sm:px-4
     flex flex-wrap transition-all text-gray-800 dark:text-white;
+
+    &.section-height {
+      @apply min-h-[calc(100vh-(76px+76px))] h-full;
+    }
     
     &.center {
       @apply min-h-[calc(100vh-(76px+76px))] flex-col content-center justify-center;
       height: 100%;
     }
+    
 }
 
 .button {

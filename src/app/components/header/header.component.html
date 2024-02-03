@@ -38,9 +38,10 @@
       <i class="{{ darkModeIcon }} {{ darkModeStyles }}"></i>
     </a>
     <!-- Search form -->
-    <form class="search relative max-sm:hidden text-white">
-      <input type="text" placeholder="Buscar animes..." class="search h-auto text-md button outline-none rounded-3xl font-normal pl-5 pr-10 py-2 w-full">
-      <button type="button" href="#">
+    <form (ngSubmit)="searchAnime()" class="search relative max-sm:hidden text-white">
+      <input type="text" placeholder="Buscar animes..." [(ngModel)]="searchQuery" name="searchQuery"
+        class="search h-auto text-md button outline-none rounded-3xl font-normal pl-5 pr-10 py-2 w-full">
+      <button type="submit">
         <i class="search-icon fa-solid fa-magnifying-glass absolute right-0"></i>
       </button>
     </form>

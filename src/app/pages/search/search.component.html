@@ -1,3 +1,34 @@
-<section class="section min-h-base py-6 justify-center items-start bg-section-one dark:bg-section-one-dark text-gray-800">
-    <span class="text-gray-800 dark:text-white">search works!</span>
+<section class="section section-height py-6 justify-center items-start bg-section-one dark:bg-section-one-dark">
+  <section class="flex flex-col w-full max-xl:w-[80%] max-lg:w-full">
+    <!-- Icons -->
+    <div class="pb-10 w-full flex items-center flex-wrap gap-2 text-[15px] font-mulish text-dark-alter dark:text-white-alter">
+      <a href="/" class="flex items-center gap-[6px] hover:text-secondary dark:hover:text-secondary-alter transition-colors duration-500">
+        <i class="fa-solid fa-house text-[12px]"></i>
+        <span>Inicio</span>
+      </a>
+      <i class="fa-solid fa-chevron-right text-[10px]"></i>
+      <a href="buscar" class="hover:text-secondary dark:hover:text-secondary-alter transition-colors duration-500">Buscar</a>
+      <i class="fa-solid fa-chevron-right text-[10px]"></i>
+      <a [href]="searchFront" class="text-secondary dark:text-secondary-alter">{{ name }}</a>
+    </div>
+
+    <!-- Title -->
+    <h2 class="border-l-4 self-start mb-3 border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">RESULTADOS PARA {{ name }}</h2>
+    <span class="w-full h-[2px] mb-6 bg-dark-alter dark:bg-white bg-opacity-25 dark:bg-opacity-15"></span>    
+    
+    <!-- Content -->
+    @if (!isLoading) {
+      @if (searchData.message == null) {
+        <div class="w-full h-full grid grid-cols-6 max-[1650px]:grid-cols-5 max-xl:grid-cols-4 max-md:grid-cols-3 max-[500px]:grid-cols-2 gap-x-7 gap-y-5 max-xl:gap-x-5 max-xl:gap-y-3">
+          @for (item of searchData.searchList; track $index) {
+          <app-anime-item [name]="item.name!" [imgUrl]="item.imgUrl" [url]="item.url" [type]="item.type" [state]="item.state"></app-anime-item>
+        }
+        </div>
+      } @else {
+        <p class="text-dark-alter dark:text-white-alter">No se encontraron resultados</p>
+      }
+    } @else {
+      <div class="loader-1"></div>
+    }
   </section>
+</section>

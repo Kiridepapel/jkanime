@@ -1,7 +1,7 @@
 <a [href]="url" class="group relative w-full h-[inherit] flex justify-center items-center rounded-md overflow-hidden">
   <!-- Verificar para no hacer una llamada innecesaria al componente tag -->
   @if (type !== 0) {
-    <app-tag [type]="type" [category]="category" [chapter]="chapter" [viewed]="viewed"></app-tag>
+    <app-tag class="absolute top-1 left-2 z-40" [type]="type" [category]="category" [chapter]="chapter" [viewed]="viewed"></app-tag>
   }
   <div class="w-full h-full overflow-hidden">
     <div class="group w-full h-full rounded-md flex justify-center items-center hover:bg-primary hover:bg-opacity-70 relative z-50 transition-all duration-500">
