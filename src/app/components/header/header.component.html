@@ -26,6 +26,12 @@
     </div>
     <!-- Options in mobile -->
     <div class="options justify-center items-center gap-2 hidden max-lg:flex" [class.expanded]="navState">
+      <!-- Search form -->
+      <form (ngSubmit)="searchAnime()" class="sm:hidden block search relative text-white w-full basis-10">
+        <input type="text" placeholder="Buscar animes..." [(ngModel)]="searchQuery" name="searchQuery"
+          class="search text-md button outline-none rounded-lg font-normal pl-5 pr-10 w-full h-full">
+        <button type="submit"><i class="search-icon fa-solid fa-magnifying-glass absolute right-0"></i></button>
+      </form>
       <a href="/directorio" class="button text rounded-lg grid place-items-center w-full basis-10">Directorio</a>
       <a href="/horario" class="button text rounded-lg grid place-items-center w-full basis-10">Horario</a>
       <a href="/top" class="button text rounded-lg grid place-items-center w-full basis-10">Top</a>

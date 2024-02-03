@@ -51,6 +51,10 @@ export class HeaderComponent {
   }
 
   public searchAnime(): void {
+    if (window.innerWidth < 640) {
+      this.toggleNav();
+    }
+
     let formattedQuery = this.searchQuery.trim().replace(/\s+/g, '_');
     console.log("buscar: " + '/buscar', formattedQuery, '1');
     this.router.navigate(['/buscar', formattedQuery, '1']);

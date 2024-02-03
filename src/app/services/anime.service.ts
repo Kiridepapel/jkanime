@@ -18,6 +18,7 @@ export class AnimeService {
   public async getGenericData(uri: string): Promise<any> {
     try {
       const data = await this.http.get(this.backendUrl + uri).toPromise();
+      console.log("Fetching data from: " + this.backendUrl + uri)
       console.log("Data: ", data);
       return data;
     } catch (error: any) {
