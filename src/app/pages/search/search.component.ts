@@ -50,6 +50,7 @@ export class SearchComponent {
 
   private defineData() {
     this.searchBack = window.location.href.replace(environment.FRONTEND_URL, '');
+    console.log('searchBack: ' + this.searchBack);
     this.searchFront = this.searchBack.split('/').slice(0, 3).join('/');
     this.searchBack = this.searchFront.replace('buscar', 'search');
     this.name = this.searchBack.split('/')[1].replace(/_/g, ' ');
