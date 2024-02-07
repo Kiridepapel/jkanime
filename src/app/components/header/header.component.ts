@@ -25,15 +25,6 @@ export class HeaderComponent {
     this.router.navigate([route]);
   }
 
-  // Así se clierra el menú de navegación
-  // public closeNavWithAnimation(closeNav?: boolean) {
-  //   if (closeNav) {
-  //     const menu = document.querySelector('.menu');
-  //     menu?.classList.toggle('opened');
-  //     this.toggleNav();
-  //   }
-  // }
-
   public get darkModeIcon(): string {
     return this.darkModeService.darkModeIcon;
   }
@@ -48,6 +39,9 @@ export class HeaderComponent {
 
   public toggleNav() {
     this.navState = !this.navState;
+    const menu = document.getElementById('menuBtn');
+    menu?.classList.toggle('opened');
+    menu?.setAttribute('aria-expanded', menu.classList.contains('opened').toString());
   }
 
   public searchAnime(): void {

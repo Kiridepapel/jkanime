@@ -7,23 +7,20 @@
   width: 10px;
 }
 
-.light {
-  ::-webkit-scrollbar-track {
-    @apply bg-primary;
-  }
+::-webkit-scrollbar-track {
+  @apply bg-primary;
+}
 
-  ::-webkit-scrollbar-thumb {
-    @apply bg-white-alter; // Color principal
-    border-radius: 6px;
-  }
+::-webkit-scrollbar-thumb {
+  @apply bg-[#eaeaea]; // Color principal
+  border-radius: 6px;
+}
 
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-[#c6c5c5]; // Color de la barra al hacer hover
-  }
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-white-alter; // Color de la barra al hacer hover
 }
 
 /* Dark */
-
 .dark {
   ::-webkit-scrollbar-track {
     @apply bg-header-color-dark; // Color de fondo

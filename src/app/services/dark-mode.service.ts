@@ -35,7 +35,6 @@ export class DarkModeService {
 
   private updateUI() {
     document.documentElement.classList.toggle('dark', this.darkMode);
-    document.documentElement.classList.toggle('light');
     localStorage.setItem('dark', this.darkMode.toString());
   }
 }
