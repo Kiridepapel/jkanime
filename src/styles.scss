@@ -3,23 +3,38 @@
 @tailwind components;
 @tailwind utilities;
 
-// ::-webkit-scrollbar {
-//   width: 8px;
-//   height: 6px;
-// }
+::-webkit-scrollbar {
+  width: 10px;
+}
 
-// ::-webkit-scrollbar-track {
-//   @apply bg-fondo-scroll dark:bg-fondo-dark-scroll; /* Color de fondo */
-// }
+.light {
+  ::-webkit-scrollbar-track {
+    @apply bg-primary;
+  }
 
-// ::-webkit-scrollbar-thumb {
-//   @apply bg-primary dark:bg-primary-alter rounded; /* Color principal */
-// }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white-alter; // Color principal
+    border-radius: 6px;
+  }
 
-// ::-webkit-scrollbar-thumb:hover {
-//   @apply bg-primary; /* Color de la barra al hacer hover */
-// }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#c6c5c5]; // Color de la barra al hacer hover
+  }
+}
 
-// ::-webkit-scrollbar-button {
-//   display: none;
-// }
+/* Dark */
+
+.dark {
+  ::-webkit-scrollbar-track {
+    @apply bg-header-color-dark; // Color de fondo
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-secondary; // Color principal
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-secondary-alter; // Color de la barra al hacer hover
+  }
+}

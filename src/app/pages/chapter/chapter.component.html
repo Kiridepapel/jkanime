@@ -1,6 +1,6 @@
 @defer(when !isFetchingData) {
 <!-- @defer(when true) { -->
-  <section class="section py-6 text-sm max-lg:text-[13px] flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
+  <section class="section min-h-section py-6 text-sm max-lg:text-[13px] flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
     <div class="w-full min-h-8 px-4 max-md:px-0 flex justify-between items-center max-lg:flex-col max-lg:justify-start max-lg:gap-3">
       <h1 class="text-2xl font-normal font-oswald max-w-full whitespace-nowrap overflow-ellipsis inline-block overflow-hidden">
         {{ chapter.name.toUpperCase() }} - {{ chapter.actualChapter }}
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div (wheel)="horizontalScroll($event)" class="options scroll scroll-secondary w-full h-20 max-md:h-16 max-[500px]:text-[13px] px-5 flex justify-start items-center gap-3 rounded-md overflow-x-auto bg-secondary border-r-4 border-l-4 border-secondary">
+    <div class="options scroll scroll-secondary w-full h-20 max-md:h-16 max-[500px]:text-[13px] max-lg:text-[12px] px-5 flex justify-start items-center gap-3 rounded-md overflow-x-auto bg-secondary border-r-4 border-l-4 border-secondary">
       <!-- <P class="text-base max-md:text-sm font-mulish font-bold text-zinc-100">Servidores:</P> -->
       @for (srcOption of chapter.srcOptions; track $index) {
         <a (click)="selectSrc($index, srcOption.url)" class="font-bold font-mulish transition-all duration-700 px-3 py-2 rounded-md
@@ -35,7 +35,7 @@
 
     <div class="w-full px-5 max-md:px-0 flex flex-col justify-start items-center gap-5">
       <iframe
-        class="w-full h-150 max-2xl:h-140 max-xl:h-128 max-lg:h-112 max-md:h-96 rounded bg-black"
+        class="w-full h-[600px] max-2xl:h-[560px] max-xl:h-[512px] max-lg:h-[448px] max-md:h-[384px] rounded bg-black"
         [src]="mainSrcOption"
         loading="lazy"
         width="560"

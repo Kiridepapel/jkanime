@@ -1,19 +1,6 @@
 @import "../../../assets/styles/utils.scss";
 @import "../../../assets/styles/loaders.scss";
 
-// Titles in all page
-.title {
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    @apply bg-secondary;
-  }
-}
-
 // Temporada de Invierno 2024
 .jkinfo {
   background: #f69d13 url("https://cdn.jkdesu.com/jkinfo.png") left center;

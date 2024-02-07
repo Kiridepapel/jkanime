@@ -13,7 +13,7 @@ module.exports = {
         "tertiary": "#027BFF",
         "tertiary-alter": "#0069D9",
         // header
-        "header-color-dark": "#1A1A1A",
+        "header-color-dark": "#1F212B",
         // main
         "section-one": "#F7F7F7",
         "section-one-dark": "#303240",
@@ -40,6 +40,7 @@ module.exports = {
         "plr-section-xl": "10.25%",
         // top header
         "header": "76px",
+        "header-mobile": "56px",
         // otros
         "1.25": "5px",
       },
@@ -47,13 +48,9 @@ module.exports = {
         "header": "76px",
         "options-header": "calc(100vh - 76px)",
         "footer": "76px",
-        "150": "600px",
-        "140": "560px",
-        "128": "512px",
-        "112": "448px",
       },
       minHeight: {
-        "test": '400px',
+        "section": 'calc(100vh - (76px + 76px))',
       },
       minWidth: {
         "90": "360px",
@@ -61,9 +58,6 @@ module.exports = {
       fontFamily: {
         "oswald": ["Oswald", "sans-serif"],
         "mulish": ["Mulish", "sans-serif"],
-      },
-      fontSize: {
-        "13": "13px",
       },
     },
   },

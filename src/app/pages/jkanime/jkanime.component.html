@@ -1,6 +1,6 @@
 @defer(when !isLoading) {
   <!-- 1. Main animes -->
-  <section class="section pt-12 pb-6 max-sm:pt-4 max-sm:pb-8 bg-section-one dark:bg-section-one-dark">
+  <section class="section min-h-section pt-8 pb-6 max-sm:pt-4 max-sm:pb-8 bg-section-one dark:bg-section-one-dark">
     <!-- 1.1. Spring season -->
     <!-- <div class="jkinfo w-full h-28 rounded-xl bg-gray-800">
       <div class="infoc w-full h-full rounded-xl flex flex-col justify-center items-center">
@@ -43,7 +43,6 @@
           }
         </div>
         <!-- 1.2.2. Ovas, Onas, Especials -->
-        <!-- <div class="h-full max-xl:hidden"> -->
         <div class="h-full">
           <h2 class="border-l-4 border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] font-semibold font-oswald pl-4 flex items-center uppercase">OVAS / ONAS / ESPECIALES</h2>
           <div class="h-[calc(100%-4rem)] grid grid-cols-4 grid-rows-2 max-[500px]:grid-cols-2 max-[500px]:grid-rows-4 gap-x-8 gap-y-4 max-[1750px]:gap-x-6 max-[1650px]:gap-x-4 mt-4">
@@ -67,13 +66,13 @@
           <button (click)="select(0)" class="w-2/4 h-full rounded-l-lg active">Animes</button>
           <button (click)="select(1)" class="w-2/4 h-full rounded-r-lg">Donghuas</button>
         </div>
-        <div class="last-animes w-full h-full overflow-auto rounded-lg p-[5px] bg-[#e9e9e9] dark:bg-section-two-dark border-gray-700 scroll">
+        <div class="last-animes scroll w-full h-full overflow-auto rounded-lg p-[5px] bg-[#e9e9e9] dark:bg-section-two-dark border-gray-700">
           @for(chapter of activeList; track $index) {
             <a [href]="chapter.url" class="cursor-pointer last-chapter w-full flex justify-between items-center p-2 gap-2
               border-b border-gray-200 dark:border-gray-700 hover:bg-white-alter dark:hover:bg-section-one-dark">
               <div class="flex items-start w-full">
                 <img [src]="chapter.imgUrl" alt="Image of {{ chapter.name }}" class="w-28 h-20 rounded-md mr-3" [ngClass]="{'object-top' : chapter.date === undefined}">
-                <div class="font-mulish text-13 leading-[18px]">
+                <div class="font-mulish text-[13px] max-2xl:text-[12px] max-lg:text-[13px] leading-[18px]">
                   <h4 class="font-bold underline decoration-transparent duration-300 ease-in-out text-gray-600 dark:text-white">
                     {{ chapter.name }}
                     @if (chapter.type !== 'TV' && chapter.type !== 'Donghua') {
@@ -176,7 +175,7 @@
         <h2 class="border-l-4 self-start mb-6 border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">ÚLTIMOS ÁNIMES AGREGADOS</h2>
         <div class="w-full h-full grid grid-cols-4 max-[1650px]:grid-cols-3 max-xl:grid-cols-4 max-md:grid-cols-3 max-[500px]:grid-cols-2 gap-x-7 gap-y-5 max-xl:gap-x-5 max-xl:gap-y-3">
           @for (item of homeData.latestAddedAnimes; track $index) {
-            <app-anime-item [name]="item.name!" [imgUrl]="item.imgUrl" [url]="item.url" [type]="item.type" [state]="item.state"></app-anime-item>
+            <app-anime-item [name]="item.name!" [imgUrl]="item.imgUrl" [url]="item.url" [state]="item.state" [type]="item.type"></app-anime-item>
           }
         </div>
       </section>

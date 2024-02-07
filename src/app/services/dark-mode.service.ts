@@ -20,7 +20,7 @@ export class DarkModeService {
 
   public get darkModeStyles(): string {
     return this.darkMode ? 'text-2xl max-md:text-2xl' : 'text-3xl max-md:text-3xl';
-    return this.darkMode ? 'text-2xl max-md:text-2xl text-yellow-100' : 'text-3xl max-md:text-3xl text-purple-800';
+    // return this.darkMode ? 'text-2xl max-md:text-2xl text-yellow-100' : 'text-3xl max-md:text-3xl text-purple-800';
   }
 
   // public get darkModeText(): string {
@@ -35,6 +35,7 @@ export class DarkModeService {
 
   private updateUI() {
     document.documentElement.classList.toggle('dark', this.darkMode);
+    document.documentElement.classList.toggle('light');
     localStorage.setItem('dark', this.darkMode.toString());
   }
 }

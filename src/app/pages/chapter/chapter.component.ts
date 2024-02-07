@@ -15,7 +15,6 @@ import { CommonModule } from '@angular/common';
 export class ChapterComponent {
   @Input() chapterName!: string; // Nombre del capítulo
   public animeUrl!: string; // Pagina del path del anime
-
   public isFetchingData = true; // Se vuelve false cuando se termina de recibir todos los datos del backend
   public chapter!: ChapterDTO; // Información del capítulo recibido del backend
   public mainSrcIndex = 0; // Indice del src cargado inicialmente
@@ -41,14 +40,6 @@ export class ChapterComponent {
     } finally {
       this.isFetchingData = false;
     }
-  }
-
-  horizontalScroll(event: WheelEvent): void {
-    let scrollAmout: number = 100;
-    event.preventDefault();
-    const element = event.currentTarget as HTMLElement;
-    const scrollAmount = event.deltaY < 0 ? -scrollAmout : scrollAmout;
-    element.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   }
 
   public getPreviousChapterUrl() {

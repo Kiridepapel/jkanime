@@ -14,13 +14,13 @@
     </a>
     <!-- Options in desktop -->
     <div class="options justify-center items-center gap-2 flex max-lg:hidden" [class.expanded]="navState">
-      <a href="/directorio" class="button text rounded-lg grid place-items-center px-5 py-2">Directorio</a>
-      <a href="/horario" class="button text rounded-lg grid place-items-center px-5 py-2">Horario</a>
-      <a href="/top" class="button text rounded-lg grid place-items-center px-5 py-2">Top</a>
-      <a href="/youtube" class="button p-3 text rounded-lg">
+      <a href="/directorio" class="button rounded-lg grid place-items-center px-5 py-2">Directorio</a>
+      <a href="/horario" class="button rounded-lg grid place-items-center px-5 py-2">Horario</a>
+      <a href="/top" class="button rounded-lg grid place-items-center px-5 py-2">Top</a>
+      <a href="/youtube" class="button p-3 rounded-lg">
         <i class="w-5 grid place-items-center fa-brands fa-youtube"></i>
       </a>
-      <a href="facebook" class="button p-3 text rounded-lg">
+      <a href="facebook" class="button p-3 rounded-lg">
         <i class="w-5 grid place-items-center fa-brands fa-facebook-f"></i>
       </a>
     </div>
@@ -46,13 +46,13 @@
     <!-- Search form -->
     <form (ngSubmit)="searchAnime()" class="search relative max-sm:hidden text-white">
       <input type="text" placeholder="Buscar animes..." [(ngModel)]="searchQuery" name="searchQuery"
-        class="search h-auto text-md button outline-none rounded-3xl font-normal pl-5 pr-10 py-2 w-full">
+        class="search h-auto button outline-none rounded-3xl font-normal pl-5 pr-10 py-2 w-full">
       <button type="submit">
         <i class="search-icon fa-solid fa-magnifying-glass absolute right-0"></i>
       </button>
     </form>
     <!-- Profile button -->
-    <a class="cursor-pointer text-4xl max-lg:text-3xl w-7 text-white">
+    <a class="flex justify-center items-center cursor-pointer text-4xl max-lg:text-3xl w-7 text-white">
       <i class="fa fa-user-circle"></i>
     </a>
   </div>
