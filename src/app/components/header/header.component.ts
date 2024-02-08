@@ -4,6 +4,8 @@ import { DarkModeService } from '../../services/dark-mode.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { DarkMode } from '../../models/output.model';
 
 @Component({
   selector: 'app-header',
@@ -15,22 +17,25 @@ import { FormsModule } from '@angular/forms';
 export class HeaderComponent {
   public navState: boolean = false;
   public searchQuery: string = '';
+  // Darkmode
+  private darkModeSubscription!: Subscription;
+  public mode!: DarkMode;
 
   constructor(
     private router: Router,
     private darkModeService: DarkModeService,
-  ) {}
+  ) {
+    this.darkModeSubscription = this.darkModeService.darkMode$.subscribe((mode: DarkMode) => {
+      this.mode = mode;
+    });
+  }
+  
+  ngOnDestroy() {
+    this.darkModeSubscription.unsubscribe();
+  }
 
   public goTo(route: string) {
     this.router.navigate([route]);
-  }
-
-  public get darkModeIcon(): string {
-    return this.darkModeService.darkModeIcon;
-  }
-
-  public get darkModeStyles(): string {
-    return this.darkModeService.darkModeStyles;
   }
 
   public toggleDarkMode(event: Event) {
@@ -45,12 +50,18 @@ export class HeaderComponent {
   }
 
   public searchAnime(): void {
+    // Close keyboard on mobile
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+
+    // Close nav on mobile
     if (window.innerWidth < 640) {
       this.toggleNav();
     }
 
+    // Format query and navigate to search page with query and page 1
     let formattedQuery = this.searchQuery.trim().replace(/\s+/g, '_');
-    console.log("buscar: " + '/buscar', formattedQuery, '1');
     this.router.navigate(['/buscar', formattedQuery, '1']);
   }
 }

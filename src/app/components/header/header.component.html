@@ -41,7 +41,7 @@
   <div class="flex justify-center items-center gap-4">
     <!-- Dark mode button -->
     <a class="cursor-pointer w-7 grid place-items-center text-white" (click)="toggleDarkMode($event)">
-      <i class="{{ darkModeIcon }} {{ darkModeStyles }}"></i>
+      <i class="{{ mode.darkModeIcon }} {{ mode.darkModeStyles }}"></i>
     </a>
     <!-- Search form -->
     <form (ngSubmit)="searchAnime()" class="search relative max-sm:hidden text-white">
