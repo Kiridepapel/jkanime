@@ -1,7 +1,7 @@
 @if (type === 1) {
-  <div class="inline px-[10px] py-[1px] rounded-xl text-[10px] font-medium bg-[#E53637] text-white-alter" [ngClass]="{
+  <div class="inline px-[10px] py-[1px] rounded-xl text-[10px] font-medium bg-[#E53637] text-white" [ngClass]="{
     'bg-[#E53637]': bg === 'red' || category === 'Finalizado',
-    'bg-green-600': bg === 'green' || category === 'En emisión' || category === 'En emision',
+    'bg-green-400': bg === 'green' || category === 'En emisión' || category === 'En emision',
     'bg-primary': bg === 'primary',
     'bg-secondary': bg === 'secondary',
   }">

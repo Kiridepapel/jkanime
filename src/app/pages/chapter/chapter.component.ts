@@ -54,6 +54,10 @@ export class ChapterComponent {
     return `${this.animeUrl}/${Number(this.chapter.actualChapter) + 1}`;
   }
 
+  public isPenultimateChapter() {
+    return this.chapter.lastChapter - 1 === this.chapter.actualChapter;
+  }
+
   public selectSrc(index: number, url: string) {
     const optionsContainer = document.querySelector('.options');
 

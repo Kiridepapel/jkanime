@@ -70,7 +70,13 @@
       <div class="h-full flex-grow-0 flex-shrink-0 w-[calc(40%-20px)] max-md:h-10 max-md:w-full">
         @if (chapter.haveNextChapter) {
           <a [href]="getNextChapterUrl()" class="w-full h-full flex justify-center items-center gap-3 text-center rounded transition-all duration-700
-            bg-primary-alter hover:bg-primary-darkness">Siguiente capítulo<i class="fa-solid fa-arrow-trend-down"></i>
+            bg-primary-alter hover:bg-primary-darkness">
+            @if (isPenultimateChapter()) {
+              Capítulo final
+            } @else {
+              Siguiente capítulo
+            }
+            <i class="fa-solid fa-arrow-trend-down"></i>
           </a>
         } @else {
           <button type="button" class="w-full h-full grid place-items-center text-center rounded transition-all duration-700 bg-zinc-400 hover:bg-zinc-400" disabled>

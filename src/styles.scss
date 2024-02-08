@@ -8,27 +8,26 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-primary;
+  @apply bg-white;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-[#eaeaea]; // Color principal
-  border-radius: 6px;
+  @apply bg-primary; // Color principal
+  border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-white-alter; // Color de la barra al hacer hover
+  @apply bg-primary-alter; // Color de la barra al hacer hover
 }
 
 /* Dark */
 .dark {
   ::-webkit-scrollbar-track {
-    @apply bg-header-color-dark; // Color de fondo
+    @apply bg-[#2a2d39]; // Color de fondo
   }
 
   ::-webkit-scrollbar-thumb {
     @apply bg-secondary; // Color principal
-    border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
