@@ -41,12 +41,15 @@ export class JKAnimeComponent {
   // Owl carousel
   carouselOptions: OwlOptions = {
     loop: true,
+    autoplay: true,
+    autoWidth: true,
+    autoplayTimeout: 5000,
+    autoplaySpeed: 900,
     mouseDrag: true,
     touchDrag: false,
     pullDrag: false,
     dots: true,
-    navSpeed: 700,
-    navText: ['<', '>'],
+    navSpeed: 900,
     responsive: {
       0: {
         items: 1
@@ -61,7 +64,7 @@ export class JKAnimeComponent {
         items: 1
       }
     },
-    nav: true
+    // nav: true
   };
 
   constructor(

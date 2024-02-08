@@ -6,35 +6,9 @@
 owl-carousel-o {
   // .owl-stage {
   //   .owl-item {
-      
+
   //   }
   // }
-
-  .owl-nav {
-    margin: 0 !important;
-    width: calc(100% + 36px);
-    height: 36px;
-    position: absolute;
-    top: calc(50% - 18px);
-    left: -16px;
-    z-index: 120;
-    display: flex;
-    justify-content: space-between;
-
-    .owl-prev, .owl-next {
-      width: 36px;
-      margin: 0 !important;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #4DA8E2 !important;
-      transition: background 0.5s ease-in-out;
-
-      &:hover {
-        background: #1D95CF !important;
-      }
-    }
-  }
 
   .owl-dots {
     width: 100%;
@@ -49,14 +23,14 @@ owl-carousel-o {
       margin: 0 !important;
 
       span {
-        background: #B7B7B7 !important;
+        background: #b7b7b7 !important;
         margin: 0 !important;
         width: 8px !important;
         height: 8px !important;
       }
 
       &.active span {
-        background: #FFFFFF !important;
+        background: #ffffff !important;
       }
     }
   }
@@ -92,5 +66,13 @@ owl-carousel-o {
 
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-secondary-alter; // Color de la barra al hacer hover
+  }
+}
+
+@media screen and (max-width: 640px) {
+  owl-carousel-o {
+    .owl-nav {
+      display: none;
+    }
   }
 }

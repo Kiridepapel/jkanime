@@ -11,11 +11,13 @@
       </div>
     </div> -->
     
-    <div class="flex w-[calc(100%-(360px+32px))] max-xl:w-full h-full max-xl:flex-col max-xl:items-center gap-8 max-xl:gap-6">
+    <div class="flex w-[calc(100%-(360px+32px))] max-[1800px]:w-[calc(100%-(330px+32px))] max-xl:w-full h-full max-xl:flex-col max-xl:items-center gap-8 max-xl:gap-6">
       <section class="flex flex-col gap-4 w-full max-xl:w-[80%] max-lg:w-full max-xl:gap-6">
         <!-- 1.2.1. Slider -->
-        <div class="relative max-w-full max-lg:max-w-full min-h-[397px] max-sm:min-h-[427px] rounded-md overflow-hidden">
-          <owl-carousel-o [options]="carouselOptions" class="">
+        <div class="relative max-w-full min-h-[397px] max-sm:min-h-[427px] rounded-md overflow-hidden">
+          <button (click)="owlCar.prev()" class="absolute z-[60] top-[calc(50%-18px)] left-[-18px] w-[36px] h-[36px] bg-primary rounded-[3px] max-sm:hidden"></button>
+          <button (click)="owlCar.next()" class="absolute z-[60] top-[calc(50%-18px)] right-[-18px] w-[36px] h-[36px] bg-primary rounded-[3px] max-sm:hidden"></button>
+          <owl-carousel-o [options]="carouselOptions" #owlCar>
             @for (item of homeData.sliderAnimes; track $index) {
               <ng-template carouselSlide>
                 <div class="w-full min-h-[397px] max-sm:min-h-[427px] p-[50px] max-sm:p-[40px] ">
@@ -30,7 +32,6 @@
                   </div>
                   <div class="absolute top-0 left-0 w-full h-full rounded-md z-[40] bg-black bg-opacity-40"></div>
                   <img [src]="item.imgUrl" class="slide-img absolute top-[-25px] left-0 w-full h-[calc(100%+25px)] rounded-md max-md:object-cover z-[30]" alt="Image of {{ item.name }}">
-              
                 </div>
               </ng-template>
             }
