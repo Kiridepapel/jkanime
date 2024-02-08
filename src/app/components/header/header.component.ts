@@ -1,16 +1,15 @@
 import { Component, Input } from '@angular/core';
-import { ButtonComponent } from '../button/button.component';
 import { DarkModeService } from '../../services/dark-mode.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { DarkMode } from '../../models/output.model';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ButtonComponent, FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

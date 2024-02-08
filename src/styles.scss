@@ -3,8 +3,68 @@
 @tailwind components;
 @tailwind utilities;
 
+owl-carousel-o {
+  // .owl-stage {
+  //   .owl-item {
+      
+  //   }
+  // }
+
+  .owl-nav {
+    margin: 0 !important;
+    width: calc(100% + 36px);
+    height: 36px;
+    position: absolute;
+    top: calc(50% - 18px);
+    left: -16px;
+    z-index: 120;
+    display: flex;
+    justify-content: space-between;
+
+    .owl-prev, .owl-next {
+      width: 36px;
+      margin: 0 !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #4DA8E2 !important;
+      transition: background 0.5s ease-in-out;
+
+      &:hover {
+        background: #1D95CF !important;
+      }
+    }
+  }
+
+  .owl-dots {
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    height: 8px;
+
+    .owl-dot {
+      margin: 0 !important;
+
+      span {
+        background: #B7B7B7 !important;
+        margin: 0 !important;
+        width: 8px !important;
+        height: 8px !important;
+      }
+
+      &.active span {
+        background: #FFFFFF !important;
+      }
+    }
+  }
+}
+
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {

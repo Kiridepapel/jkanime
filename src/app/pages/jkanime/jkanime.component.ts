@@ -1,37 +1,68 @@
+// Modules
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../components/button/button.component';
-import { AnimeService } from '../../services/anime.service';
-import { HomePageDTO } from '../../models/page.model';
-import { Router } from '@angular/router';
-import { ChapterDataDTO } from '../../models/individual.model';
-import { ChapterItemComponent } from '../../components/chapter-item/chapter-item.component';
 import { CommonModule } from '@angular/common';
-import { TagComponent } from '../../components/tag/tag.component';
-import { AnimeItemComponent } from '../../components/anime-item/anime-item.component';
-import { DarkMode } from '../../models/output.model';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
+// Components
+import { AnimeItemComponent } from '../../components/anime-item/anime-item.component';
+import { ChapterItemComponent } from '../../components/chapter-item/chapter-item.component';
+// Models
+import { DarkMode } from '../../models/output.model';
+import { HomePageDTO } from '../../models/page.model';
+import { ChapterDataDTO } from '../../models/individual.model';
+// Services
 import { DarkModeService } from '../../services/dark-mode.service';
+import { AnimeService } from '../../services/anime.service';
+// Others
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-jkanime',
   standalone: true,
   imports: [
-    ButtonComponent,
+    CommonModule,
     AnimeItemComponent,
     ChapterItemComponent,
-    CommonModule,
+    CarouselModule,
   ],
   templateUrl: './jkanime.component.html',
   styleUrl: './jkanime.component.scss',
 })
 export class JKAnimeComponent {
+  // Home page
   public isLoading = true;
   public homeData!: HomePageDTO;
   public activeList!: ChapterDataDTO[];
   public timer: any;
-
+  // Darkmode
   private darkModeSubscription!: Subscription;
   public mode!: DarkMode;
+  // Owl carousel
+  carouselOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: false,
+    pullDrag: false,
+    dots: true,
+    navSpeed: 700,
+    navText: ['<', '>'],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      }
+    },
+    nav: true
+  };
 
   constructor(
     private animeService: AnimeService,

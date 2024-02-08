@@ -2,7 +2,7 @@
   <!-- 1. Main animes -->
   <section class="section min-h-section pt-8 pb-6 max-sm:pt-4 max-sm:pb-8 bg-section-one dark:bg-section-one-dark">
     <!-- 1.1. Spring season -->
-    <!-- <div class="jkinfo w-full h-28 rounded-xl bg-gray-800">
+    <!-- <div class="jkinfo w-full h-28 mb-10 rounded-xl bg-gray-800">
       <div class="infoc w-full h-full rounded-xl flex flex-col justify-center items-center">
         <h2 class="text-xl pb-3 text-white">Temporada Invierno 2024</h2>
         <a href="/directorio/estrenos" class="py-2 px-56 max-md:px-8 transition-colors rounded-md cursor-pointer
@@ -11,36 +11,30 @@
       </div>
     </div> -->
     
-    <div class="flex w-full h-full max-xl:flex-col max-xl:items-center gap-8 max-xl:gap-6">
+    <div class="flex w-[calc(100%-(360px+32px))] max-xl:w-full h-full max-xl:flex-col max-xl:items-center gap-8 max-xl:gap-6">
       <section class="flex flex-col gap-4 w-full max-xl:w-[80%] max-lg:w-full max-xl:gap-6">
         <!-- 1.2.1. Slider -->
-        <div class="relative w-full min-h-[397px] max-sm:min-h-[427px] rounded-md py-[50px] pl-[50px] pr-[25px] max-sm:py-[40px] max-sm:pl-[25px] overflow-hidden">
-          <button class="absolute z-[60] top-[calc(50%-18px)] left-[-18px] w-[36px] h-[36px] bg-primary rotate-90 max-sm:hidden"></button>
-          <button class="absolute z-[60] top-[calc(50%-18px)] right-[-18px] w-[36px] h-[36px] bg-primary rotate-90 max-sm:hidden"></button>
-          <div class="absolute bottom-[10px] left-0 z-[60] w-full h-2 flex flex-wrap justify-center items-center gap-[10px] px-2">
+        <div class="relative max-w-full max-lg:max-w-full min-h-[397px] max-sm:min-h-[427px] rounded-md overflow-hidden">
+          <owl-carousel-o [options]="carouselOptions" class="">
             @for (item of homeData.sliderAnimes; track $index) {
-              @if ($index === 0) {
-                <button class="w-2 h-2 bg-white rounded-[50%]"></button>
-              } @else {
-                <button class="w-2 h-2 bg-[#B7B7B7] rounded-[50%]"></button>
-              }
-            }
-          </div>
-          @for (item of homeData.sliderAnimes; track $index) {
-            @if ($index === 0) {
-              <div class="h-full relative z-[50]">
-                <h3 class="text-[42px] max-[1800px]:text-[36px] max-sm:text-[30px] font-bold font-oswald mb-2 text-white-alter">{{ item.name }}</h3>
-                <a [href]="item.url" class="text-[13px] font-bold font-mulish uppercase tracking-[2px] h-[47.5px] inline-flex gap-[6px] text-white-alter">
-                  <span class="h-full flex items-center px-5 rounded-tl-[4px] rounded-bl-[4px] bg-secondary ">Ver ahora</span>
-                  <div class="inline-flex items-center h-full px-1  rounded-tr-[4px] rounded-br-[4px] bg-secondary">
-                    <i class="fa-solid fa-chevron-right"></i>
+              <ng-template carouselSlide>
+                <div class="w-full min-h-[397px] max-sm:min-h-[427px] p-[50px] max-sm:p-[40px] ">
+                  <div class="h-full relative z-[50]">
+                    <h3 class="text-[42px] max-[1800px]:text-[36px] max-sm:text-[30px] font-bold font-oswald mb-2 text-white-alter">{{ item.name }}</h3>
+                    <a [href]="item.url" class="text-[13px] font-bold font-mulish uppercase tracking-[2px] h-[47.5px] inline-flex gap-[6px] text-white-alter">
+                      <span class="h-full flex items-center px-5 rounded-tl-[4px] rounded-bl-[4px] bg-secondary ">Ver ahora</span>
+                      <div class="inline-flex items-center h-full px-1  rounded-tr-[4px] rounded-br-[4px] bg-secondary">
+                        <i class="fa-solid fa-chevron-right"></i>
+                      </div>
+                    </a>
                   </div>
-                </a>
-              </div>
-              <div class="absolute top-0 left-0 w-full h-full rounded-md z-[40] bg-black bg-opacity-40"></div>
-              <img [src]="item.imgUrl" class="slide-img absolute top-[-25px] left-0 w-full h-[calc(100%+25px)] rounded-md max-md:object-cover z-[30]" alt="Image of {{ item.name }}">
+                  <div class="absolute top-0 left-0 w-full h-full rounded-md z-[40] bg-black bg-opacity-40"></div>
+                  <img [src]="item.imgUrl" class="slide-img absolute top-[-25px] left-0 w-full h-[calc(100%+25px)] rounded-md max-md:object-cover z-[30]" alt="Image of {{ item.name }}">
+              
+                </div>
+              </ng-template>
             }
-          }
+          </owl-carousel-o>
         </div>
         <!-- 1.2.2. Ovas, Onas, Especials -->
         <div class="h-full">
