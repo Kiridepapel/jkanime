@@ -100,12 +100,6 @@
   }
 }
 
-@media screen and (min-width: 2400px) {
-  .slide-img {
-    @apply object-cover;
-  }
-}
-
 @media screen and (max-width: 1280px) {
   .top {
     height: 100%;

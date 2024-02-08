@@ -3,39 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-owl-carousel-o {
-  // .owl-stage {
-  //   .owl-item {
-
-  //   }
-  // }
-
-  .owl-dots {
-    width: 100%;
-    position: absolute;
-    bottom: 10px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    height: 8px;
-
-    .owl-dot {
-      margin: 0 !important;
-
-      span {
-        background: #b7b7b7 !important;
-        margin: 0 !important;
-        width: 8px !important;
-        height: 8px !important;
-      }
-
-      &.active span {
-        background: #ffffff !important;
-      }
-    }
-  }
-}
-
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
