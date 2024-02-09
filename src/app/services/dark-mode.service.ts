@@ -24,13 +24,12 @@ export class DarkModeService {
     this.updateUI();
   }
 
-  public toggleDarkMode(event: Event) {
-    event.preventDefault();
+  public toggleDarkMode() {
     this.darkMode = !this.darkMode;
     this.saveNext();
     this.updateUI();
   }
-  
+
   public get darkMode$() {
     return this.darkModeSubject.asObservable();
   }

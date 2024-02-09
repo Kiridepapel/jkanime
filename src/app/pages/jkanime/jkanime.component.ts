@@ -85,7 +85,6 @@ export class JKAnimeComponent {
         } else {
           this.positionCarousel++;
         }
-        console.log(this.positionCarousel);
       }
     }, 5000);
   }
@@ -143,8 +142,8 @@ export class JKAnimeComponent {
     }
   }
 
-  public toggleDarkMode(event: Event) {
-    this.darkModeService.toggleDarkMode(event);
+  public toggleDarkMode() {
+    this.darkModeService.toggleDarkMode();
   }
 
   public getGridArea(position: number): string {

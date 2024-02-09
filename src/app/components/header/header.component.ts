@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 export class HeaderComponent {
   public navState: boolean = false;
   public searchQuery: string = '';
+  public searchPlaceholder: string = '';
   // Darkmode
   private darkModeSubscription!: Subscription;
   private languageSubscription!: Subscription;
@@ -35,17 +36,35 @@ export class HeaderComponent {
       this.language = language;
     });
   }
+
+  public ngOnInit() {
+    this.variablesTranslate();
+  }
   
   ngOnDestroy() {
     this.darkModeSubscription.unsubscribe();
+    this.languageSubscription.unsubscribe();
   }
 
-  public goTo(route: string) {
-    this.router.navigate([route]);
+  public variablesTranslate(): void {
+    this.searchPlaceholder = this.language.value === 'es' ? 'Buscar animes...' : 'Search animes...';
   }
 
-  public toggleDarkMode(event: Event) {
-    this.darkModeService.toggleDarkMode(event);
+  public textTranslate(spanish: string, english: string): string {
+    return this.languageService.textTranslate(spanish, english);
+  }
+
+  public goToTranslate(spanish: string, english?: string) {
+    return this.languageService.goToTranslate(spanish, english);
+  }
+
+  public toggleDarkMode() {
+    this.darkModeService.toggleDarkMode();
+  }
+
+  public toggleLanguage() {
+    this.languageService.toggleLanguage();
+    this.variablesTranslate();
   }
 
   public toggleNav() {
@@ -66,8 +85,11 @@ export class HeaderComponent {
       this.toggleNav();
     }
 
+    // Traduction
+    let value = this.language.value === 'es' ? '/buscar' : '/search';
+
     // Format query and navigate to search page with query and page 1
     let formattedQuery = this.searchQuery.trim().replace(/\s+/g, '_');
-    this.router.navigate(['/buscar', formattedQuery, '1']);
+    this.router.navigate([value, formattedQuery, '1']);
   }
 }
