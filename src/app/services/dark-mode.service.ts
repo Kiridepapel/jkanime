@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { DarkMode } from '../models/output.model';
+import { Mode } from '../models/output.model';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DarkModeService {
   private darkMode: boolean = true;
-  private darkModeSubject = new BehaviorSubject<DarkMode>({
-    darkMode: this.darkMode,
-    darkModeIcon: this.darkMode ? 'fa-regular fa-sun' : 'fa-solid fa-moon',
-    darkModeStyles: this.darkMode ? 'text-2xl max-md:text-2xl' : 'text-3xl max-md:text-3xl',
+  private darkModeSubject = new BehaviorSubject<Mode>({
+    value: this.darkMode,
+    icon: this.darkMode ? 'fa-regular fa-sun' : 'fa-solid fa-moon',
+    styles: this.darkMode ? 'text-2xl max-md:text-2xl' : 'text-3xl max-md:text-3xl',
   });
 
   public initDarkMode() {
@@ -30,16 +30,16 @@ export class DarkModeService {
     this.saveNext();
     this.updateUI();
   }
-
+  
   public get darkMode$() {
     return this.darkModeSubject.asObservable();
   }
 
   private saveNext(): void {
     this.darkModeSubject.next({
-      darkMode: this.darkMode,
-      darkModeIcon: this.darkMode ? 'fa-regular fa-sun' : 'fa-solid fa-moon',
-      darkModeStyles: this.darkMode ? 'text-2xl max-md:text-2xl' : 'text-3xl max-md:text-3xl',
+      value: this.darkMode,
+      icon: this.darkMode ? 'fa-regular fa-sun' : 'fa-solid fa-moon',
+      styles: this.darkMode ? 'text-2xl max-md:text-2xl' : 'text-3xl max-md:text-3xl',
     });
   }
 

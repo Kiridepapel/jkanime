@@ -1,15 +1,12 @@
 <div class="w-full h-header flex justify-center max-lg:justify-between max-lg:section max-lg:px-5 gap-10 bg-primary text-white dark:bg-header-color-dark transition-all duration-600">  
   <div class="flex justify-center items-center gap-10 text-white">
     <!-- Logo in desktop -->
-    <a href="/" class="cursor-pointer max-w-36 grid place-items-center max-lg:hidden">
-      <img
-        src="../../../assets/imgs/jkanime.webp"
-        alt=""
-        class="transition-all duration-900 hover:rotate-[-2deg]"
+    <a href="/" class="cursor-pointer max-w-40 grid place-items-center max-lg:hidden">
+      <img src="../../../assets/imgs/jkanime.webp" alt="" class="transition-all duration-900 hover:rotate-[-2deg]"
       />
     </a>
     <!-- Logo in mobile -->
-    <a href="/" class="cursor-pointer w-8 hidden max-lg:block">
+    <a href="/" class="cursor-pointer w-10 hidden max-lg:block transition-all duration-900 hover:rotate-[-2deg]">
       <img src="../../../assets/imgs/jk.webp" alt="">
     </a>
     <!-- Options in desktop -->
@@ -41,7 +38,7 @@
   <div class="flex justify-center items-center gap-4">
     <!-- Dark mode button -->
     <a class="cursor-pointer w-7 grid place-items-center text-white" (click)="toggleDarkMode($event)">
-      <i class="{{ mode.darkModeIcon }} {{ mode.darkModeStyles }}"></i>
+      <i class="{{ dark.icon }} {{ dark.styles }}"></i>
     </a>
     <!-- Search form -->
     <form (ngSubmit)="searchAnime()" class="search relative max-sm:hidden text-white">

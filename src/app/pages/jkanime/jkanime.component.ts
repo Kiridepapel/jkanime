@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { AnimeItemComponent } from '../../components/anime-item/anime-item.component';
 import { ChapterItemComponent } from '../../components/chapter-item/chapter-item.component';
 // Models
-import { DarkMode } from '../../models/output.model';
+import { Mode } from '../../models/output.model';
 import { HomePageDTO } from '../../models/page.model';
 import { ChapterDataDTO } from '../../models/individual.model';
 // Services
@@ -33,7 +33,7 @@ export class JKAnimeComponent {
   public timer: any;
   // Darkmode
   private darkModeSubscription!: Subscription;
-  public mode!: DarkMode;
+  public dark!: Mode;
   // Carousel
   private timerCarousel: any;
   public positionCarousel = 0;
@@ -46,8 +46,8 @@ export class JKAnimeComponent {
     private darkModeService: DarkModeService,
     private router: Router
   ) {
-    this.darkModeSubscription = this.darkModeService.darkMode$.subscribe((mode: DarkMode) => {
-      this.mode = mode;
+    this.darkModeSubscription = this.darkModeService.darkMode$.subscribe((mode: Mode) => {
+      this.dark = mode;
     });
   }
 

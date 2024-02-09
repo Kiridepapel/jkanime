@@ -1,9 +1,10 @@
+import { LanguageService } from './../../services/language.service';
 import { Component, Input } from '@angular/core';
 import { DarkModeService } from '../../services/dark-mode.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DarkMode } from '../../models/output.model';
+import { Mode } from '../../models/output.model';
 import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
@@ -18,14 +19,20 @@ export class HeaderComponent {
   public searchQuery: string = '';
   // Darkmode
   private darkModeSubscription!: Subscription;
-  public mode!: DarkMode;
+  private languageSubscription!: Subscription;
+  public dark!: Mode;
+  public language!: Mode;
 
   constructor(
     private router: Router,
     private darkModeService: DarkModeService,
+    private languageService: LanguageService,
   ) {
-    this.darkModeSubscription = this.darkModeService.darkMode$.subscribe((mode: DarkMode) => {
-      this.mode = mode;
+    this.darkModeSubscription = this.darkModeService.darkMode$.subscribe((dark: Mode) => {
+      this.dark = dark;
+    });
+    this.languageSubscription = this.languageService.language$.subscribe((language: Mode) => {
+      this.language = language;
     });
   }
   

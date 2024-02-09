@@ -80,7 +80,7 @@
         <div class="min-h-[30px] max-md:min-h-[24px] flex justify-between gap-3">
           <h2 class="h-[30px] flex border-l-4 self-start border-secondary text-dark-alter dark:text-white text-[18px] max-md:text-[16px] font-semibold font-oswald pl-3 items-center uppercase">PROGRAMACIÓN</h2>
           <div class="min-w-[188px] max-md:min-w-[175px] max-[350px]:min-w-[auto] max-[350px]:justify-end flex gap-1">
-            <button (click)="toggleDarkMode($event)" class="darkmode-btn flex items-center gap-3 w-full h-full px-[6px] rounded-2xl" [ngClass]="{'active': mode.darkMode}">
+            <button (click)="toggleDarkMode($event)" class="darkmode-btn flex items-center gap-3 w-full h-full px-[6px] rounded-2xl" [ngClass]="{'active': dark.value}">
               <i class="fa-solid fa-circle text-[22px] max-md:text-[18px]"></i>
               <span class="text-[15px] max-md:text-[14px] max-sm:text-[13px] h-full flex items-center">Modo noche</span>
             </button>
@@ -115,7 +115,7 @@
                   <p class="inline-block mt-[2px] ml-2 text-gray-400 font-semibold">{{ chapter.date }}</p>
                 </div>
               </div>
-              <img src="../../../assets/imgs/flecha.svg" alt="Ir" class="max-w-6 max-h-8 max-[350px]:hidden">
+              <img src="../../../assets/svgs/flecha.svg" alt="Ir" class="max-w-6 max-h-8 max-[350px]:hidden">
             </a>
           }
         </div>

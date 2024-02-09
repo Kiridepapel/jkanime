@@ -11,21 +11,31 @@ import { SearchComponent } from './pages/search/search.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: JKAnimeComponent },
-
-  // Ruta para manejar errores
   { path: 'error', component: ErrorComponent },
 
-  // Rutas estáticas
+  // ? Rutas estáticas
+  // General
+  // TODO: Español
   { path: 'directorio', component: DirectoryComponent },
   { path: 'directorio/estrenos', component: PremiereComponent },
   { path: 'horario', component: ScheduleComponent },
+  // TODO: English
+  { path: 'directory', component: DirectoryComponent },
+  { path: 'directory/premieres', component: PremiereComponent },
+  { path: 'schedule', component: ScheduleComponent },
+  // TODO: Español & English
   { path: 'top', component: TopComponent },
 
-  // Rutas dinámicas
+  // ? Rutas dinámicas
   // Búsqueda
+  // TODO: Español
   { path: 'buscar/:anime', component: SearchComponent },
   { path: 'buscar/:anime/:page', component: SearchComponent },
+  // TODO: English
+  { path: 'search/:anime', component: SearchComponent },
+  { path: 'search/:anime/:page', component: SearchComponent },
   // Animes
+  // TODO: Español & English
   { path: ':anime', component: AnimeComponent },
   { path: ':anime/:chapter', component: ChapterComponent },
 

@@ -3,8 +3,8 @@ export class ResponseDTO {
   status!: number;
 }
 
-export class DarkMode {
-  darkMode!: boolean;
-  darkModeIcon!: string;
-  darkModeStyles!: string;
+export class Mode {
+  value!: any;
+  icon?: string;
+  styles?: string;
 }
