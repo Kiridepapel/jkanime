@@ -14,7 +14,8 @@ export class AnimeInfoDTO {
   name!: string;
   alternativeName!: string;
   imgUrl!: string;
-  sinopsis!: string;
+  synopsis!: string;
+  synopsisTranslated!: string;
   trailer!: string;
   likes!: number;
   

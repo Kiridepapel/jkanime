@@ -10,39 +10,42 @@ export class DarkModeService {
   private darkModeSubject = new BehaviorSubject<Mode>({
     value: this.darkMode,
     icon: this.darkMode ? 'fa-regular fa-sun' : 'fa-solid fa-moon',
-    styles: this.darkMode ? 'text-2xl max-md:text-2xl' : 'text-3xl max-md:text-3xl',
+    styles: this.darkMode
+      ? 'text-2xl max-md:text-2xl'
+      : 'text-3xl max-md:text-3xl',
   });
 
   public initDarkMode() {
-    if (!localStorage.getItem('dark')) {
+  if (!localStorage.getItem('dark')) {
       localStorage.setItem('dark', this.darkMode.toString());
     }
 
-    // Similar to toggleDarkMode
     this.darkMode = localStorage.getItem('dark') === 'true';
     this.saveNext();
-    this.updateUI();
-  }
-
-  public toggleDarkMode() {
-    this.darkMode = !this.darkMode;
-    this.saveNext();
-    this.updateUI();
+    this.saveLocalStorage();
   }
 
   public get darkMode$() {
     return this.darkModeSubject.asObservable();
   }
 
+  public toggleDarkMode() {
+    this.darkMode = !this.darkMode;
+    this.saveNext();
+    this.saveLocalStorage();
+  }
+
   private saveNext(): void {
     this.darkModeSubject.next({
       value: this.darkMode,
       icon: this.darkMode ? 'fa-regular fa-sun' : 'fa-solid fa-moon',
-      styles: this.darkMode ? 'text-2xl max-md:text-2xl' : 'text-3xl max-md:text-3xl',
+      styles: this.darkMode
+        ? 'text-2xl max-md:text-2xl'
+        : 'text-3xl max-md:text-3xl',
     });
   }
 
-  private updateUI() {
+  private saveLocalStorage() {
     document.documentElement.classList.toggle('dark', this.darkMode);
     localStorage.setItem('dark', this.darkMode.toString());
   }

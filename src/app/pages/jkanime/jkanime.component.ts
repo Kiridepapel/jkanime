@@ -13,6 +13,7 @@ import { ChapterDataDTO } from '../../models/individual.model';
 // Services
 import { DarkModeService } from '../../services/dark-mode.service';
 import { AnimeService } from '../../services/anime.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-jkanime',
@@ -31,9 +32,13 @@ export class JKAnimeComponent {
   public homeData!: HomePageDTO;
   public activeList!: ChapterDataDTO[];
   public timer: any;
-  // Darkmode
+  // Subscriptions
   private darkModeSubscription!: Subscription;
+  private languageSubscription!: Subscription;
   public dark!: Mode;
+  public language!: Mode;
+  // Translate variables
+  public translations!: {[key: string]: string};
   // Carousel
   private timerCarousel: any;
   public positionCarousel = 0;
@@ -42,34 +47,40 @@ export class JKAnimeComponent {
   public isDragging = false;
 
   constructor(
+    private router: Router,
     private animeService: AnimeService,
     private darkModeService: DarkModeService,
-    private router: Router
+    private languageService: LanguageService,
   ) {
     this.darkModeSubscription = this.darkModeService.darkMode$.subscribe((mode: Mode) => {
       this.dark = mode;
     });
+    this.languageSubscription = this.languageService.language$.subscribe((language: Mode) => {
+      this.language = language;
+      this.variablesTranslate();
+      this.changeTitle();
+    });
   }
 
   async ngOnInit() {
-    document.title = 'Cargando...';
-
     try {
       await this.animeService
         .getGenericData('animes')
         .then((data: HomePageDTO) => {
           this.homeData = data;
-          document.title = 'Ver ánime online';
           this.activeList = this.homeData.animesProgramming;
           this.startTimerCarousel();
         });
     } finally {
       this.isLoading = false;
+      this.changeTitle();
     }
   }
   
   ngOnDestroy() {
     this.darkModeSubscription.unsubscribe();
+    this.languageSubscription.unsubscribe();
+
     if (this.timerCarousel) {
       clearInterval(this.timerCarousel);
     }
@@ -198,5 +209,42 @@ export class JKAnimeComponent {
       index == 0
         ? this.homeData.animesProgramming
         : this.homeData.donghuasProgramming;
+  }
+
+  private changeTitle() {
+    if (this.isLoading) {
+      document.title = this.textTranslate('Cargando', 'Loading') + '...';
+    } else {
+      document.title = this.textTranslate('Ver ánime online', 'Watch anime online');
+    }
+  }
+  
+  public variablesTranslate(): void {
+    this.translations = {
+      'Hoy': this.language.value === 'es' ? 'Hoy' : 'Today',
+      'Ayer': this.language.value === 'es' ? 'Ayer' : 'Yesterday',
+      'Hace 2 días': this.language.value === 'es' ? 'Hace 2 días' : '2 days ago',
+      'Hace 3 días': this.language.value === 'es' ? 'Hace 3 días' : '3 days ago',
+      'Hace 4 días': this.language.value === 'es' ? 'Hace 4 días' : '4 days ago',
+      'Hace 5 días': this.language.value === 'es' ? 'Hace 5 días' : '5 days ago',
+      'Hace 6 días': this.language.value === 'es' ? 'Hace 6 días' : '6 days ago',
+      'Hace 7 días': this.language.value === 'es' ? 'Hace 7 días' : '7 days ago',
+    }
+  }
+
+  public dynamicTranslate(key: string): string {
+    if (this.translations.hasOwnProperty(key)) {
+      return this.translations[key];
+    }
+
+    return key;
+  }
+
+  public textTranslate(spanish: string, english: string): string {
+    return this.languageService.textTranslate(spanish, english);
+  }
+
+  public urlTranslate(spanish: string, english?: string) {
+    return this.languageService.urlTranslate(spanish, english);
   }
 }

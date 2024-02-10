@@ -1,5 +1,8 @@
+import { LanguageService } from './../../services/language.service';
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { Mode } from '../../models/output.model';
 
 @Component({
   selector: 'app-tag',
@@ -9,6 +12,10 @@ import { Component, Input } from '@angular/core';
   styleUrl: './tag.component.scss'
 })
 export class TagComponent {
+  // Subscriptions
+  private languageSubscription!: Subscription;
+  public language!: Mode;
+
   @Input() public type!: number;
 
   // type 0: none
@@ -18,5 +25,29 @@ export class TagComponent {
   // type 2: chapter
   @Input() public chapter?: string;
   @Input() public viewed?: boolean = false;
+
+  constructor(private languageService: LanguageService) {
+    this.languageSubscription = this.languageService.language$.subscribe((language) => {
+      this.language = language;
+    });
+  }
+
+  ngOnDestroy() {
+    this.languageSubscription.unsubscribe();
+  }
+
+  public textTranslate(spanish: string, english: string): string {
+    return this.languageService.textTranslate(spanish, english);
+  }
+
+  public defaultTranslate(text: string): string {
+    if (text.includes('Pelicula')) {
+      return text.replace('Pelicula', this.textTranslate('Pelicula', 'Movie'));
+    }
+    if (text.includes('Especial')) {
+      return text.replace('Especial', this.textTranslate('Especial', 'Special'));
+    }
+    return text;
+  }
 
 }

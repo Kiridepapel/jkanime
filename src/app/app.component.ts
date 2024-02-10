@@ -1,3 +1,4 @@
+import { LanguageService } from './services/language.service';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
@@ -24,16 +25,13 @@ import { FooterComponent } from './components/footer/footer.component';
 export class AppComponent {
   title = 'JKanime';
 
-  myData: any = {
-    title: 'JKanime',
-    description: 'JKanime es un sitio web de anime online gratis sin restricciones.',
-    image: 'https://jkanime.net/img/logo.png',
-    url: 'https://jkanime.net/',
-  };
-
-  constructor(private darkModeService: DarkModeService) {}
+  constructor(
+    private darkModeService: DarkModeService,
+    private languageService: LanguageService
+  ) {}
 
   ngOnInit() {
     this.darkModeService.initDarkMode();
+    this.languageService.initLanguage();
   }
 }

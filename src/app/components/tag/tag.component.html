@@ -5,17 +5,24 @@
     'bg-primary': bg === 'primary',
     'bg-secondary': bg === 'secondary',
   }">
-    <span class="relative top-[-1px]">{{ category }}</span>
+    <!-- Translations -->
+    @if (category === 'Finalizado' || category === 'Concluido') {
+      <span class="relative top-[-1px]">{{ textTranslate('Finalizado', 'Finished') }}</span>
+    } @else if (category === 'En emisión' || category === 'En emision') {
+      <span class="relative top-[-1px]">{{ textTranslate('En emisión', 'In emision') }}</span>
+    } @else {
+      <span class="relative top-[-1px]">{{ defaultTranslate(category) }}</span>
+    }
   </div>
 } @else if (type === 2) {
   @if (viewed) {
     <div class="inline left-2 px-[10px] py-[2px] rounded-xl text-[10px] font-medium bg-dark-alter text-white-alter">
-      <span>Capítulo {{ chapter }}</span>
+      <span>{{ textTranslate('Capítulo', 'Chapter') }} {{ chapter }}</span>
       <i class="ml-2 fa-solid fa-check text-secondary"></i>
     </div>
   } @else {
     <div class="inline px-[10px] py-[2px] rounded-xl text-[10px] font-medium bg-secondary text-white-alter">
-      <span>Capítulo {{ chapter }}</span>
+      <span>{{ textTranslate('Capítulo', 'Chapter') }} {{ chapter }}</span>
     </div>
   }
 }

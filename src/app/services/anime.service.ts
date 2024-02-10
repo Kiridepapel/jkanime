@@ -45,7 +45,7 @@ export class AnimeService {
     }
   }
   
-  public parseAndFormatDate(value: string, showYear: boolean): string {
+  public parseAndFormatDate(value: string, showYear: boolean, language: string): string {
     try {
       let date = parse(value, 'MMMM d, yyyy', new Date(), { locale: es });
       let formattedDate!: string;

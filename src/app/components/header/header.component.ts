@@ -18,7 +18,7 @@ export class HeaderComponent {
   public navState: boolean = false;
   public searchQuery: string = '';
   public searchPlaceholder: string = '';
-  // Darkmode
+  // Subscriptions
   private darkModeSubscription!: Subscription;
   private languageSubscription!: Subscription;
   public dark!: Mode;
@@ -54,8 +54,8 @@ export class HeaderComponent {
     return this.languageService.textTranslate(spanish, english);
   }
 
-  public goToTranslate(spanish: string, english?: string) {
-    return this.languageService.goToTranslate(spanish, english);
+  public urlTranslate(spanish: string, english?: string) {
+    return this.languageService.urlTranslate(spanish, english);
   }
 
   public toggleDarkMode() {

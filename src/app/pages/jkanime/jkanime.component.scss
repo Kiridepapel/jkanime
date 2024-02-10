@@ -16,19 +16,19 @@
 }
 /* Base styles for the button */
 .darkmode-btn {
-  @apply flex justify-center items-center gap-2 w-full h-full px-[8px] rounded-2xl max-[350px]:hidden;
+  @apply flex justify-center items-center gap-[18px] w-full h-full pl-2 pr-4 rounded-2xl max-[350px]:hidden;
   @apply transition-[background] duration-500 ease-in-out;
   @apply bg-[#b4b4b4] hover:bg-[#929292] text-[#ffffff];
 
   i {
-    @apply transition-transform duration-500 ease-in-out transform translate-x-0;
+    @apply transition-transform duration-500 ease-in-out transform translate-x-[50%];
   }
 
   &.active {
     @apply bg-primary hover:bg-primary-alter text-white-alter;
 
     i {
-      @apply translate-x-[-50%];
+      @apply translate-x-[0%];
     }
   }
 }

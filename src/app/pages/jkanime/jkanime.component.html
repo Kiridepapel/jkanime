@@ -31,9 +31,9 @@
                 <div>
                   <!-- Information -->
                   <div class="relative z-[50] h-full">
-                    <h3 class="text-[42px] max-[1800px]:text-[36px] max-sm:text-[30px] font-bold font-oswald mb-2 text-white-alter">{{ item.name }}</h3>
+                    <h3 class="text-[42px] max-[1800px]:text-[36px] max-sm:text-[30px] font-bold font-oswald mb-2 text-white-alter">{{ item.name }} - {{ item.chapter }}</h3>
                     <a [href]="item.url" class="text-[13px] font-bold font-mulish uppercase tracking-[2px] h-[47.5px] inline-flex gap-[6px] text-white-alter">
-                      <span class="h-full flex items-center px-5 rounded-tl-[4px] rounded-bl-[4px] bg-secondary ">Ver ahora</span>
+                      <span class="h-full flex items-center px-5 rounded-tl-[4px] rounded-bl-[4px] bg-secondary ">{{ textTranslate('Ver ahora', 'Watch now') }}</span>
                       <div class="inline-flex items-center h-full px-1  rounded-tr-[4px] rounded-br-[4px] bg-secondary">
                         <i class="fa-solid fa-chevron-right"></i>
                       </div>
@@ -60,7 +60,7 @@
         </div>
         <!-- 1.2.2. Ovas, Onas, Especials -->
         <div class="h-full">
-          <h2 class="border-l-4 border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] font-semibold font-oswald pl-4 flex items-center uppercase">OVAS / ONAS / ESPECIALES</h2>
+          <h2 class="border-l-4 border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] font-semibold font-oswald pl-4 flex items-center uppercase">OVAS / ONAS / {{ textTranslate('ESPECIALES', 'SPECIALS') }}</h2>
           <div class="h-[calc(100%-4rem)] grid grid-cols-4 grid-rows-2 max-[500px]:grid-cols-2 max-[500px]:grid-rows-4 gap-x-8 gap-y-4 max-[1750px]:gap-x-6 max-[1650px]:gap-x-4 mt-4">
             @for (item of homeData.ovasOnasSpecials; track $index) {
               <div class="h-[195px]">
@@ -78,13 +78,13 @@
       <!-- 1.3. Last chapters (right) -->
       <section class="h-[855px] min-w-[360px] w-[360px] max-[1800px]:min-w-[330px] max-xl:w-[80%] max-lg:w-full max-sm:min-w-full flex flex-col gap-5">
         <div class="min-h-[30px] max-md:min-h-[24px] flex justify-between gap-3">
-          <h2 class="h-[30px] flex border-l-4 self-start border-secondary text-dark-alter dark:text-white text-[18px] max-md:text-[16px] font-semibold font-oswald pl-3 items-center uppercase">PROGRAMACIÓN</h2>
-          <div class="min-w-[188px] max-md:min-w-[175px] max-[350px]:min-w-[auto] max-[350px]:justify-end flex gap-1">
-            <button (click)="toggleDarkMode()" class="darkmode-btn flex items-center gap-3 w-full h-full px-[6px] rounded-2xl" [ngClass]="{'active': dark.value}">
+          <h2 class="h-[30px] flex border-l-4 self-start border-secondary text-dark-alter dark:text-white min-[1800px]:text-[20px] max-[1800px]:text-[18px] max-md:text-[16px] font-semibold font-oswald pl-3 items-center uppercase">{{ textTranslate('PROGRAMACIÓN', 'PROGRAMMING') }}</h2>
+          <div class="max-[350px]:min-w-[auto] max-[350px]:justify-end flex gap-1">
+            <button (click)="toggleDarkMode()" class="darkmode-btn flex items-center w-full h-full rounded-2xl" [ngClass]="{'active': dark.value}">
               <i class="fa-solid fa-circle text-[22px] max-md:text-[18px]"></i>
-              <span class="text-[15px] max-md:text-[14px] max-sm:text-[13px] h-full flex items-center">Modo noche</span>
+              <span class="text-[13px] flex items-center">{{ textTranslate('Modo oscuro', 'Dark mode') }}</span>
             </button>
-            <button (click)="randomAnime()" title="Anime aleatorio" class="flex justify-center items-center gap-3 min-w-9 h-8 rounded-2xl bg-primary hover:bg-secondary transition-colors duration-500 ease-in-out">
+            <button (click)="randomAnime()" [title]="textTranslate('Anime aleatorio', 'Random anime')" class="flex justify-center items-center gap-3 min-w-9 h-8 rounded-2xl bg-primary hover:bg-secondary transition-colors duration-500 ease-in-out">
               <i class="fa-solid fa-wand-magic-sparkles text-[14px] max-md:text-[12px] text-white-alter"></i>
             </button>
           </div>
@@ -106,13 +106,13 @@
                       ({{ chapter.type }})
                     }
                   </h4>
-                  <p class="font-semibold mt-[2px] text-secondary">{{ chapter.chapter }}</p>
+                  <p class="font-semibold mt-[2px] text-secondary">{{ textTranslate('Capítulo ', 'Chapter ') }}{{ chapter.chapter }}</p>
                   @if (chapter.state) {
                     <span class="inline-block w-2 h-2 rounded-[50%] bg-green-400"></span>
                   } @else {
                     <span class="inline-block w-2 h-2 rounded-[50%] bg-violet-300"></span>
                   }
-                  <p class="inline-block mt-[2px] ml-2 text-gray-400 font-semibold">{{ chapter.date }}</p>
+                  <p class="inline-block mt-[2px] ml-2 text-gray-400 font-semibold">{{ dynamicTranslate(chapter.date!) }}</p>
                 </div>
               </div>
               <img src="../../../assets/svgs/flecha.svg" alt="Ir" class="max-w-6 max-h-8 max-[350px]:hidden">
@@ -129,7 +129,7 @@
       <h2 class="border-l-4 self-start border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald mb-6 pl-4 flex items-center uppercase">TOP ANIMES
         <div class="text-secondary-alter max-[350px]:hidden">
           <i class="fa-regular fa-clock px-2 text-[22px] max-md:text-[21px] pt-[2px]"></i>
-          <span>ACTUALIZA EN {{ timer }}</span>
+          <span>{{ textTranslate('ACTUALIZA EN', 'UPDATE IN') }} {{ timer }}</span>
         </div>
       </h2>
       <div class="top font-mulish">
@@ -188,7 +188,7 @@
       <div class="w-full flex justify-center items-center mt-6 max-xl:mt-8 max-xl:mb-2">
         <a href="/top" class="group text-dark-alter dark:text-white-alter hover:text-primary hover:pl-2 dark:hover:text-primary transition-all duration-500 cursor-pointer text-[18px] max-md:text-[16px]">
           <i class="group-hover:rotate-180 transition-transform duration-500 fa-solid fa-arrow-down-long"></i>
-          <span class="px-2 text-[20px] max-md:text-[18px]">Ver lista completa</span>
+          <span class="px-2 text-[20px] max-md:text-[18px]">{{ textTranslate('Ver lista completa', 'See full list') }}</span>
           <i class="group-hover:rotate-180 transition-transform duration-500 fa-solid fa-arrow-down-long"></i> 
         </a>
       </div>
@@ -199,7 +199,7 @@
     <div class="w-full h-full flex max-xl:flex-col max-xl:items-center gap-8 max-xl:gap-6">
       <!--  -->
       <section class="flex flex-col w-full max-xl:w-[80%] max-lg:w-full">
-        <h2 class="border-l-4 self-start mb-6 border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">ÚLTIMOS ÁNIMES AGREGADOS</h2>
+        <h2 class="border-l-4 self-start mb-6 border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">{{ textTranslate('ÚLTIMOS ÁNIMES AGREGADOS', 'LASTEST ANIMES ADDED') }}</h2>
         <div class="w-full h-full grid grid-cols-4 max-[1650px]:grid-cols-3 max-xl:grid-cols-4 max-md:grid-cols-3 max-[500px]:grid-cols-2 gap-x-7 gap-y-5 max-xl:gap-x-5 max-xl:gap-y-3">
           @for (item of homeData.latestAddedAnimes; track $index) {
             <app-anime-item [name]="item.name!" [imgUrl]="item.imgUrl" [url]="item.url" [state]="item.state" [type]="item.type"></app-anime-item>
@@ -208,7 +208,7 @@
       </section>
       <!--  -->
       <section class="min-w-[360px] w-[360px] h-fit max-[1800px]:min-w-[330px] max-xl:w-[80%] max-lg:w-full max-sm:min-w-full flex flex-col p-[13px] max-xl:pt-6 rounded-lg bg-[#e9e9e9] dark:bg-section-two-dark">
-        <h2 class="border-l-4 self-start mb-6 border-secondary text-dark-alter dark:text-white-alter text-[22px] max-[1800px]:text-[20px] max-lg:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">LISTADO DE ÚLTIMOS AGREGADOS</h2>
+        <h2 class="border-l-4 self-start mb-6 border-secondary text-dark-alter dark:text-white-alter text-[22px] max-[1800px]:text-[20px] max-lg:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">{{ textTranslate('LISTA DE ÚLTIMOS AGREGADOS', 'LIST OF LATEST ADDED') }}</h2>
         <div class="w-full h-full">
           @for (item of homeData.latestAddedList; track $index) {
             @if ($index % 2 === 0) {

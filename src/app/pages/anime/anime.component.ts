@@ -7,6 +7,9 @@ import { CommonModule } from '@angular/common';
 import { ChapterDataDTO } from '../../models/individual.model';
 import { FormsModule } from '@angular/forms';
 import { ChapterItemComponent } from '../../components/chapter-item/chapter-item.component';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { Mode } from '../../models/output.model';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-anime',
@@ -16,65 +19,153 @@ import { ChapterItemComponent } from '../../components/chapter-item/chapter-item
   styleUrl: './anime.component.scss',
 })
 export class AnimeComponent {
-  public isLoading = true; // Cargando los datos recibidos de la API
-  public animeData!: AnimeInfoDTO; // Datos del anime
-  public chapterList!: ChapterDataDTO[]; // Lista de capítulos
+  public isLoading = true;
+  public uri!: string;
+  public animeData!: AnimeInfoDTO;
+  // Subscriptions
+  private languageSubscription!: Subscription;
+  public language!: Mode;
+  // Variables de idioma
+  public showData: Map<string, any> = new Map();
+  public showAltTitles: Map<string, any> = new Map();
+  public showHistory: Map<string, any> = new Map();
+  // Orden de los datos
+  private orderData = ["type", "genres", "studio", "director", "language", "year", "cast", "censured", "emited", "status", "lastUpdate", "chapters", "duration", "quality"];
+  private orderAltTitles = ["synonyms", "english", "japanese", "corean"];
+  private orderHistory = ["prequel", "sequel", "derived", "other", "alternativeVersion", "completeVersion", "additional", "summary", "includedCharacters"];
+  private removeUrlSpecialCases = ["one-piece"]
+  // Data
+  public trailer!: SafeResourceUrl;
+  public activeInfoIndex: number = 0;
+  public activeTabIndex: number = 0;
   // Chapters list
+  public chapterList!: ChapterDataDTO[]; // Lista de capítulos
   public chaptersListFormat: string = 'table'; // table, list, cards
   public sort: boolean = false;
   public searchChapter: string = '';
 
-  public trailer!: SafeResourceUrl; // URL del trailer
-  public activeInfoIndex: number = 0;
-  public activeTabIndex: number = 0;
-  public uri!: string;
-  // public areAlternativeTitlesVisible: boolean = false;
-  private orderData = ["type", "genres", "studio", "director", "language", "year", "cast", "censured", "emited", "status", "lastUpdate", "chapters", "duration", "quality"];
-  private orderAltTitles = ["synonyms", "english", "japanese", "corean"];
-  private orderHistory = ["prequel", "sequel", "derived", "other", "alternativeVersion", "completeVersion", "additional", "summary", "includedCharacters"];
-  private removeUrlSpecialCases = [
-    "one-piece"
-  ]
-
   constructor(
     private animeService: AnimeService,
-    private sanitizer: DomSanitizer
-  ) {}
+    private sanitizer: DomSanitizer,
+    private languageService: LanguageService,
+  ) {
+    this.languageSubscription = this.languageService.language$.subscribe((language: Mode) => {
+      this.language = language;
+      this.changeTitle();
+      if (this.isLoading === false) {
+        this.createShowData();
+        this.createShowAltTitles();
+        this.createShowHistory();
+      }
+    });
+  }
 
   // Obtiene los datos de la API y espera a que se carguen
   async ngOnInit() {
-    document.title = 'Cargando...';
     this.uri = window.location.href.replace(environment.FRONTEND_URL, '');
 
     try {
       await this.animeService.getGenericData(this.uri).then((data: AnimeInfoDTO) => {
+        this.animeData = data;
         this.manipulateData(data);
       });
     } finally {
       this.isLoading = false;
+      this.changeTitle();
     }
+  }
+  
+  ngOnDestroy() {
+    this.languageSubscription.unsubscribe();
   }
   
   // Manipula los datos recibidos de la API
   private manipulateData(data: AnimeInfoDTO) {
-    this.animeData = data;
-
     if (this.animeData.data != null) {
-      document.title = this.animeData.name;
-      this.animeData.imgUrl = this.animeData.imgUrl.split('?')[0];
-      this.animeData.data = this.reorderData(data, this.orderData, 'data');
+      this.animeData.imgUrl = this.animeData.imgUrl.split('?')[0]; // Quita el resize de la imagen
+      this.animeData.data = this.reorderData(data.data, this.orderData);
+      this.createShowData();
     }
     if (this.animeData.alternativeTitles != null) {
-      this.animeData.alternativeTitles = this.reorderData(data, this.orderAltTitles, 'alternativeTitles');
+      this.animeData.alternativeTitles = this.reorderData(data.alternativeTitles, this.orderAltTitles);
+      this.createShowAltTitles();
     }
     if (this.animeData.history != null) {
-      this.animeData.history = this.reorderData(data, this.orderHistory, 'history');
+      this.animeData.history = this.reorderData(data.history, this.orderHistory);
+      this.createShowHistory();
     }
     if (this.animeData.trailer != null) {
       this.trailer = this.sanitizer.bypassSecurityTrustResourceUrl(this.animeData.trailer);
     }
     if (this.animeData.firstChapter != null && this.animeData.lastChapter != null) {
       this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter);
+    } 
+  }
+
+  // Cambia los nombres de las keys de los datos
+  public createShowData(): void {
+    if (this.animeData.data != null) {
+      let map = new Map();
+      map.set("emited", this.textTranslate('Emitido', 'Emited'));
+      map.set("language", this.textTranslate('Idioma', 'Language'));
+      map.set("quality", this.textTranslate('Calidad', 'Quality'));
+      map.set("duration", this.textTranslate('Duración', 'Duration'));
+      map.set("type", this.textTranslate('Tipo', 'Type'));
+      map.set("director", this.textTranslate('Director', 'Director'));
+      map.set("censured", this.textTranslate('Censurado', 'Censured'));
+      map.set("cast", this.textTranslate('Reparto', 'Cast'));
+      map.set("lastUpdate", this.textTranslate('Actualizado', 'Last update'));
+      map.set("year", this.textTranslate('Año', 'Year'));
+      map.set("studio", this.textTranslate('Estudio', 'Studio'));
+      map.set("genres", this.textTranslate('Géneros', 'Genres'));
+      map.set("status", this.textTranslate('Estado', 'State'));
+      map.set("chapters", this.textTranslate('Capítulos', 'Chapters'));
+
+      this.showData = new Map(); // Reiniciar el map
+      this.objectEntries(this.animeData.data).forEach((value) => {
+        if (map.get(value[0]) != null) {
+          this.showData.set(map.get(value[0]), value[1]);
+        }
+      });
+    }
+  }
+
+  public createShowAltTitles(): void {
+    if (this.animeData.alternativeTitles != null) {
+      let map = new Map();
+      map.set("synonyms", this.textTranslate('Sinónimos', 'Synonyms'));
+      map.set("english", this.textTranslate('Inglés', 'English'));
+      map.set("japanese", this.textTranslate('Japonés', 'Japanese'));
+      map.set("corean", this.textTranslate('Coreano', 'Corean'));
+      
+      this.showAltTitles = new Map(); // Reiniciar el map
+      this.objectEntries(this.animeData.alternativeTitles).forEach((value) => {
+        if (map.get(value[0]) != null) {
+          this.showAltTitles.set(map.get(value[0]), value[1]);
+        }
+      });
+    }
+  }
+
+  public createShowHistory(): void {
+    if (this.animeData.history != null) {
+      let map = new Map();
+      map.set("prequel", this.textTranslate('Precuela', 'Prequel'));
+      map.set("sequel", this.textTranslate('Secuela', 'Sequel'));
+      map.set("derived", this.textTranslate('Derivado', 'Derived'));
+      map.set("alternativeVersion", this.textTranslate('Versión alternativa', 'Alternative version'));
+      map.set("completeVersion", this.textTranslate('Versión completa', 'Complete version'));
+      map.set("additional", this.textTranslate('Adicional', 'Additional'));
+      map.set("summary", this.textTranslate('Resumen', 'Summary'));
+      map.set("includedCharacters", this.textTranslate('Personajes incluidos', 'Included characters'));
+      map.set("other", this.textTranslate('Otro', 'Other'));
+      
+      this.showHistory = new Map(); // Reiniciar el map
+      this.objectEntries(this.animeData.history).forEach((value) => {
+        if (map.get(value[0]) != null) {
+          this.showHistory.set(map.get(value[0]), value[1]);
+        }
+      });
     }
   }
 
@@ -98,12 +189,9 @@ export class AnimeComponent {
   }
 
   public filterChapters() {
-    console.log(this.searchChapter);
     if (!this.searchChapter) {
-      // Si el input está vacío, mostrar todos los capítulos
       this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter);
     } else {
-      // Filtrar la lista de capítulos
       this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter)
         .filter(chapter => chapter.chapter.startsWith(this.searchChapter));
     }
@@ -174,22 +262,12 @@ export class AnimeComponent {
     return 0;
   }
 
-  private reorderData(animeData: AnimeInfoDTO, list: string[], type: string): {[key: string]: any} {
+  private reorderData(dataToUse: any, dataToSort: string[]): {[key: string]: any} {
     // Valor inicial
-    let dataToUse;
     let orderedData: {[key: string]: any} = {};
 
-    // Seleccionar el tipo de dato a usar
-    if (type === 'data') {
-      dataToUse = animeData.data;
-    } else if (type === 'alternativeTitles') {
-      dataToUse = animeData.alternativeTitles;
-    } else if (type === 'history') {
-      dataToUse = animeData.history;
-    }
-
     // Ordenar los datos
-    for (let key of list) {
+    for (let key of dataToSort) {
       if (dataToUse!.hasOwnProperty(key)) {
         orderedData[key] = dataToUse![key];
       }
@@ -217,61 +295,6 @@ export class AnimeComponent {
     return typeof value === "object";
   }
 
-  // Escribir el nombre de las keys en español
-  public changeName(name: string): string {
-    let map = new Map();
-    // Data
-    map.set("emited", "Emitido");
-    map.set("language", "Idioma");
-    map.set("quality", "Calidad");
-    map.set("duration", "Duracion");
-    map.set("type", "Tipo");
-    map.set("director", "Director");
-    map.set("censured", "Censura");
-    map.set("cast", "Actor");
-    map.set("lastUpdate", "Actualizado");
-    map.set("year", "Año");
-    map.set("studio", "Estudio");
-    map.set("genres", "Género");
-    map.set("status", "Estado");
-    map.set("chapters", "Capítulos");
-    // History
-    map.set("prequel", "Precuela");
-    map.set("sequel", "Secuela");
-    map.set("derived", "Derivado");
-    map.set("alternativeVersion", "Versión alternativa");
-    map.set("completeVersion", "Versión completa");
-    map.set("additional", "Adicional");
-    map.set("summary", "Resumen");
-    map.set("includedCharacters", "Personajes incluidos");
-    map.set("other", "Otro");
-    // Recomendations
-    return map.get(name);
-  }
-
-  public changeNameAltTitle(name: string): string {
-    let map = new Map();
-    // Alternative titles
-    map.set("synonyms", "Sinónimos");
-    map.set("english", "Inglés");
-    map.set("japanese", "Japonés");
-    map.set("corean", "Coreano");
-    return map.get(name);
-  }
-
-  // Escribe el nombre de la key en singular o plural
-  public singularOrPlural(name: string, list: any[]): string {
-    let newName = this.changeName(name);
-    let isIrregular = this.isIrregularPlural(newName);
-    return list.length > 1 ? (isIrregular ? newName + "es" : newName + "s") : newName;
-  }
-
-  // Verifica si el nombre de la key es irregular
-  private isIrregularPlural(name: string): boolean {
-    let list = ["Actor", "Director", "Adicional", "Resumen"]; 
-    return list.includes(name);
-  }
-
   // Escribe la primera letra en mayúscula de los values de las keys
   public firstUppercase(value: any): string {
     return this.animeService.firstUppercase(value);
@@ -279,7 +302,7 @@ export class AnimeComponent {
 
   // Muestra el día de la última actualización del anime
   public parseAndFormatDate(value: string, showYear: boolean): string {
-    return this.animeService.parseAndFormatDate(value, showYear);
+    return this.animeService.parseAndFormatDate(value, showYear, this.language.value);
   }
 
   public searchAnime(url: string): string {
@@ -296,4 +319,19 @@ export class AnimeComponent {
     document.querySelectorAll(".acc")[index]!.classList.toggle("show");
   }
 
+  private changeTitle() {
+    if (this.isLoading) {
+      document.title = this.textTranslate('Cargando ', 'Loading ') + '...';
+    } else {
+      document.title = this.animeData.name;
+    }
+  }
+
+  public textTranslate(spanish: string, english: string): string {
+    return this.languageService.textTranslate(spanish, english);
+  }
+
+  public urlTranslate(spanish: string, english?: string) {
+    return this.languageService.urlTranslate(spanish, english);
+  }
 }
