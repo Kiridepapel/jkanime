@@ -49,20 +49,21 @@ export class LanguageService {
     localStorage.setItem('language', this.language);
   }
 
-  public textTranslate(spanish: string, english: string): string {
-    if (this.language === 'es') {
+  public textTranslate(spanish: string, english?: string): string {
+    if (spanish != null && this.language === 'es') {
       return spanish;
-    } else if (this.language === 'en') {
-      return english;
+    } else if (english != null && this.language === 'en') {
+      return english!;
     }
+
     return spanish;
   }
 
   public urlTranslate(spanish: string, english?: string) {
-    if (this.language === 'es') {
+    if (spanish != null && this.language === 'es') {
       return spanish;
-    } else if (this.language === 'en') {
-      return english;
+    } else if (english != null && this.language === 'en') {
+      return english!;
     }
 
     return spanish;

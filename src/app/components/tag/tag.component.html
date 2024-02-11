@@ -1,9 +1,14 @@
+<!-- Type 1: Category (type! 1, category!, bg? [red], style? [rounded]) -->
+<!-- Type 2: Chapters (type! 2, chapter!, viewed? [false]) -->
+
 @if (type === 1) {
-  <div class="inline px-[10px] py-[1px] rounded-xl text-[10px] font-medium bg-[#E53637] text-white" [ngClass]="{
+  <div class="block px-[10px] font-medium bg-[#E53637] text-white" [ngClass]="{
+    'py-[1px] rounded-xl text-[10px]': style === 'rounded',
+    'py-[4px] rounded-md text-[12px]': style === 'square',
     'bg-[#E53637]': bg === 'red' || category === 'Finalizado',
     'bg-green-400': bg === 'green' || category === 'En emisión' || category === 'En emision',
     'bg-primary': bg === 'primary',
-    'bg-secondary': bg === 'secondary',
+    'bg-secondary': bg === 'secondary' || category === 'Proximamente',
   }">
     <!-- Translations -->
     @if (category === 'Finalizado' || category === 'Concluido') {

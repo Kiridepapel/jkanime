@@ -17,10 +17,10 @@ import { LanguageService } from '../../services/language.service';
 })
 export class SearchComponent {
   public isLoading: boolean = true;
+  public uri!: string;
+  public uriBack!: string;
   public name: string = '';
   public searchData!: SearchDTO;
-  public searchFront!: string;
-  public searchBack!: string;
   // Subscriptions
   private languageSubscription!: Subscription;
   public language!: Mode;
@@ -50,15 +50,15 @@ export class SearchComponent {
   }
 
   private async updateSearchData() {
-    document.title = this.txtSearching + 'animes...';
     this.isLoading = true;
     this.defineData();
 
     try {
-      await this.animeService.getGenericData(this.searchBack).then((data: SearchDTO) => {
-        this.searchData = data;
-        document.title = this.txtResults + this.name;
-      });
+      await this.animeService.getGenericData(this.uriBack)
+        .then((data: SearchDTO) => {
+          this.searchData = data;
+          document.title = this.txtResults + this.name;
+        });
     } finally {
       this.isLoading = false;
       this.changeTitle();
@@ -66,10 +66,18 @@ export class SearchComponent {
   }
 
   private defineData() {
-    this.searchBack = window.location.href.replace(environment.FRONTEND_URL, '');
-    this.searchFront = this.searchBack.split('/').slice(0, 3).join('/');
-    this.searchBack = this.searchFront.replace('buscar', 'search');
-    this.name = this.searchBack.split('/')[1].replace(/_/g, ' ');
+    this.uri = window.location.href.replace(environment.FRONTEND_URL, '');
+    console.log('uri 1: ' + this.uri);
+    this.name = this.uri.split('/')[1].replace('_', ' ');
+    console.log('name: ' + this.name);
+
+    this.uriBack = this.uri.replace('buscar', 'search');
+    let splitUri = this.uri.split('/');
+    if (splitUri.length === 2) {
+      this.uriBack = this.uriBack + '/1';
+    }
+
+    console.log('uriBack 2: ' + this.uriBack);
   }
 
   private changeTitle() {

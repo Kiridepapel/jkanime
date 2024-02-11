@@ -17,6 +17,7 @@ export class TagComponent {
   public language!: Mode;
 
   @Input() public type!: number;
+  @Input() public style?: string = "rounded"; // rounded, square
 
   // type 0: none
   // type 1: category only

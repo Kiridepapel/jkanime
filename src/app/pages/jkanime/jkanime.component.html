@@ -14,7 +14,7 @@
     <div class="flex w-full h-full max-xl:flex-col max-xl:items-center gap-8 max-xl:gap-6">
       <section class="flex flex-col gap-4 w-full max-xl:w-[80%] max-lg:w-full max-xl:gap-6">
         <!-- 1.2.1. Slider -->
-        <div class="relative w-full min-h-[397px] max-sm:min-h-[427px] rounded-md py-[50px] pl-[50px] pr-[25px] max-sm:py-[40px] max-sm:pl-[25px] overflow-hidden"
+        <div class="relative w-full min-h-[397px] max-sm:min-h-[427px] max-[300px]:min-h-[350px] rounded-md py-[50px] pl-[50px] pr-[25px] max-sm:py-[40px] max-sm:pl-[25px] overflow-hidden"
           [class.cursor-pointer]="isDragging"
           (mousedown)="handleDragStart($event)"
           (mouseup)="handleDragEnd($event)"
@@ -31,9 +31,9 @@
                 <div>
                   <!-- Information -->
                   <div class="relative z-[50] h-full">
-                    <h3 class="text-[42px] max-[1800px]:text-[36px] max-sm:text-[30px] font-bold font-oswald mb-2 text-white-alter">{{ item.name }} - {{ item.chapter }}</h3>
-                    <a [href]="item.url" class="text-[13px] font-bold font-mulish uppercase tracking-[2px] h-[47.5px] inline-flex gap-[6px] text-white-alter">
-                      <span class="h-full flex items-center px-5 rounded-tl-[4px] rounded-bl-[4px] bg-secondary ">{{ textTranslate('Ver ahora', 'Watch now') }}</span>
+                    <h3 class="text-[42px] max-[1800px]:text-[36px] max-sm:text-[30px] max-[300px]:text-[24px] font-bold font-oswald mb-2 text-white-alter">{{ item.name }} - {{ item.chapter }}</h3>
+                    <a [href]="item.url" class="text-[13px] font-bold font-mulish uppercase tracking-[2px] h-[47.5px] max-[300px]:h-[38px] inline-flex gap-[6px] text-white-alter">
+                      <span class="h-full flex items-center px-5 max-[300px]:px-4 rounded-tl-[4px] rounded-bl-[4px] bg-secondary ">{{ textTranslate('Ver ahora', 'Watch now') }}</span>
                       <div class="inline-flex items-center h-full px-1  rounded-tr-[4px] rounded-br-[4px] bg-secondary">
                         <i class="fa-solid fa-chevron-right"></i>
                       </div>
@@ -97,10 +97,11 @@
           @for(chapter of activeList; track $index) {
             <a [href]="chapter.url" class="cursor-pointer last-chapter w-full flex justify-between items-center p-2 gap-2
               border-b border-gray-200 dark:border-gray-700 hover:bg-white-alter dark:hover:bg-section-one-dark">
-              <div class="flex items-start w-full">
-                <img [src]="chapter.imgUrl" alt="Image of {{ chapter.name }}" class="w-28 h-20 rounded-md mr-3" [ngClass]="{'object-top' : chapter.state === false}">
-                <div class="font-mulish text-[13px] max-[1800px]:text-[12px] max-lg:text-[13px] leading-[18px]">
-                  <h4 class="font-bold underline decoration-transparent duration-300 ease-in-out text-gray-600 dark:text-white">
+              <div class="flex items-start w-full max-[300px]:flex-col">
+                <img [src]="chapter.imgUrl" alt="Image of {{ chapter.name }}" class="w-28 max-h-20 rounded-md mr-3
+                  max-[300px]:w-full max-[300px]:mr-0 max-[300px]:object-cover max-[300px]:object-center" [ngClass]="{'object-top' : chapter.state === false}">
+                <div class="w-full font-mulish text-[13px] max-[1800px]:text-[12px] max-lg:text-[13px] leading-[18px]">
+                  <h4 class="max-[300px]:line-clamp-3 font-bold underline decoration-transparent duration-300 ease-in-out text-gray-600 dark:text-white">
                     {{ chapter.name }}
                     @if (chapter.type !== 'TV' && chapter.type !== 'Donghua') {
                       ({{ chapter.type }})
@@ -197,7 +198,7 @@
   
   <section class="section pt-6 pb-12 bg-section-one dark:bg-section-one-dark">
     <div class="w-full h-full flex max-xl:flex-col max-xl:items-center gap-8 max-xl:gap-6">
-      <!--  -->
+      <!-- Items de animes agregados -->
       <section class="flex flex-col w-full max-xl:w-[80%] max-lg:w-full">
         <h2 class="border-l-4 self-start mb-6 border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">{{ textTranslate('ÚLTIMOS ÁNIMES AGREGADOS', 'LASTEST ANIMES ADDED') }}</h2>
         <div class="w-full h-full grid grid-cols-4 max-[1650px]:grid-cols-3 max-xl:grid-cols-4 max-md:grid-cols-3 max-[500px]:grid-cols-2 gap-x-7 gap-y-5 max-xl:gap-x-5 max-xl:gap-y-3">
@@ -206,7 +207,7 @@
           }
         </div>
       </section>
-      <!--  -->
+      <!-- Lista de animes agregados -->
       <section class="min-w-[360px] w-[360px] h-fit max-[1800px]:min-w-[330px] max-xl:w-[80%] max-lg:w-full max-sm:min-w-full flex flex-col p-[13px] max-xl:pt-6 rounded-lg bg-[#e9e9e9] dark:bg-section-two-dark">
         <h2 class="border-l-4 self-start mb-6 border-secondary text-dark-alter dark:text-white-alter text-[22px] max-[1800px]:text-[20px] max-lg:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">{{ textTranslate('LISTA DE ÚLTIMOS AGREGADOS', 'LIST OF LATEST ADDED') }}</h2>
         <div class="w-full h-full">

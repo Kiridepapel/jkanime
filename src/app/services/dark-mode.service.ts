@@ -10,13 +10,11 @@ export class DarkModeService {
   private darkModeSubject = new BehaviorSubject<Mode>({
     value: this.darkMode,
     icon: this.darkMode ? 'fa-regular fa-sun' : 'fa-solid fa-moon',
-    styles: this.darkMode
-      ? 'text-2xl max-md:text-2xl'
-      : 'text-3xl max-md:text-3xl',
+    styles: this.darkMode ? 'text-[24px]' : 'text-[28px]',
   });
 
   public initDarkMode() {
-  if (!localStorage.getItem('dark')) {
+    if (!localStorage.getItem('dark')) {
       localStorage.setItem('dark', this.darkMode.toString());
     }
 
@@ -39,9 +37,7 @@ export class DarkModeService {
     this.darkModeSubject.next({
       value: this.darkMode,
       icon: this.darkMode ? 'fa-regular fa-sun' : 'fa-solid fa-moon',
-      styles: this.darkMode
-        ? 'text-2xl max-md:text-2xl'
-        : 'text-3xl max-md:text-3xl',
+      styles: this.darkMode ? 'text-[24px]' : 'text-[28px]',
     });
   }
 
