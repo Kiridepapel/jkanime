@@ -72,7 +72,11 @@
           <a [href]="getNextChapterUrl()" class="w-full h-full flex justify-center items-center gap-3 text-center rounded transition-all duration-700
             bg-primary-alter hover:bg-primary-darkness">
             @if (isPenultimateChapter()) {
-              {{ textTranslate('Capítulo final', 'Last chapter') }}
+              @if (chapterData.inEmision) {
+                {{ textTranslate('Último capítulo en emisión', 'Last chapter in emision') }}
+              } @else {
+                {{ textTranslate('Último capítulo', 'Last chapter') }}
+              }
             } @else {
               {{ textTranslate('Siguiente capítulo', 'Next chapter') }}
             }

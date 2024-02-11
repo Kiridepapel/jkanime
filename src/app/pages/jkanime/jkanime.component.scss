@@ -16,7 +16,7 @@
 }
 /* Base styles for the button */
 .darkmode-btn {
-  @apply flex justify-center items-center gap-[18px] w-full h-full pl-2 pr-4 rounded-2xl max-[350px]:hidden;
+  @apply flex justify-center items-center gap-[18px] w-full h-full pl-[6px] pr-4 rounded-2xl max-[350px]:hidden;
   @apply transition-[background] duration-500 ease-in-out;
   @apply bg-[#b4b4b4] hover:bg-[#929292] text-[#ffffff];
 

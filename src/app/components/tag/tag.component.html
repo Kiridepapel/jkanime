@@ -12,11 +12,11 @@
   }">
     <!-- Translations -->
     @if (category === 'Finalizado' || category === 'Concluido') {
-      <span class="relative top-[-1px]">{{ textTranslate('Finalizado', 'Finished') }}</span>
+      <span>{{ textTranslate('Finalizado', 'Finished') }}</span>
     } @else if (category === 'En emisión' || category === 'En emision') {
-      <span class="relative top-[-1px]">{{ textTranslate('En emisión', 'In emision') }}</span>
+      <span>{{ textTranslate('En emisión', 'In emision') }}</span>
     } @else {
-      <span class="relative top-[-1px]">{{ defaultTranslate(category) }}</span>
+      <span>{{ defaultTranslate(category) }}</span>
     }
   </div>
 } @else if (type === 2) {
