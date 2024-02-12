@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { TagComponent } from '../tag/tag.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-chapter-item',
   standalone: true,
-  imports: [CommonModule, TagComponent],
+  imports: [CommonModule, RouterModule, TagComponent],
   templateUrl: './chapter-item.component.html',
   styleUrl: './chapter-item.component.scss'
 })

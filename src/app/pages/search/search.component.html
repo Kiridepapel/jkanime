@@ -2,14 +2,14 @@
   <section class="flex flex-col w-full max-xl:w-[80%] max-lg:w-full">
     <!-- Icons -->
     <div class="pb-10 w-full flex items-center flex-wrap gap-2 text-[15px] font-mulish text-dark-alter dark:text-white-alter">
-      <a href="/" class="flex items-center gap-[6px] hover:text-secondary dark:hover:text-secondary-alter transition-colors duration-500">
+      <a routerLink="/" class="flex items-center gap-[6px] hover:text-secondary dark:hover:text-secondary-alter transition-colors duration-500">
         <i class="fa-solid fa-house text-[12px]"></i>
         <span>{{ textTranslate('Inicio', 'Home') }}</span>
       </a>
       <i class="fa-solid fa-chevron-right text-[10px]"></i>
-      <a [href]="textTranslate('buscar', 'search')" class="hover:text-secondary dark:hover:text-secondary-alter transition-colors duration-500">{{ textTranslate('Buscar', 'Search') }}</a>
+      <a [href]="uri" class="hover:text-secondary dark:hover:text-secondary-alter transition-colors duration-500">{{ textTranslate('Buscar', 'Search') }}</a>
       <i class="fa-solid fa-chevron-right text-[10px]"></i>
-      <a [href]="uri" class="text-secondary dark:text-secondary-alter">{{ name }}</a>
+      <span class="text-secondary dark:text-secondary-alter">{{ name }}</span>
     </div>
 
     <!-- Title -->
@@ -19,10 +19,22 @@
     <!-- Content -->
     @if (!isLoading) {
       @if (searchData.message == null) {
-        <div class="w-full h-full grid grid-cols-6 max-[1650px]:grid-cols-5 max-xl:grid-cols-4 max-md:grid-cols-3 max-[500px]:grid-cols-2 gap-x-7 gap-y-5 max-xl:gap-x-5 max-xl:gap-y-3">
+        <div class="w-full h-full grid grid-cols-6 max-[1650px]:grid-cols-5 max-xl:grid-cols-4 max-md:grid-cols-3 max-[500px]:grid-cols-2 gap-x-7 gap-y-5 max-xl:gap-x-5 max-xl:gap-y-3 mb-5">
           @for (item of searchData.searchList; track $index) {
-          <app-anime-item [name]="item.name!" [imgUrl]="item.imgUrl" [url]="item.url" [type]="item.type" [state]="item.state"></app-anime-item>
-        }
+            <app-anime-item [name]="item.name!" [imgUrl]="item.imgUrl" [url]="item.url" [type]="item.type" [state]="item.state"></app-anime-item>
+          }
+        </div>
+        <div class="w-full flex flex-wrap justify-center items-center gap-3 mt-3 mb-6 max-md:mt-1 max-md:mb-4">
+          @if (page > 1) {
+            <a [routerLink]="previousSearch()" class="text-center">
+              {{ textTranslate('Anterior', 'Previous') }}
+            </a>
+          }
+          @if (page < searchData.lastPage!) {
+            <a [routerLink]="nextSearch()" class="text-center">
+              {{ textTranslate('Siguiente', 'Next') }}
+            </a>
+          }
         </div>
       } @else {
         <p class="text-dark-alter dark:text-white-alter">{{ textTranslate('No se encontraron resultados', 'No results found') }}</p>

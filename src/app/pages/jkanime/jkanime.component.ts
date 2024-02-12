@@ -1,7 +1,7 @@
 // Modules
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 // Components
 import { AnimeItemComponent } from '../../components/anime-item/anime-item.component';
@@ -20,6 +20,7 @@ import { LanguageService } from '../../services/language.service';
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     AnimeItemComponent,
     ChapterItemComponent,
   ],

@@ -1,7 +1,7 @@
 import { LanguageService } from './../../services/language.service';
 import { Component, Input } from '@angular/core';
 import { DarkModeService } from '../../services/dark-mode.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Mode } from '../../models/output.model';
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

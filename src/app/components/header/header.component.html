@@ -11,9 +11,9 @@
     </a>
     <!-- Options in desktop -->
     <div class="options justify-center items-center gap-2 flex max-lg:hidden" [class.expanded]="navState">
-      <a [href]="urlTranslate('/directorio', '/directory')" class="button rounded-lg grid place-items-center px-5 py-2">{{ textTranslate('Directorio', 'Directory') }}</a>
-      <a [href]="urlTranslate('/horario', '/schedule')" class="button rounded-lg grid place-items-center px-5 py-2">{{ textTranslate('Horario', 'Schedule') }}</a>
-      <a [href]="urlTranslate('/top')" class="button rounded-lg grid place-items-center px-5 py-2">Top</a>
+      <a [routerLink]="urlTranslate('/directorio', '/directory')" class="button rounded-lg grid place-items-center px-5 py-2">{{ textTranslate('Directorio', 'Directory') }}</a>
+      <a [routerLink]="urlTranslate('/horario', '/schedule')" class="button rounded-lg grid place-items-center px-5 py-2">{{ textTranslate('Horario', 'Schedule') }}</a>
+      <a [routerLink]="urlTranslate('/top')" class="button rounded-lg grid place-items-center px-5 py-2">Top</a>
     </div>
     <!-- Options in mobile -->
     <div class="options justify-center items-center gap-2 hidden max-lg:flex" [class.expanded]="navState">
@@ -23,9 +23,9 @@
           class="search text-md button outline-none rounded-lg font-normal pl-5 pr-10 w-full h-full">
         <button type="submit"><i class="search-icon fa-solid fa-magnifying-glass absolute right-0"></i></button>
       </form>
-      <a [href]="urlTranslate('/directorio', '/directory')" class="button text rounded-lg grid place-items-center w-full basis-10">{{ textTranslate('Directorio', 'Directory') }}</a>
-      <a [href]="urlTranslate('/horario', '/schedule')" class="button text rounded-lg grid place-items-center w-full basis-10">{{ textTranslate('Horario', 'Schedule') }}</a>
-      <a [href]="urlTranslate('/top')" class="button text rounded-lg grid place-items-center w-full basis-10">Top</a>
+      <a [routerLink]="urlTranslate('/directorio', '/directory')" class="button text rounded-lg grid place-items-center w-full basis-10">{{ textTranslate('Directorio', 'Directory') }}</a>
+      <a [routerLink]="urlTranslate('/horario', '/schedule')" class="button text rounded-lg grid place-items-center w-full basis-10">{{ textTranslate('Horario', 'Schedule') }}</a>
+      <a [routerLink]="urlTranslate('/top')" class="button text rounded-lg grid place-items-center w-full basis-10">Top</a>
     </div>
   </div>
 

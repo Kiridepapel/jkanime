@@ -10,11 +10,12 @@ import { ChapterItemComponent } from '../../components/chapter-item/chapter-item
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Mode } from '../../models/output.model';
 import { LanguageService } from '../../services/language.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-anime',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChapterItemComponent],
+  imports: [CommonModule, RouterModule, FormsModule, ChapterItemComponent],
   templateUrl: './anime.component.html',
   styleUrl: './anime.component.scss',
 })

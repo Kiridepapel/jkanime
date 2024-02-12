@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Mode } from '../../models/output.model';
 import { LanguageService } from '../../services/language.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-chapter',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './chapter.component.html',
   styleUrl: './chapter.component.scss'
 })
