@@ -66,7 +66,7 @@ export class JKAnimeComponent {
   async ngOnInit() {
     try {
       await this.animeService
-        .getGenericData('animes')
+        .getGenericData('home')
         .then((data: HomePageDTO) => {
           this.homeData = data;
           this.activeList = this.homeData.animesProgramming;

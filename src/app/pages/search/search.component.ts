@@ -92,21 +92,19 @@ export class SearchComponent {
 
   public previousSearch() {
     let splitUri = this.uri.split('/');
-    return splitUri[0] + '/' + splitUri[1] + '/' + (this.page - 1);
+    return this.textTranslate('buscar', 'search') + '/' + splitUri[1] + '/' + (this.page - 1);
   }
 
   public nextSearch() {
     let splitUri = this.uri.split('/');
-    return splitUri[0] + '/' + splitUri[1] + '/' + (this.page + 1);
+    return this.textTranslate('buscar', 'search') + '/' + splitUri[1] + '/' + (this.page + 1);
   }
 
   private changeTitle() {
     if (this.isLoading) {
-      document.title =
-        this.textTranslate('Buscando ', 'Searching ') + 'animes...';
+      document.title = this.textTranslate('Buscando ', 'Searching ') + 'animes...';
     } else {
-      document.title =
-        this.textTranslate('Resultados de ', 'Results for ') + this.name;
+      document.title = this.textTranslate('Resultados de ', 'Results for ') + this.name;
     }
   }
 
