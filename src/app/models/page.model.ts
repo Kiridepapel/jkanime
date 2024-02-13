@@ -4,6 +4,7 @@ export class HomePageDTO {
   sliderAnimes!: ChapterDataDTO[];
   ovasOnasSpecials!: AnimeDataDTO[];
   animesProgramming!: ChapterDataDTO[];
+  nextAnimesProgramming!: ChapterDataDTO[];
   donghuasProgramming!: ChapterDataDTO[];
   topAnimes!: TopDataDTO[];
   latestAddedAnimes!: ChapterDataDTO[];

@@ -4,6 +4,7 @@ export class ChapterDataDTO {
   type?: string;
   chapter!: string;
   date?: string;
+  time?: string;
   url!: string;
   state?: boolean;
 }

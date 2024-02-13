@@ -200,16 +200,16 @@ export class JKAnimeComponent {
   public select(index: number) {
     let alterNumber = index == 0 ? 1 : 0;
     document
-      .getElementsByClassName('options')[0]
+      .getElementById('options')!
       .children[alterNumber].classList.remove('active');
     document
-      .getElementsByClassName('options')[0]
+      .getElementById('options')!
       .children[index].classList.add('active');
 
     this.activeList =
       index == 0
         ? this.homeData.animesProgramming
-        : this.homeData.donghuasProgramming;
+        : this.homeData.nextAnimesProgramming;
   }
 
   private changeTitle() {
@@ -223,6 +223,7 @@ export class JKAnimeComponent {
   public variablesTranslate(): void {
     this.translations = {
       'Hoy': this.language.value === 'es' ? 'Hoy' : 'Today',
+      // Pasado
       'Ayer': this.language.value === 'es' ? 'Ayer' : 'Yesterday',
       'Hace 2 días': this.language.value === 'es' ? 'Hace 2 días' : '2 days ago',
       'Hace 3 días': this.language.value === 'es' ? 'Hace 3 días' : '3 days ago',
@@ -230,6 +231,14 @@ export class JKAnimeComponent {
       'Hace 5 días': this.language.value === 'es' ? 'Hace 5 días' : '5 days ago',
       'Hace 6 días': this.language.value === 'es' ? 'Hace 6 días' : '6 days ago',
       'Hace 7 días': this.language.value === 'es' ? 'Hace 7 días' : '7 days ago',
+      // Futuro
+      'Mañana': this.language.value === 'es' ? 'Mañana' : 'Tomorrow',
+      'En 2 días': this.language.value === 'es' ? 'En 2 días' : 'In 2 days',
+      'En 3 días': this.language.value === 'es' ? 'En 3 días' : 'In 3 days',
+      'En 4 días': this.language.value === 'es' ? 'En 4 días' : 'In 4 days',
+      'En 5 días': this.language.value === 'es' ? 'En 5 días' : 'In 5 days',
+      'En 6 días': this.language.value === 'es' ? 'En 6 días' : 'In 6 days',
+      'En 7 días': this.language.value === 'es' ? 'En 7 días' : 'In 7 days',
     }
   }
 

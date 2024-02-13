@@ -78,7 +78,10 @@
       <!-- 1.3. Last chapters (right) -->
       <section class="h-[855px] min-w-[360px] w-[360px] max-[1800px]:min-w-[330px] max-xl:w-[80%] max-lg:w-full max-sm:min-w-full flex flex-col gap-5">
         <div class="min-h-[30px] max-md:min-h-[24px] flex justify-between gap-3">
-          <h2 class="h-[30px] flex border-l-4 self-start border-secondary text-dark-alter dark:text-white min-[1800px]:text-[20px] max-[1800px]:text-[18px] max-md:text-[16px] font-semibold font-oswald pl-3 items-center uppercase">{{ textTranslate('PROGRAMACIÓN', 'PROGRAMMING') }}</h2>
+          <h2 class="h-[30px] flex border-l-4 self-start border-secondary min-[1800px]:text-[20px] max-[1800px]:text-[18px] max-md:text-[16px]
+             font-semibold font-oswald pl-3 items-center uppercase text-dark-alter dark:text-white">
+            {{ textTranslate('PROGRAMACIÓN', 'PROGRAMMING') }}
+          </h2>
           <div class="max-[350px]:min-w-[auto] max-[350px]:justify-end flex gap-1">
             <button (click)="toggleDarkMode()" class="darkmode-btn flex items-center w-full h-full rounded-2xl" [ngClass]="{'active': dark.value}">
               <i class="fa-solid fa-circle text-[22px] max-md:text-[18px]"></i>
@@ -89,9 +92,9 @@
             </button>
           </div>
         </div>
-        <div class="options text-[15px] font-mulish w-full h-10 rounded-lg bg-secondary text-white-alter max-[1800px]:text-[15px]">
+        <div id="options" class="text-[15px] font-mulish w-full h-10 rounded-lg bg-secondary text-white-alter max-[1800px]:text-[15px]">
           <button (click)="select(0)" class="w-2/4 h-full rounded-l-lg active">Animes</button>
-          <button (click)="select(1)" class="w-2/4 h-full rounded-r-lg">Donghuas</button>
+          <button (click)="select(1)" class="w-2/4 h-full rounded-r-lg">{{ textTranslate('Próximos', 'Next') }}</button>
         </div>
         <div class="last-animes w-full h-full overflow-auto rounded-lg p-[5px] bg-[#e9e9e9] dark:bg-section-two-dark border-gray-700">
           @for(chapter of activeList; track $index) {
@@ -99,24 +102,35 @@
               border-b border-gray-200 dark:border-gray-700 hover:bg-white-alter dark:hover:bg-section-one-dark">
               <div class="flex items-start w-full max-[300px]:flex-col">
                 <img [src]="chapter.imgUrl" alt="Image of {{ chapter.name }}" class="w-28 max-h-20 rounded-md mr-3
-                  max-[300px]:w-full max-[300px]:mr-0 max-[300px]:object-cover max-[300px]:object-center" [ngClass]="{'object-top' : chapter.state === false}">
+                  max-[300px]:w-full max-[300px]:mr-0 max-[300px]:object-cover max-[300px]:object-center">
                 <div class="w-full font-mulish text-[13px] max-[1800px]:text-[12px] max-lg:text-[13px] leading-[18px]">
                   <h4 class="max-[300px]:line-clamp-3 font-bold underline decoration-transparent duration-300 ease-in-out text-gray-600 dark:text-white">
                     {{ chapter.name }}
-                    @if (chapter.type !== 'TV' && chapter.type !== 'Donghua') {
+                    @if (chapter.type !== 'Anime' && chapter.type !== 'Donghua') {
                       ({{ chapter.type }})
                     }
                   </h4>
                   <p class="font-semibold mt-[2px] text-secondary">{{ textTranslate('Capítulo ', 'Chapter ') }}{{ chapter.chapter }}</p>
-                  @if (chapter.state) {
-                    <span class="inline-block w-2 h-2 rounded-[50%] bg-green-400"></span>
-                  } @else {
-                    <span class="inline-block w-2 h-2 rounded-[50%] bg-violet-300"></span>
-                  }
-                  <p class="inline-block mt-[2px] ml-2 text-gray-400 font-semibold">{{ dynamicTranslate(chapter.date!) }}</p>
+                  <div class="flex items-center mt-[2px] gap-2">
+                    @if (chapter.state == true) {
+                      <span class="inline-block w-2 h-2 rounded-[50%] bg-green-400"></span>
+                    } @else if (chapter.state == false) {
+                      <span class="inline-block w-2 h-2 rounded-[50%] bg-violet-300"></span>
+                    } @else {
+                      <span class="inline-block w-2 h-2 rounded-[50%] bg-orange-300"></span>
+                    }
+                    <div class="inline-flex w-full justify-between text-gray-400 font-semibold">
+                      <p>{{ dynamicTranslate(chapter.date!) }}</p>
+                      @if (chapter.time != null) {
+                        <p>{{ dynamicTranslate(chapter.time!) }}</p>
+                      }
+                    </div>
+                  </div>
                 </div>
               </div>
-              <img src="../../../assets/svgs/flecha.svg" alt="Ir" class="max-w-6 max-h-8 max-[350px]:hidden">
+              @if (chapter.state != null) {
+                <img src="../../../assets/svgs/flecha.svg" alt="Ir" class="max-w-6 max-h-8 max-[350px]:hidden">
+              }
             </a>
           }
         </div>
