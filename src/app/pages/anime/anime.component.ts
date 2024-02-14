@@ -77,6 +77,8 @@ export class AnimeComponent {
       this.changeTitle();
     }
   }
+
+  
   
   ngOnDestroy() {
     this.languageSubscription.unsubscribe();

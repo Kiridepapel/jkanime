@@ -8,11 +8,13 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { Mode } from '../../models/output.model';
 import { LanguageService } from '../../services/language.service';
 import { RouterModule } from '@angular/router';
+import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
+import { DownloadDialogComponent } from '../../dialogs/download-dialog/download-dialog.component';
 
 @Component({
   selector: 'app-chapter',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatDialogModule],
   templateUrl: './chapter.component.html',
   styleUrl: './chapter.component.scss'
 })
@@ -34,6 +36,7 @@ export class ChapterComponent {
     private animeService: AnimeService,
     private sanitizer: DomSanitizer,
     private languageService: LanguageService,
+    private dialog: MatDialog
   ) {
     this.languageSubscription = this.languageService.language$.subscribe((language: Mode) => {
       this.language = language;
@@ -42,6 +45,7 @@ export class ChapterComponent {
   }
 
   async ngOnInit() {
+    // Establece como uri la url del anime
     const uri = window.location.href.replace((environment.FRONTEND_URL), "");
     this.uri = uri.split("/")[0];
     
@@ -50,6 +54,8 @@ export class ChapterComponent {
         this.chapterData = data;
         this.mainSrcOption = this.sanitizer.bypassSecurityTrustResourceUrl(this.chapterData.srcOptions[0]?.url);
         this.selectSrc(this.mainSrcIndex, this.chapterData.srcOptions[this.mainSrcIndex]?.url);
+        // Carga el script de Disqus
+        this.loadDisqusScript();
       });
     } finally {
       this.isLoading = false;
@@ -59,6 +65,14 @@ export class ChapterComponent {
 
   ngOnDestroy() {
     this.languageSubscription.unsubscribe();
+  }
+
+  // Carga el script de Disqus
+  private loadDisqusScript() {
+    const script = document.createElement('script');
+    script.src = 'https://fraxianime.disqus.com/embed.js';
+    script.setAttribute('data-timestamp', `${+new Date()}`);
+    (document.head || document.body).appendChild(script);
   }
 
   public getPreviousChapterUrl() {
@@ -92,6 +106,21 @@ export class ChapterComponent {
     }
   
     this.mainSrcIndex = index;
+  }
+
+  public openDownloadDialog() {
+    const config = new MatDialogConfig();
+    config.width = '500px';
+    config.minHeight = '400px';
+    config.disableClose = false;
+    config.autoFocus = true;
+    // config.hasBackdrop = true;
+    config.closeOnNavigation = true;
+    config.enterAnimationDuration = 500;
+    config.exitAnimationDuration = 500;
+    config.data = this.chapterData.downloadOptions;
+
+    this.dialog.open(DownloadDialogComponent, config);
   }
 
   // Muestra el día de la última actualización del anime
