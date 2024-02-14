@@ -28,11 +28,10 @@ export class AnimeInfoDTO {
   lastChapterDate!: string;
   nextChapterDate!: string;
 
-  // Alter
-  isNewestChapter!: boolean;
-
   chapterList!: ChapterDataDTO[];
 
+  // Alter
+  // isNewestChapter!: boolean;
   // recomendations!: LastAnimeDataDTO[];
 }
 

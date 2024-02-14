@@ -31,7 +31,7 @@ export class AnimeComponent {
   public showAltTitles: Map<string, any> = new Map();
   public showHistory: Map<string, any> = new Map();
   // Orden de los datos
-  private orderData = ["type", "genres", "studio", "director", "language", "year", "cast", "censured", "status", "emited", "chapters", "duration", "quality"];
+  private orderData = ["type", "genres", "studio", "director", "language", "cast", "censured", "status", "emited", "chapters", "duration", "quality"];
   private orderAltTitles = ["synonyms", "english", "japanese", "corean"];
   private orderHistory = ["prequel", "sequel", "derived", "other", "alternativeVersion", "completeVersion", "additional", "summary", "includedCharacters"];
   private removeUrlSpecialCases = ["one-piece"]
@@ -40,7 +40,8 @@ export class AnimeComponent {
   public activeInfoIndex: number = 0;
   public activeTabIndex: number = 0;
   // Chapters list
-  public chaptersListFormat: string = 'table'; // table, list, cards
+  public chapterList: ChapterDataDTO[] = [];
+  public chaptersListFormat: string = 'list'; // table, list, cards
   public sort: boolean = false;
   public searchChapter: string = '';
 
@@ -67,6 +68,8 @@ export class AnimeComponent {
     try {
       await this.animeService.getGenericData(this.uri).then((data: AnimeInfoDTO) => {
         this.animeData = data;
+        this.chapterList = this.animeData.chapterList;
+        this.chapterList.length > 12 ? this.chaptersListFormat = 'table' : this.chaptersListFormat = 'list';
         this.manipulateData(data);
       });
     } finally {
@@ -79,7 +82,6 @@ export class AnimeComponent {
     this.languageSubscription.unsubscribe();
   }
   
-  // Manipula los datos recibidos de la API
   private manipulateData(data: AnimeInfoDTO) {
     if (this.animeData.data != null) {
       this.animeData.imgUrl = this.animeData.imgUrl.split('?')[0]; // Quita el resize de la imagen
@@ -97,9 +99,11 @@ export class AnimeComponent {
     if (this.animeData.trailer != null) {
       this.trailer = this.sanitizer.bypassSecurityTrustResourceUrl(this.animeData.trailer);
     }
-    // if (this.animeData.firstChapter != null && this.animeData.lastChapter != null) {
-    //   this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter);
-    // } 
+  }
+
+  // Crea la url de un capítulo
+  public calcChapterUrl(chapter: string): string {
+    return this.uri + "/" + parseInt(chapter, 10).toString();
   }
 
   // Cambia los nombres de las keys de los datos
@@ -174,61 +178,30 @@ export class AnimeComponent {
       this.chaptersListFormat = 'list';
     } else if (this.chaptersListFormat === 'list') {
       this.chaptersListFormat = 'table';
-    // } else {
-    //   this.chaptersListFormat = 'table';
     }
   }
 
+  // Cambia el orden de los datos
   public changeSortChapterList() {
     this.sort = !this.sort;
-    this.animeData.chapterList.reverse();
+    this.chapterList.reverse();
   }
 
   public alterSort() {
     this.sort = !this.sort;
   }
 
+  // Filtra los capítulos
   public filterChapters() {
-    // if (!this.searchChapter) {
-    //   this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter);
-    // } else {
-    //   this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter)
-    //     .filter(chapter => chapter.chapter.startsWith(this.searchChapter));
-    // }
-  }
-
-  public calcChapterUrl(chapter: string): string {
-    return this.uri + "/" + parseInt(chapter, 10).toString();
-  }
-
-  // private createChapterList(first: number, last: number): ChapterDataDTO[] {
-  //   let list: ChapterDataDTO[] = [];
-  //   let counter: number = last - 1;
-
-  //   for (let i = first; i <= last; i++) {
-  //     let chapterData: ChapterDataDTO = {
-  //       // hacer que el string 1 se convierta en 01 y asi los primeros 9 numeros
-  //       name: this.animeData.name,
-  //       imgUrl: this.animeData.imgUrl,
-  //       chapter: i.toString(),
-  //       url: this.uri + "/" + i.toString(),
-  //       date: this.firstUppercase(this.modifyDate(this.animeData.lastChapterDate, -(counter * 7), first))
-  //     };
-  //     list.push(chapterData);
-  //     counter--;
-  //   }
-
-  //   return list;
-  // }
-
-  public modifyDate(date: string, quantity: number, index: number) {
-    // if (index === this.animeData.lastChapter) {
-    //   return date;
-    // } else {
-    //   return this.animeService.modifyDate(date, quantity, index);
-    // }
+    if (!this.searchChapter) {
+      this.chapterList = this.animeData.chapterList;
+    } else {
+      this.chapterList = this.animeData.chapterList
+        .filter(chapter => chapter.chapter.startsWith(this.searchChapter));
+    }
   }
   
+  // Valida si el capítulo es nuevo en base a los días especificados
   public isNewestChapter(daysBefore: number): boolean {
     if (this.animeData.lastChapterDate != null) {
       const spanishMonths = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
@@ -248,29 +221,27 @@ export class AnimeComponent {
     }
   }
 
+  // Calcula la cantidad de personas mirando, visto y por ver
   public calcFromLikes(is: string): number {
-    if (!this.animeData.likes) {
+    if (this.animeData.likes != null) {
+      if (is === 'm') { // mirando
+        return Math.floor(this.animeData.likes / 4.5112);
+      }
+      if (is === 'v') { // visto
+        return Math.floor(this.animeData.likes / 2.2523);
+      }
+      if (is === 'p') { // por ver
+        return Math.floor(this.animeData.likes / 16.5232);
+      }
+    } else {
       this.animeData.likes = 0;
     }
-
-    if (is === 'm') { // calcula la cantidad de personas mirando en base a los likes (siempre debe)
-      return Math.floor(this.animeData.likes / 4.5112);
-    }
-    if (is === 'v') { // calcula la cantidad de personas visto en base a los likes
-      return Math.floor(this.animeData.likes / 2.2523);
-    }
-    if (is === 'p') { // calcula la cantidad de personas por ver en base a los likes
-      return Math.floor(this.animeData.likes / 16.5232);
-    }
-
     return 0;
   }
 
   private reorderData(dataToUse: any, dataToSort: string[]): {[key: string]: any} {
-    // Valor inicial
     let orderedData: {[key: string]: any} = {};
 
-    // Ordenar los datos
     for (let key of dataToSort) {
       if (dataToUse!.hasOwnProperty(key)) {
         orderedData[key] = dataToUse![key];
@@ -278,15 +249,6 @@ export class AnimeComponent {
     }
 
     return orderedData;
-  }
-  
-  // Selecciona el tab activo
-  public selectInfo(index: number) {
-    this.activeInfoIndex = index;
-  }
-
-  public selectTab(index: number) {
-    this.activeTabIndex = index;
   }
 
   // Obtiene las keys de un map en forma de array
@@ -297,11 +259,6 @@ export class AnimeComponent {
   // Verifica si el value del map es un array
   public isObject(value: any): boolean {
     return typeof value === "object";
-  }
-
-  // Escribe la primera letra en mayúscula de los values de las keys
-  public firstUppercase(value: any): string {
-    return this.animeService.firstUppercase(value);
   }
 
   // Muestra el día de la última actualización del anime
@@ -318,8 +275,14 @@ export class AnimeComponent {
 
     return url;
   }
+  
+  // Muestra u oculta la información adicional o la sinopsis
+  public selectTab(index: number) {
+    this.activeTabIndex = index;
+  }
 
-  public activate(index: number) {
+  // Muestra u oculta los titulos alternativos o la historia
+  public activateAcc(index: number) {
     document.querySelectorAll(".acc")[index]!.classList.toggle("show");
   }
 

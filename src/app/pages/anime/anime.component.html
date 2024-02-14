@@ -52,8 +52,8 @@
         </div>
         <!-- Botones de sinopsis y de información -->
         <div class="mb-5 w-full h-[36px] max-md:h-[72px] max-lg:flex max-md:flex-col gap3 bg-white text-dark-alter font-semibold text-sm hidden">
-          <button (click)="selectInfo(0)" [ngClass]="{'active-1': activeInfoIndex === 0}" class="grow-0 shrink-0 basis-2/4 max-md:h-[36px]">{{ textTranslate('Sinopsis', 'Synopsis') }}</button>
-          <button (click)="selectInfo(1)" [ngClass]="{'active-1': activeInfoIndex === 1}" class="grow-0 shrink-0 basis-2/4 max-md:h-[36px]">{{ textTranslate('Información', 'Information') }}</button>
+          <button (click)="selectTab(0)" [ngClass]="{'active-1': activeInfoIndex === 0}" class="grow-0 shrink-0 basis-2/4 max-md:h-[36px]">{{ textTranslate('Sinopsis', 'Synopsis') }}</button>
+          <button (click)="selectTab(1)" [ngClass]="{'active-1': activeInfoIndex === 1}" class="grow-0 shrink-0 basis-2/4 max-md:h-[36px]">{{ textTranslate('Información', 'Information') }}</button>
         </div>
         <!-- Sinopsis -->
         <p class="block text-lg max-lg:text-base mb-5 font-mulish" [ngClass]="{'showing-1': activeInfoIndex === 1}">{{ textTranslate(animeData.synopsis, animeData.synopsisEnglish  ) }}</p>
@@ -70,25 +70,22 @@
                     @if (item[1] === 'En emisión') {
                       <div class="px-2 py-1 flex justify-center items-center gap-2 text-sm rounded-md bg-green-500 text-white">
                         <i class="text-[10px] fa-solid fa-circle"></i>
-                        <span class="text-[14px] font-semibold">{{ firstUppercase(item[1]) }}</span>
+                        <span class="text-[14px] font-semibold">{{ item[1] }}</span>
                       </div>
                     } @else if (item[1] === 'Finalizado') {
                       <div class="px-2 py-1 flex justify-center items-center gap-2 text-sm rounded-md bg-red-500 text-white">
                         <i class="text-[10px] fa-solid fa-circle"></i>
-                        <span class="text-[14px] font-semibold">{{ firstUppercase(item[1]) }}</span>
+                        <span class="text-[14px] font-semibold">{{ item[1] }}</span>
                       </div>
                     } @else if (item[1] === 'Proximamente') {
                       <div class="px-2 py-1 flex justify-center items-center gap-2 text-sm rounded-md bg-orange-500 text-white">
                         <i class="text-[10px] fa-solid fa-circle"></i>
-                        <span class="text-[14px] font-semibold">{{ firstUppercase(item[1]) }}</span>
+                        <span class="text-[14px] font-semibold">{{ item[1] }}</span>
                       </div>
                     }
                   <!-- Key: Last Update -->
-                  } @else if (item[0] === 'lastUpdate') {
-                    <span class="links">{{ parseAndFormatDate(item[1], true) }}</span>
-                  <!-- Key: Any other -->
                   } @else {
-                    <span class="links">{{ firstUppercase(item[1]) }}</span>
+                    <span class="links">{{ item[1] }}</span>
                   }
                 </li>
               <!-- Si el value es un objeto -->
@@ -97,7 +94,7 @@
                   <span class="item">{{ item[0] }}: </span>
                   <div class="links flex flex-wrap">
                     @for (subItem of objectEntries(item[1]); track $index) {
-                      <a href="{{ subItem[1].url }}">{{ firstUppercase(subItem[1].name) }}</a>
+                      <a href="{{ subItem[1].url }}">{{ subItem[1].name }}</a>
                       <!-- Coloca una coma, siempre y cuando el elemento iterado no sea el último -->
                       @if ($index < (objectEntries(item[1]).length - 1)) {
                         <span class="text-dark-alter dark:text-white mr-[3px]">,</span>
@@ -112,14 +109,14 @@
             <!-- Títulos alternativos -->
             @if (animeData.alternativeTitles) {
               <div class="mb-5 acc">
-                <button (click)="activate(0)" class="flex justify-between items-center cursor-text font-mulish font-bold text-lg text-tertiary">
+                <button (click)="activateAcc(0)" class="flex justify-between items-center cursor-text font-mulish font-bold text-lg text-tertiary">
                   <h2 class="inline mr-2">{{ textTranslate('Títulos alternativos', 'Alternative titles') }}</h2>
                   <i class="fa-solid fa-chevron-down text-sm"></i>
                 </button>
                 <div class="acc-content font-mulish text-dark-alter dark:text-white-alter">
                   @for(item of showAltTitles; track $index) {
                     <h3 class="font-bold dark:text-blue-200">{{ item[0] }}</h3>
-                    <p class="inline">{{ firstUppercase(item[1]) }}</p>
+                    <p class="inline">{{ item[1] }}</p>
                     <br>
                   }
                 </div>
@@ -128,7 +125,7 @@
             <!-- Historial -->
             @if (animeData.history) {
               <div class="mb-5 acc show">
-                <button (click)="activate(1)" class="flex justify-between items-center cursor-text font-mulish font-bold text-lg text-tertiary">
+                <button (click)="activateAcc(1)" class="flex justify-between items-center cursor-text font-mulish font-bold text-lg text-tertiary">
                   <h2 class="inline mr-2">{{ textTranslate('Historial', 'History') }}</h2>
                   <i class="fa-solid fa-chevron-down text-sm font-bold"></i>
                 </button>
@@ -138,7 +135,7 @@
                       <h3 class="font-bold text-dark-alter dark:text-white-alter">{{ item[0] }}</h3>
                       @for (subItem of objectEntries(item[1]); track $index) {
                         <div class="block">
-                          <a class="inline cursor-pointer" [href]="searchAnime(subItem[1].url)">{{ firstUppercase(subItem[1].name) }} ({{ subItem[1].type }})</a>
+                          <a class="inline cursor-pointer" [href]="searchAnime(subItem[1].url)">{{ subItem[1].name }} ({{ subItem[1].type }})</a>
                         </div>
                       }
                     </li>
@@ -198,7 +195,7 @@
     <!-- Chapters -->
     <div class="w-full h-full mx-2 mb-6 max-sm:mx-0 flex justify-between items-center gap-6 max-md:flex-col max-md:items-start text-dark-alter dark:text-white-alter">
       <h2 class="border-l-4 border-secondary inline text-2xl max-md:text-[23px] font-semibold font-oswald pl-4 uppercase">{{ textTranslate('Capítulos', 'Chapters') }}</h2>
-      @if (animeData.chapterList != null) {
+      @if (chapterList != null) {
         <div class="max-md:w-full">
           <button (click)="alterChaptersListFormat()" class="max-md:inline max-md:w-[calc(50%-4px)] max-md:mr-1 mr-2 w-11 h-10 rounded-[4px] max-md:mb-2 bg-tertiary text-white-alter">
             <!-- <i class="fa-solid fa-bars text-sm" [ngClass]="{'fa-table-cells-large': chaptersListFormat}"></i> -->
@@ -232,15 +229,15 @@
       </div>
     }
     <!-- Chapter list -->
-    @if (animeData.chapterList != null) {
+    @if (chapterList != null) {
       <div class="chapters w-full h-full max-h-[482px] max-lg:max-h-[964px] mb-6 mx-2 max-sm:mx-0 gap-x-7 gap-y-4 flex content-start flex-wrap overflow-auto sm:overscroll-y-none">
-        @if (chaptersListFormat === 'table') {
-          @for (item of animeData.chapterList; track $index) {
+        @if (chaptersListFormat === 'list') {
+          @for (item of chapterList; track $index) {
             <app-chapter-item class="h-[150px] w-[calc(25%-21px)] max-lg:w-[calc(50%-14px)] max-[550px]:w-full" [type]="2"
               [imgUrl]="animeData.imgUrl" [url]="calcChapterUrl(item.chapter)" [category]="item.type" [chapter]="item.chapter" [viewed]="false"
             ></app-chapter-item>
           }
-        } @else if (chaptersListFormat === 'list') {
+        } @else if (chaptersListFormat === 'table') {
           <div class="border w-full rounded-md text-dark-alter dark:text-white-alter border-section-two dark:border-[#2b2e3a] dark:bg-[#2b2e3a] text-[15px] max-md:text-sm">
             <div class="sticky top-0 w-full h-10 flex justify-between items-center font-bold bg-section-one dark:bg-section-one-dark rounded-tl-md transition-all duration-500">
               <div class="w-[350px] max-sm:basis-[70%] pl-4">
@@ -261,7 +258,7 @@
               </div>
             </div>
             <div class="w-full rounded-bl-md rounded-br-md">
-              @for (item of animeData.chapterList; track $index) {
+              @for (item of chapterList; track $index) {
                 @if ($index % 2 == 0) {
                   <a [href]="calcChapterUrl(item.chapter)" class="bg-[#e4e4e4] dark:bg-[#2b2e3a] w-full h-[36.7px] py-1 flex justify-between items-center group dark:hover:bg-primary hover:text-white-alter hover:bg-primary transition-all duration-500">
                     <div class="w-[350px] h-full max-sm:hidden pl-4 flex items-center gap-3">
