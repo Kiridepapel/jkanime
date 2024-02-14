@@ -56,7 +56,7 @@
           <button (click)="selectInfo(1)" [ngClass]="{'active-1': activeInfoIndex === 1}" class="grow-0 shrink-0 basis-2/4 max-md:h-[36px]">{{ textTranslate('Información', 'Information') }}</button>
         </div>
         <!-- Sinopsis -->
-        <p class="block text-lg max-lg:text-base mb-5 font-mulish" [ngClass]="{'showing-1': activeInfoIndex === 1}">{{ textTranslate(animeData.synopsis, animeData.synopsisTranslated) }}</p>
+        <p class="block text-lg max-lg:text-base mb-5 font-mulish" [ngClass]="{'showing-1': activeInfoIndex === 1}">{{ textTranslate(animeData.synopsis, animeData.synopsisEnglish  ) }}</p>
         <!-- Información -->
         <div class="gap-[4%] max-xl:gap-5 flex max-xl:flex-col w-full showing" [ngClass]="{'showing-1': activeInfoIndex === 0}">
           <ul class="grow-0 shrink-0 basis-[48%] flex flex-col gap-[6px] pl-5">
@@ -66,7 +66,7 @@
                 <li class="flex flex-wrap">
                   <span class="item">{{ item[0] }}: </span>
                   <!-- Key: Status -->
-                  @if (item[0] === 'status') {
+                  @if (item[0] === textTranslate('Estado', 'State')) {
                     @if (item[1] === 'En emisión') {
                       <div class="px-2 py-1 flex justify-center items-center gap-2 text-sm rounded-md bg-green-500 text-white">
                         <i class="text-[10px] fa-solid fa-circle"></i>
@@ -198,7 +198,7 @@
     <!-- Chapters -->
     <div class="w-full h-full mx-2 mb-6 max-sm:mx-0 flex justify-between items-center gap-6 max-md:flex-col max-md:items-start text-dark-alter dark:text-white-alter">
       <h2 class="border-l-4 border-secondary inline text-2xl max-md:text-[23px] font-semibold font-oswald pl-4 uppercase">{{ textTranslate('Capítulos', 'Chapters') }}</h2>
-      @if (chapterList != null && animeData.lastChapter != null) {
+      @if (animeData.chapterList != null) {
         <div class="max-md:w-full">
           <button (click)="alterChaptersListFormat()" class="max-md:inline max-md:w-[calc(50%-4px)] max-md:mr-1 mr-2 w-11 h-10 rounded-[4px] max-md:mb-2 bg-tertiary text-white-alter">
             <!-- <i class="fa-solid fa-bars text-sm" [ngClass]="{'fa-table-cells-large': chaptersListFormat}"></i> -->
@@ -232,12 +232,12 @@
       </div>
     }
     <!-- Chapter list -->
-    @if (chapterList != null && animeData.lastChapter != null) {
+    @if (animeData.chapterList != null) {
       <div class="chapters w-full h-full max-h-[482px] max-lg:max-h-[964px] mb-6 mx-2 max-sm:mx-0 gap-x-7 gap-y-4 flex content-start flex-wrap overflow-auto sm:overscroll-y-none">
         @if (chaptersListFormat === 'table') {
-          @for (item of chapterList; track $index) {
+          @for (item of animeData.chapterList; track $index) {
             <app-chapter-item class="h-[150px] w-[calc(25%-21px)] max-lg:w-[calc(50%-14px)] max-[550px]:w-full" [type]="2"
-              [imgUrl]="item.imgUrl" [url]="item.url" [category]="item.type" [chapter]="item.chapter" [viewed]="false"
+              [imgUrl]="animeData.imgUrl" [url]="calcChapterUrl(item.chapter)" [category]="item.type" [chapter]="item.chapter" [viewed]="false"
             ></app-chapter-item>
           }
         } @else if (chaptersListFormat === 'list') {
@@ -261,11 +261,11 @@
               </div>
             </div>
             <div class="w-full rounded-bl-md rounded-br-md">
-              @for (item of chapterList; track $index) {
+              @for (item of animeData.chapterList; track $index) {
                 @if ($index % 2 == 0) {
-                  <a [href]="item.url" class="bg-[#e4e4e4] dark:bg-[#2b2e3a] w-full h-[36.7px] py-1 flex justify-between items-center group dark:hover:bg-primary hover:text-white-alter hover:bg-primary transition-all duration-500">
+                  <a [href]="calcChapterUrl(item.chapter)" class="bg-[#e4e4e4] dark:bg-[#2b2e3a] w-full h-[36.7px] py-1 flex justify-between items-center group dark:hover:bg-primary hover:text-white-alter hover:bg-primary transition-all duration-500">
                     <div class="w-[350px] h-full max-sm:hidden pl-4 flex items-center gap-3">
-                      <img [src]="item.imgUrl" class="w-6 h-full rounded-sm" alt="Chapter {{ item.chapter }} image">
+                      <img [src]="animeData.imgUrl" class="w-6 h-full rounded-sm" alt="Chapter {{ item.chapter }} image">
                       <span>{{ item.chapter }}</span>
                     </div>
                     <span class="w-full max-sm:basis-[70%] h-[34px] flex items-center pl-4">{{ textTranslate('Capítulo', 'Chapter') }} {{ item.chapter }}</span>
@@ -275,9 +275,9 @@
                     <span class="w-full px-4">{{ item.date }}</span>
                   </a>
                 } @else {
-                  <a [href]="item.url" class="bg-section-one dark:bg-section-one-dark w-full h-[36.7px] py-1 flex justify-between items-center group dark:hover:bg-primary hover:text-white-alter hover:bg-primary transition-all duration-500">
+                  <a [href]="calcChapterUrl(item.chapter)" class="bg-section-one dark:bg-section-one-dark w-full h-[36.7px] py-1 flex justify-between items-center group dark:hover:bg-primary hover:text-white-alter hover:bg-primary transition-all duration-500">
                     <div class="w-[350px] h-full max-sm:hidden pl-4 flex items-center gap-3">
-                      <img [src]="item.imgUrl" class="w-6 h-full rounded-sm" alt="Chapter {{ item.chapter }} image">
+                      <img [src]="animeData.imgUrl" class="w-6 h-full rounded-sm" alt="Chapter {{ item.chapter }} image">
                       <span>{{ item.chapter }}</span>
                     </div>
                     <span class="w-full max-sm:basis-[70%] h-[34px] flex items-center pl-4">{{ textTranslate('Capítulo', 'Chapter') }} {{ item.chapter }}</span>

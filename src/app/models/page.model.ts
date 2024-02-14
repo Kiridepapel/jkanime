@@ -16,7 +16,7 @@ export class AnimeInfoDTO {
   alternativeName!: string;
   imgUrl!: string;
   synopsis!: string;
-  synopsisTranslated!: string;
+  synopsisEnglish!: string;
   trailer!: string;
   likes!: number;
   
@@ -24,11 +24,14 @@ export class AnimeInfoDTO {
   alternativeTitles!: {[key: string]: any}
   history!: {[key: string]: any}
 
-  firstChapter!: number;
   lastChapter!: number;
   lastChapterDate!: string;
-
   nextChapterDate!: string;
+
+  // Alter
+  isNewestChapter!: boolean;
+
+  chapterList!: ChapterDataDTO[];
 
   // recomendations!: LastAnimeDataDTO[];
 }

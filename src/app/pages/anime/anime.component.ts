@@ -31,7 +31,7 @@ export class AnimeComponent {
   public showAltTitles: Map<string, any> = new Map();
   public showHistory: Map<string, any> = new Map();
   // Orden de los datos
-  private orderData = ["type", "genres", "studio", "director", "language", "year", "cast", "censured", "emited", "status", "lastUpdate", "chapters", "duration", "quality"];
+  private orderData = ["type", "genres", "studio", "director", "language", "year", "cast", "censured", "status", "emited", "chapters", "duration", "quality"];
   private orderAltTitles = ["synonyms", "english", "japanese", "corean"];
   private orderHistory = ["prequel", "sequel", "derived", "other", "alternativeVersion", "completeVersion", "additional", "summary", "includedCharacters"];
   private removeUrlSpecialCases = ["one-piece"]
@@ -40,7 +40,6 @@ export class AnimeComponent {
   public activeInfoIndex: number = 0;
   public activeTabIndex: number = 0;
   // Chapters list
-  public chapterList!: ChapterDataDTO[]; // Lista de capítulos
   public chaptersListFormat: string = 'table'; // table, list, cards
   public sort: boolean = false;
   public searchChapter: string = '';
@@ -98,9 +97,9 @@ export class AnimeComponent {
     if (this.animeData.trailer != null) {
       this.trailer = this.sanitizer.bypassSecurityTrustResourceUrl(this.animeData.trailer);
     }
-    if (this.animeData.firstChapter != null && this.animeData.lastChapter != null) {
-      this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter);
-    } 
+    // if (this.animeData.firstChapter != null && this.animeData.lastChapter != null) {
+    //   this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter);
+    // } 
   }
 
   // Cambia los nombres de las keys de los datos
@@ -182,7 +181,7 @@ export class AnimeComponent {
 
   public changeSortChapterList() {
     this.sort = !this.sort;
-    this.chapterList.reverse();
+    this.animeData.chapterList.reverse();
   }
 
   public alterSort() {
@@ -190,40 +189,44 @@ export class AnimeComponent {
   }
 
   public filterChapters() {
-    if (!this.searchChapter) {
-      this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter);
-    } else {
-      this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter)
-        .filter(chapter => chapter.chapter.startsWith(this.searchChapter));
-    }
+    // if (!this.searchChapter) {
+    //   this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter);
+    // } else {
+    //   this.chapterList = this.createChapterList(this.animeData.firstChapter, this.animeData.lastChapter)
+    //     .filter(chapter => chapter.chapter.startsWith(this.searchChapter));
+    // }
   }
 
-  private createChapterList(first: number, last: number): ChapterDataDTO[] {
-    let list: ChapterDataDTO[] = [];
-    let counter: number = last - 1;
-
-    for (let i = first; i <= last; i++) {
-      let chapterData: ChapterDataDTO = {
-        // hacer que el string 1 se convierta en 01 y asi los primeros 9 numeros
-        name: this.animeData.name,
-        imgUrl: this.animeData.imgUrl,
-        chapter: i.toString(),
-        url: this.uri + "/" + i.toString(),
-        date: this.firstUppercase(this.modifyDate(this.animeData.lastChapterDate, -(counter * 7), first))
-      };
-      list.push(chapterData);
-      counter--;
-    }
-
-    return list;
+  public calcChapterUrl(chapter: string): string {
+    return this.uri + "/" + parseInt(chapter, 10).toString();
   }
+
+  // private createChapterList(first: number, last: number): ChapterDataDTO[] {
+  //   let list: ChapterDataDTO[] = [];
+  //   let counter: number = last - 1;
+
+  //   for (let i = first; i <= last; i++) {
+  //     let chapterData: ChapterDataDTO = {
+  //       // hacer que el string 1 se convierta en 01 y asi los primeros 9 numeros
+  //       name: this.animeData.name,
+  //       imgUrl: this.animeData.imgUrl,
+  //       chapter: i.toString(),
+  //       url: this.uri + "/" + i.toString(),
+  //       date: this.firstUppercase(this.modifyDate(this.animeData.lastChapterDate, -(counter * 7), first))
+  //     };
+  //     list.push(chapterData);
+  //     counter--;
+  //   }
+
+  //   return list;
+  // }
 
   public modifyDate(date: string, quantity: number, index: number) {
-    if (index === this.animeData.lastChapter) {
-      return date;
-    } else {
-      return this.animeService.modifyDate(date, quantity, index);
-    }
+    // if (index === this.animeData.lastChapter) {
+    //   return date;
+    // } else {
+    //   return this.animeService.modifyDate(date, quantity, index);
+    // }
   }
   
   public isNewestChapter(daysBefore: number): boolean {
