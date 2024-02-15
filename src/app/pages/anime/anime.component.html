@@ -193,8 +193,10 @@
       </div>
     }
     <!-- Chapters -->
-    <div class="w-full h-full mx-2 mb-6 max-sm:mx-0 flex justify-between items-center gap-6 max-md:flex-col max-md:items-start text-dark-alter dark:text-white-alter">
-      <h2 class="border-l-4 border-secondary inline text-2xl max-md:text-[23px] font-semibold font-oswald pl-4 uppercase">{{ textTranslate('Capítulos', 'Chapters') }}</h2>
+    <div class="w-full h-full mb-6 mx-2 max-sm:mx-0 flex justify-between items-center gap-6 max-md:flex-col max-md:items-start text-dark-alter dark:text-white-alter">
+      <h2 class="border-l-4 border-secondary inline text-2xl max-md:text-[23px] font-semibold font-oswald pl-4 uppercase">
+        {{ textTranslate('Capítulos', 'Chapters') }}
+      </h2>
       @if (chapterList != null) {
         <div class="max-md:w-full">
           <button (click)="alterChaptersListFormat()" class="max-md:inline max-md:w-[calc(50%-4px)] max-md:mr-1 mr-2 w-11 h-10 rounded-[4px] max-md:mb-2 bg-tertiary text-white-alter">
@@ -294,6 +296,15 @@
         <p class="text-white-alter font-medium">{{ textTranslate('No hay capítulos programados', 'No chapters scheduled') }}</p>
       </div>
     }
+  </section>
+  <section class="section w-full pt-2 mb-2 text-sm max-lg:text-[13px] flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
+    <h2 class="border-l-4 border-secondary self-start inline text-2xl max-md:text-[23px] font-semibold font-oswald pl-4 uppercase">
+      {{ textTranslate('Comentarios', 'Comments') }}  
+    </h2>
+    <div id="disqus_thread" class="w-full"></div>
+    <noscript class="w-full">Please enable JavaScript to view the 
+      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+    </noscript>
   </section>
 } @placeholder {
   <section class="section center bg-section-one dark:bg-section-one-dark">

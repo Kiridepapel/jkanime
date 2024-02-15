@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { Mode } from '../../models/output.model';
 import { LanguageService } from '../../services/language.service';
 import { RouterModule } from '@angular/router';
+import { ExternalScriptService } from '../../services/external-script.service';
 
 @Component({
   selector: 'app-anime',
@@ -46,6 +47,7 @@ export class AnimeComponent {
   public searchChapter: string = '';
 
   constructor(
+    private externalScript: ExternalScriptService,
     private animeService: AnimeService,
     private sanitizer: DomSanitizer,
     private languageService: LanguageService,
@@ -71,14 +73,15 @@ export class AnimeComponent {
         this.chapterList = this.animeData.chapterList;
         this.chapterList.length > 12 ? this.chaptersListFormat = 'table' : this.chaptersListFormat = 'list';
         this.manipulateData(data);
+
+        // Carga el script de Disqus
+        this.externalScript.loadDisqusScript();
       });
     } finally {
       this.isLoading = false;
       this.changeTitle();
     }
   }
-
-  
   
   ngOnDestroy() {
     this.languageSubscription.unsubscribe();
@@ -99,7 +102,7 @@ export class AnimeComponent {
       this.createShowHistory();
     }
     if (this.animeData.trailer != null) {
-      this.trailer = this.sanitizer.bypassSecurityTrustResourceUrl(this.animeData.trailer);
+      this.trailer = this.sanitizer?.bypassSecurityTrustResourceUrl(this.animeData.trailer);
     }
   }
 

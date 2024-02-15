@@ -10,6 +10,7 @@ import { LanguageService } from '../../services/language.service';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { DownloadDialogComponent } from '../../dialogs/download-dialog/download-dialog.component';
+import { ExternalScriptService } from '../../services/external-script.service';
 
 @Component({
   selector: 'app-chapter',
@@ -33,6 +34,7 @@ export class ChapterComponent {
   public mainSrcOption!: SafeResourceUrl;
 
   constructor(
+    private externalScript: ExternalScriptService,
     private animeService: AnimeService,
     private sanitizer: DomSanitizer,
     private languageService: LanguageService,
@@ -55,7 +57,7 @@ export class ChapterComponent {
         this.mainSrcOption = this.sanitizer.bypassSecurityTrustResourceUrl(this.chapterData.srcOptions[0]?.url);
         this.selectSrc(this.mainSrcIndex, this.chapterData.srcOptions[this.mainSrcIndex]?.url);
         // Carga el script de Disqus
-        this.loadDisqusScript();
+        this.externalScript.loadDisqusScript();
       });
     } finally {
       this.isLoading = false;
@@ -65,14 +67,6 @@ export class ChapterComponent {
 
   ngOnDestroy() {
     this.languageSubscription.unsubscribe();
-  }
-
-  // Carga el script de Disqus
-  private loadDisqusScript() {
-    const script = document.createElement('script');
-    script.src = 'https://fraxianime.disqus.com/embed.js';
-    script.setAttribute('data-timestamp', `${+new Date()}`);
-    (document.head || document.body).appendChild(script);
   }
 
   public getPreviousChapterUrl() {
@@ -114,13 +108,12 @@ export class ChapterComponent {
     config.minHeight = '400px';
     config.disableClose = false;
     config.autoFocus = true;
-    // config.hasBackdrop = true;
     config.closeOnNavigation = true;
     config.enterAnimationDuration = 500;
     config.exitAnimationDuration = 500;
     config.data = this.chapterData.downloadOptions;
 
-    this.dialog.open(DownloadDialogComponent, config);
+    // this.dialog.open(DownloadDialogComponent, config);
   }
 
   // Muestra el día de la última actualización del anime
