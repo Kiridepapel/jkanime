@@ -5,7 +5,7 @@ import { ChapterDTO } from '../../models/page.model';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { Mode } from '../../models/output.model';
+import { Mode } from '../../models/individual.model';
 import { LanguageService } from '../../services/language.service';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';

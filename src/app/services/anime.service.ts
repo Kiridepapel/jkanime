@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment-prod';
 import { Router } from '@angular/router';
 import { ErrorService } from './error.service';
-import { ResponseDTO } from '../models/output.model';
+import { ResponseDTO } from '../models/response.model';
 import { parse, format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
@@ -11,7 +11,7 @@ import { es } from 'date-fns/locale';
   providedIn: 'root'
 })
 export class AnimeService {
-  private backendUrl = environment.BACKEND_URL;
+  private backendUrl = environment.BACKEND_URL + "anime/";
 
   constructor(private http: HttpClient, private errorService: ErrorService, private router: Router) { }
 

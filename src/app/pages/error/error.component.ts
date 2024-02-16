@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ResponseDTO } from '../../models/output.model';
+import { ResponseDTO } from '../../models/response.model';
 import { ErrorService } from '../../services/error.service';
 
 @Component({

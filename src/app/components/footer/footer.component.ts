@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { Mode } from '../../models/output.model';
+import { Mode } from '../../models/individual.model';
 import { LanguageService } from '../../services/language.service';
 
 @Component({

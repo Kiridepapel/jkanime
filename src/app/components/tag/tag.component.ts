@@ -2,7 +2,7 @@ import { LanguageService } from './../../services/language.service';
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { Mode } from '../../models/output.model';
+import { Mode } from '../../models/individual.model';
 
 @Component({
   selector: 'app-tag',

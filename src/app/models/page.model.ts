@@ -56,5 +56,5 @@ export class ChapterDTO {
 export class SearchDTO {
   lastPage?: number;
   searchList!: AnimeDataDTO[];
-  message?: string;
+  message?: string; // Cuando no se encuentra nada
 }

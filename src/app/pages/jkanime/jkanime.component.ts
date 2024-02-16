@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { AnimeItemComponent } from '../../components/anime-item/anime-item.component';
 import { ChapterItemComponent } from '../../components/chapter-item/chapter-item.component';
 // Models
-import { Mode } from '../../models/output.model';
+import { Mode } from '../../models/individual.model';
 import { HomePageDTO } from '../../models/page.model';
 import { ChapterDataDTO } from '../../models/individual.model';
 // Services

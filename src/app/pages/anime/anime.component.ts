@@ -8,7 +8,7 @@ import { ChapterDataDTO } from '../../models/individual.model';
 import { FormsModule } from '@angular/forms';
 import { ChapterItemComponent } from '../../components/chapter-item/chapter-item.component';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { Mode } from '../../models/output.model';
+import { Mode } from '../../models/individual.model';
 import { LanguageService } from '../../services/language.service';
 import { RouterModule } from '@angular/router';
 import { ExternalScriptService } from '../../services/external-script.service';
@@ -33,7 +33,7 @@ export class AnimeComponent {
   public showHistory: Map<string, any> = new Map();
   // Orden de los datos
   private orderData = ["type", "genres", "studio", "director", "language", "cast", "censured", "status", "emited", "chapters", "duration", "quality"];
-  private orderAltTitles = ["synonyms", "english", "japanese", "corean"];
+  private orderAltTitles = ["synonyms", "english", "japanese", "corean, others"];
   private orderHistory = ["prequel", "sequel", "derived", "other", "alternativeVersion", "completeVersion", "additional", "summary", "includedCharacters"];
   private removeUrlSpecialCases = ["one-piece"]
   // Data

@@ -4,7 +4,7 @@ import { DarkModeService } from '../../services/dark-mode.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Mode } from '../../models/output.model';
+import { Mode } from '../../models/individual.model';
 import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({

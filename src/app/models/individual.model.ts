@@ -1,3 +1,11 @@
+// Data
+export class Mode {
+  value!: any;
+  icon?: string;
+  styles?: string;
+}
+
+// Anime
 export class ChapterDataDTO {
   name?: string;
   imgUrl!: string;
