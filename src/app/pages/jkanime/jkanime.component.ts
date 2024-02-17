@@ -46,6 +46,8 @@ export class JKAnimeComponent {
   public startPosition = 0;
   public endPosition = 0;
   public isDragging = false;
+  // Variables
+  public fillList = Array(10);
 
   constructor(
     private router: Router,

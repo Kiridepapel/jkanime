@@ -10,10 +10,13 @@
   }
 }
 
+.test {
+  z-index: 10;
+}
+
 // Button active
 #options {
   .active {
-    box-shadow: 0 0 5px #ffca7b inset;
     @apply bg-secondary-alter transition-all duration-500 ease-in-out;
   }
 }
@@ -37,6 +40,8 @@
 }
 
 .last-animes {
+  flex: 1 1 800px;
+
   .last-chapter {
     min-height: 94px;
     transition: background 0.3s ease-in-out;
@@ -48,7 +53,9 @@
     }
 
     img {
-      flex: 0 0 112px;
+      @apply flex-grow-0 flex-shrink-0 basis-[37.5%] max-md:basis-[112px] object-cover py-[3px];
+      // flex: 0 0 112px;
+      // flex: 0 0 37.5%;
       object-fit: cover;
       padding: 3px 0;
     }

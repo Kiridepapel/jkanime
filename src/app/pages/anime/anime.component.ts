@@ -39,7 +39,7 @@ export class AnimeComponent {
   // Data
   public trailer!: SafeResourceUrl;
   public activeInfoIndex: number = 0;
-  public activeTabIndex: number = 0;
+  public activeSocialIndex: number = 0;
   // Chapters list
   public chapterList: ChapterDataDTO[] = [];
   public chaptersListFormat: string = 'list'; // table, list, cards
@@ -282,8 +282,12 @@ export class AnimeComponent {
   }
   
   // Muestra u oculta la información adicional o la sinopsis
-  public selectTab(index: number) {
-    this.activeTabIndex = index;
+  public selectInfoTab(index: number) {
+    this.activeInfoIndex = index;
+  }
+
+  public selectSocialTab(index: number) {
+    this.activeSocialIndex = index;
   }
 
   // Muestra u oculta los titulos alternativos o la historia
