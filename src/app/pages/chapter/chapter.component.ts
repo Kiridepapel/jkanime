@@ -70,7 +70,7 @@ export class ChapterComponent {
   }
 
   public getPreviousChapterUrl() {
-    return `${this.uri}/${Number(this.chapterData.actualChapter) - 1}`;
+    return `${this.uri}/${this.chapterData.previousChapter}`;
   }
 
   public goToAnime() {
@@ -78,11 +78,18 @@ export class ChapterComponent {
   }
 
   public getNextChapterUrl() {
-    return `${this.uri}/${Number(this.chapterData.actualChapter) + 1}`;
+    return `${this.uri}/${this.chapterData.nextChapter}`;
   }
 
-  public isPenultimateChapter() {
-    return this.chapterData.lastChapter - 1 === this.chapterData.actualChapter;
+  public isPenultimateChapter(): boolean {
+    // Si el anime no está en emisión y lastChapter y actualChapter existen,
+    // entonces compara si el último capítulo es igual al penúltimo, si es así, devuelve true.
+    // Si no se cumple alguna de las condiciones, devuelve false
+    if (!this.chapterData.inEmision && this.chapterData.lastChapter && this.chapterData.actualChapter) {
+      return Number(this.chapterData.lastChapter) - 1 === Number(this.chapterData.actualChapter);
+    } else {
+      return false;
+    }
   }
 
   public selectSrc(index: number, url: string) {

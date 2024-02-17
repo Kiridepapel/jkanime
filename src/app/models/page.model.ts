@@ -46,10 +46,13 @@ export class ChapterDTO {
   inEmision!: boolean;
 
   // External
+  actualChapter!: string;
+  previousChapter!: string;
+  nextChapter!: string;
+  firsChapter!: string;
+  lastChapter!: string;
+
   chapterImg!: string;
-  actualChapter!: number;
-  firstChapter!: number;
-  lastChapter!: number;
   lastChapterDate!: string;
 }
 

@@ -80,11 +80,7 @@
             bg-primary-alter hover:bg-primary-darkness">
             <span class="line-clamp-1">
               @if (isPenultimateChapter()) {
-                @if (chapterData.inEmision) {
-                  {{ textTranslate('Último capítulo en emisión', 'Last chapter in emision') }}
-                } @else {
-                  {{ textTranslate('Capítulo final', 'Final chapter') }}
-                }
+                {{ textTranslate('Capítulo final', 'Final chapter') }}
               } @else {
                 {{ textTranslate('Siguiente capítulo', 'Next chapter') }}
               }

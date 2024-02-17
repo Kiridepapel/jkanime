@@ -108,7 +108,12 @@ export class AnimeComponent {
 
   // Crea la url de un capítulo
   public calcChapterUrl(chapter: string): string {
-    return this.uri + "/" + parseInt(chapter, 10).toString();
+    console.log(chapter)
+    if (!chapter.includes(".")) {
+      return this.uri + "/" + parseInt(chapter, 10).toString();
+    } else {
+      return this.uri + "/" + parseInt(chapter.split(".")[0], 10).toString() + "-5";
+    }
   }
 
   // Cambia los nombres de las keys de los datos
