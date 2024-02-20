@@ -4,34 +4,32 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 6px;
+  @apply w-[10px] h-[6px]
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-white;
+  @apply bg-section-one; // bg
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary; // Color principal
-  border-radius: 0px;
+  @apply bg-primary; // main
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-primary-alter; // Color de la barra al hacer hover
+  @apply bg-primary-alter;
 }
 
 /* Dark */
 .dark {
   ::-webkit-scrollbar-track {
-    @apply bg-[#2a2d39]; // Color de fondo
+    @apply bg-section-one-dark; // bg
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-secondary; // Color principal
+    @apply bg-secondary; // main
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-secondary-alter; // Color de la barra al hacer hover
+    @apply bg-secondary-alter;
   }
 }

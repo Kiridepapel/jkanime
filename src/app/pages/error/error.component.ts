@@ -10,11 +10,7 @@ import { ErrorService } from '../../services/error.service';
   styleUrl: './error.component.scss'
 })
 export class ErrorComponent {
-  
-  public errorData: ResponseDTO = {
-    message: "Oops! Ocurrió un error inesperado.",
-    status: 500
-  };
+  public errorData!: ResponseDTO;
 
   constructor(private errorService: ErrorService) {}
 
@@ -22,7 +18,9 @@ export class ErrorComponent {
     this.errorService.currentError.subscribe((data: any) => {
       if (data) {
         this.errorData = data;
+        document.title= this.errorData.message + " - " + this.errorData.status;
       }
     });
   }
+  
 }

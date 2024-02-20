@@ -1,6 +1,6 @@
 @defer(when !isLoading) {
 <!-- @defer(when true) { -->
-  <section class="section min-h-section py-6 text-sm max-lg:text-[13px] flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
+  <section class="section py-6 text-sm max-lg:text-[13px] flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
     <div class="w-full min-h-8 px-4 max-md:px-0 flex justify-between items-center max-lg:flex-col max-lg:justify-start max-lg:gap-3">
       <h1 class="text-2xl font-normal font-oswald max-w-full whitespace-nowrap overflow-ellipsis inline-block overflow-hidden">
         {{ chapterData.name.toUpperCase() }} - {{ chapterData.actualChapter }}
@@ -22,11 +22,11 @@
       </div>
     </div>
 
-    <div class="options scroll scroll-secondary w-full h-20 max-md:h-16 max-[500px]:text-[13px] max-lg:text-[12px] px-5 flex justify-start items-center gap-3 rounded-md overflow-x-auto bg-secondary border-r-4 border-l-4 border-secondary">
+    <div class="options scroll scroll-secondary w-full h-20 max-md:h-[70px] text-[14px] max-md:text-[13px] px-5 flex justify-start items-center gap-3 rounded-md overflow-x-auto bg-secondary border-r-4 border-l-4 border-secondary">
       <!-- <P class="text-base max-md:text-sm font-mulish font-bold text-zinc-100">Servidores:</P> -->
       @for (srcOption of chapterData.srcOptions; track $index) {
         <a (click)="selectSrc($index, srcOption.url)" class="font-bold font-mulish transition-all duration-700 px-3 py-2 rounded-md
-           max-md:py-1 cursor-pointer border border-secondary bg-white hover:bg-white-alter text-secondary"
+           max-md:py-[6px] cursor-pointer border border-secondary bg-white hover:bg-white-alter text-secondary"
            [ngClass]="{'active': $index === mainSrcIndex}">
           {{ srcOption.name }}
         </a>

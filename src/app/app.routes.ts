@@ -16,7 +16,6 @@ export const routes: Routes = [
   // ? Rutas estáticas
   // General
   // TODO: Español
-  { path: 'directorio', component: DirectoryComponent },
   { path: 'directorio/estrenos', component: PremiereComponent },
   { path: 'horario', component: ScheduleComponent },
   // TODO: English

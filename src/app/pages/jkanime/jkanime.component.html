@@ -22,8 +22,14 @@
           (touchstart)="handleDragStart($event)"
           (touchend)="handleDragEnd($event)">
           <!-- Buttons -->
-          <button (click)="prevPosCarousel()" class="absolute z-[60] top-[calc(50%-18px)] left-[-18px] w-[36px] h-[36px] bg-primary rotate-90 max-sm:hidden"></button>
-          <button (click)="nextPosCarousel()" class="absolute z-[60] top-[calc(50%-18px)] right-[-18px] w-[36px] h-[36px] bg-primary rotate-90 max-sm:hidden"></button>
+          <button (click)="prevPosCarousel()" class="absolute z-[60] top-[calc(50%-18px)] left-[-18px] w-[36px] h-[36px] rounded-[50%] rotate-90 max-sm:hidden
+              flex justify-center items-center bg-secondary">
+            <div class="w-[16px] h-[16px] rounded-[50%] bg-white-alter"></div>
+          </button>
+          <button (click)="nextPosCarousel()" class="absolute z-[60] top-[calc(50%-18px)] right-[-18px] w-[36px] h-[36px] rounded-[50%] rotate-90 max-sm:hidden
+              flex justify-center items-center bg-secondary">
+          <div class="w-[16px] h-[16px] rounded-[50%] bg-white-alter"></div>
+          </button>
           <!-- Data -->
           <div>
             @for (item of homeData.sliderAnimes; track $index) {
@@ -61,7 +67,9 @@
         <!-- 1.2.2. Ovas, Onas, Especials -->
         <div class="h-full flex flex-col gap-4">
           <h2 class="border-l-4 border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] font-semibold font-oswald pl-4 flex items-center uppercase">OVAS / ONAS / {{ textTranslate('ESPECIALES', 'SPECIALS') }}</h2>
-          <div class="h-full grid grid-cols-4 grid-rows-2 max-[500px]:grid-cols-2 max-[500px]:grid-rows-4 gap-x-8 gap-y-4 max-[1750px]:gap-x-6 max-[1650px]:gap-x-4">
+          <div class="h-full grid
+              grid-cols-4 grid-rows-2 max-[900px]:grid-cols-3 max-[900px]:grid-rows-3 max-[500px]:grid-cols-2 max-[500px]:grid-rows-4 max-[280px]:grid-cols-1 max-[280px]:grid-rows-8
+              gap-x-8 gap-y-4 max-[1750px]:gap-x-6 max-[1650px]:gap-x-4">
             @for (item of homeData.ovasOnasSpecials; track $index) {
               <div class="h-full flex flex-col gap-2">
                 <app-chapter-item class="block w-full h-full min-h-[100px]" [type]="1" fitPosition="top" animTo="bottom" fitObject="fill"
@@ -92,44 +100,45 @@
             </button>
           </div>
         </div>
-        <div id="options" class="text-[15px] font-mulish w-full h-10 rounded-lg bg-secondary text-white-alter max-[1800px]:text-[15px]">
-          <button (click)="select(0)" class="w-2/4 h-full rounded-l-lg active">Animes</button>
-          <button (click)="select(1)" class="w-2/4 h-full rounded-r-lg">{{ textTranslate('Próximos', 'Next') }}</button>
+        <div id="options" class="text-[15px] font-mulish w-full h-10 flex rounded-lg bg-secondary text-white-alter max-[1800px]:text-[15px]">
+          <button (click)="select(0)" class="h-full flex-grow flex-shrink basis-[50%] rounded-l-lg active">Animes</button>
+          <button (click)="select(1)" class="h-full flex-grow flex-shrink basis-[50%]">{{ textTranslate('Próximos', 'Next') }}</button>
+          <!-- <button class="h-full text-[14px] flex-grow flex-shrink basis-[20%] rounded-r-lg bg-secondary">Chat</button> -->
         </div>
-        <div class="last-animes w-full h-full overflow-auto rounded-lg p-[5px] bg-[#e9e9e9] dark:bg-section-two-dark border-gray-700">
+        <div class="last-animes scroll-secondary w-full h-full overflow-auto rounded-lg p-[5px] bg-[#e9e9e9] dark:bg-section-two-dark border-gray-700">
           @for(chapter of activeList; track $index) {
             <a [routerLink]="chapter.url" class="cursor-pointer last-chapter w-full flex justify-between items-center p-2 gap-2
               border-b border-gray-200 dark:border-gray-700 hover:bg-white-alter dark:hover:bg-section-one-dark">
               <div class="flex items-start w-full max-[300px]:flex-col">
                 <img [src]="chapter.imgUrl" alt="Image of {{ chapter.name }}" class="w-28 max-h-20 rounded-md mr-3
                   max-[300px]:w-full max-[300px]:mr-0 max-[300px]:object-cover max-[300px]:object-center">
-                <div class="w-full font-mulish text-[13px] max-[1800px]:text-[12px] max-lg:text-[13px] leading-[18px]">
+                <div class="w-full font-mulish text-[13px] max-[1800px]:text-[12px] leading-[18px]">
                   <h4 class="max-[300px]:line-clamp-3 font-bold underline decoration-transparent duration-300 ease-in-out text-gray-600 dark:text-white">
                     {{ chapter.name }}
-                    @if (chapter.type !== 'Anime' && chapter.type !== 'Donghua') {
+                    @if (chapter.type !== 'Anime') {
                       ({{ chapter.type }})
                     }
                   </h4>
                   <p class="font-semibold mt-[2px] text-secondary">{{ textTranslate('Capítulo ', 'Chapter ') }}{{ chapter.chapter }}</p>
-                  <div class="flex items-center mt-[2px] gap-2">
+                  <div class="relative flex items-center mt-[2px] gap-2">
                     @if (chapter.state == true) {
-                      <span class="inline-block w-2 h-2 rounded-[50%] bg-green-400"></span>
+                      <span class="inline-block w-2 h-2 rounded-[50%] bg-green-500 dark:bg-green-400"></span>
                     } @else if (chapter.state == false) {
-                      <span class="inline-block w-2 h-2 rounded-[50%] bg-violet-300"></span>
+                      <span class="inline-block w-2 h-2 rounded-[50%] bg-violet-400 dark:bg-violet-300"></span>
                     } @else {
-                      <span class="inline-block w-2 h-2 rounded-[50%] bg-orange-300"></span>
+                      <span class="inline-block w-2 h-2 rounded-[50%] bg-orange-400 dark:bg-orange-300"></span>
                     }
-                    <div class="inline-flex w-full justify-between text-gray-400 font-semibold">
-                      <p>{{ dynamicTranslate(chapter.date!) }}</p>
-                      @if (chapter.time != null) {
-                        <p>{{ dynamicTranslate(chapter.time!) }}</p>
-                      }
-                    </div>
+                    <p class="inline text-gray-400 font-semibold">{{ dynamicTranslate(chapter.date!) }}</p>
+                    @if (chapter.time != null) {
+                      <p class="absolute right-[-32px] max-[380px]:right-0 text-gray-400 font-semibold">{{ dynamicTranslate(chapter.time!) }}</p>
+                    }
                   </div>
                 </div>
               </div>
               @if (chapter.state != null) {
-                <img src="../../../assets/svgs/flecha.svg" alt="Ir" class="max-w-6 max-h-8 max-[350px]:hidden">
+                <img src="../../../assets/svgs/arrow.svg" alt="Ir" class="max-w-6 max-h-8 max-[380px]:hidden">
+              } @else {
+                <img src="../../../assets/svgs/arrow-transparent.svg" alt="Ir" class="max-w-6 max-h-8 max-[380px]:hidden">
               }
             </a>
           }
@@ -160,7 +169,7 @@
               <span class="text-[14px]">{{ item.position }}</span>
             </div>
             <!-- Image -->
-            <img class="object-cover object-top max-xl:object-top max-w-full max-h-full w-full h-full rounded-[6px]" [src]="item.imgUrl" alt="">
+            <img class="object-cover object-top max-md:object-center max-w-full max-h-full w-full h-full rounded-[6px]" [src]="item.imgUrl" alt="">
             @if (item.position === 1) {
               <!-- Transition hover 1 -->
               <div class="absolute top-0 left-0 w-full flex justify-center items-center h-0 z-[40] group-hover:h-full transition-all duration-500 rounded-[6px] bg-secondary-alter bg-opacity-90
@@ -169,8 +178,8 @@
                 <h4 class="opacity-0 group-hover:opacity-100 transition-opacity duration-500">{{ item.likes }}</h4>
               </div>
               <!-- Anime name 1 -->
-              <div class="absolute bottom-3 left-3 text-[16px] px-2 py-1 rounded-[5px] bg-[#3D3D3D] max-xl:w-full max-xl:bottom-0 max-xl:left-0 z-[50]">
-                <p class="line-clamp-2 max-xl:text-[15px] max-md:text-[14px] max-sm:text-[13px]">{{ removeTv(item.name) }}</p>
+              <div class="absolute bottom-3 left-3 px-2 py-1 rounded-[5px] bg-[#3D3D3D] max-xl:w-full max-xl:bottom-0 max-xl:left-0 z-[50]">
+                <p class="line-clamp-2 text-[16px] max-2xl:text-[15px] max-xl:text-[14px] max-sm:text-[13px]">{{ removeTv(item.name) }}</p>
               </div>
             } @else {
               <!-- Transition hover X -->
@@ -189,9 +198,9 @@
               }
               <!-- Anime name X -->
               <div class="w-full absolute bottom-0 left-0 px-2 py-1 rounded-[5px] bg-[#3D3D3D] z-[50]">
-                <p class="line-clamp-2 max-xl:text-[15px] max-md:text-[14px] max-sm:text-[13px]" 
+                <p class="line-clamp-2"
                   [ngClass]="{
-                    'text-[14px]': item.position === 2 || item.position === 3 || item.position === 4,
+                    'text-[14px] max-xl:text-[13px]': item.position === 2 || item.position === 3 || item.position === 4,
                     'text-[13px]': item.position === 5 || item.position === 6 || item.position === 7 || item.position === 8 || item.position === 9 || item.position === 10
                   }">{{ removeTv(item.name) }}
                 </p>
@@ -222,14 +231,22 @@
             </app-anime-item>
             @if ($index === homeData.latestAddedAnimes.length - 1) {
               @for(item of fillList; track $index) {
-                <div class="flex-grow flex-shrink basis-[150px] h-[0]"></div>
+                @if ($index < 3) {
+                  <div class="flex-grow flex-shrink basis-[150px] h-[0]" [ngClass]="{
+                    'hidden' : windowWidth() <= 350
+                  }"></div>
+                } @else {
+                  <div class="flex-grow flex-shrink basis-[150px] h-[0]" [ngClass]="{
+                    'hidden' : windowWidth() <= 830
+                  }"></div>
+                }
               }
             }
           }
         </div>
       </section>
       <!-- Lista de animes agregados -->
-      <section class="w-[50%] h-fit max-xl:w-[80%] max-lg:w-full max-sm:min-w-full flex flex-col p-[13px] max-xl:pt-6 rounded-lg bg-[#e9e9e9] dark:bg-section-two-dark">
+      <section class="w-[50%] h-fit max-xl:w-[80%] max-lg:w-full max-sm:min-w-full mb-16 flex flex-col p-[13px] max-xl:pt-6 rounded-lg bg-[#e9e9e9] dark:bg-section-two-dark">
         <h2 class="border-l-4 self-start mb-6 border-secondary text-dark-alter dark:text-white-alter text-[22px] max-[1800px]:text-[20px] max-lg:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">{{ textTranslate('LISTA DE ÚLTIMOS AGREGADOS', 'LIST OF LATEST ADDED') }}</h2>
         <div class="w-full h-full">
           @for (item of homeData.latestAddedList; track $index) {

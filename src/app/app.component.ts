@@ -1,3 +1,4 @@
+import { ExternalScriptService } from './services/external-script.service';
 import { LanguageService } from './services/language.service';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -27,11 +28,13 @@ export class AppComponent {
 
   constructor(
     private darkModeService: DarkModeService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private externalScriptService: ExternalScriptService
   ) {}
 
   ngOnInit() {
     this.darkModeService.initDarkMode();
     this.languageService.initLanguage();
+    this.externalScriptService.loadTawkChatScript();
   }
 }

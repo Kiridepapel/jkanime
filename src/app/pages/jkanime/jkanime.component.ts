@@ -244,6 +244,10 @@ export class JKAnimeComponent {
     }
   }
 
+  public windowWidth(): number {
+    return window.innerWidth;
+  }
+
   public dynamicTranslate(key: string): string {
     if (this.translations.hasOwnProperty(key)) {
       return this.translations[key];

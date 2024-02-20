@@ -70,7 +70,7 @@ export class ChapterComponent {
   }
 
   public getPreviousChapterUrl() {
-    return `${this.uri}/${this.chapterData.previousChapter}`;
+    return `${this.uri}/${this.chapterData.previousChapter.replace('.', '-')}`;
   }
 
   public goToAnime() {
@@ -78,7 +78,7 @@ export class ChapterComponent {
   }
 
   public getNextChapterUrl() {
-    return `${this.uri}/${this.chapterData.nextChapter}`;
+    return `${this.uri}/${this.chapterData.nextChapter.replace('.', '-')}`;
   }
 
   public isPenultimateChapter(): boolean {
@@ -130,7 +130,7 @@ export class ChapterComponent {
 
   private changeTitle() {
     if (this.isLoading) {
-      document.title = this.textTranslate('Cargando ', 'Loading ') + '...';
+      document.title = this.textTranslate('Cargando', 'Loading') + '...';
     } else {
       document.title = this.chapterData.name + " " + this.chapterData.actualChapter;
     }

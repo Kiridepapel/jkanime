@@ -13,7 +13,7 @@ import { es } from 'date-fns/locale';
 export class AnimeService {
   private backendUrl = environment.BACKEND_URL + "anime/";
 
-  constructor(private http: HttpClient, private errorService: ErrorService, private router: Router) { }
+  constructor(private http: HttpClient, private errorService: ErrorService, ) { }
 
   public async getGenericData(uri: string): Promise<any> {
     try {
@@ -22,26 +22,7 @@ export class AnimeService {
       console.log("Data: ", data);
       return data;
     } catch (error: any) {
-      let errorData: ResponseDTO = {
-        message: error.error.message,
-        status: error.error.status
-      };
-      if (errorData.message === undefined || errorData.message === null) {
-        errorData.message = error.error;
-        errorData.status = error.status
-      }
-      this.errorService.changeError(errorData);
-      this.router.navigate(['/error']);
-      throw error;
-    }
-  }
-
-  // Escribe la primera letra en mayúscula de los values de las keys
-  public firstUppercase(value: any): string {
-    if (typeof value === 'string') {
-      return value.charAt(0).toUpperCase() + value.slice(1);
-    } else {
-      return value.toString();
+      this.errorService.constructError(error);
     }
   }
   
@@ -63,11 +44,13 @@ export class AnimeService {
     }
   }
 
-  public modifyDate(date: string, daysToAdd: number, index: number): string {
-    
-    let newDate = parse(date, 'MMMM d, yyyy', new Date(), { locale: es });
-    newDate.setDate(newDate.getDate() + (daysToAdd * index));
-
-    return format(newDate, 'MMMM d, yyyy', { locale: es });
+  // Escribe la primera letra en mayúscula de los values de las keys
+  public firstUppercase(value: any): string {
+    // if (typeof value === 'string') {
+    //   return value.charAt(0).toUpperCase() + value.slice(1);
+    // } else {
+    //   return value.toString();
+    // }
+    return value.toString().charAt(0).toUpperCase() + value.slice(1)
   }
 }

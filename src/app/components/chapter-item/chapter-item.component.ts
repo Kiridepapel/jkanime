@@ -14,8 +14,8 @@ export class ChapterItemComponent {
   // Configurations
   @Input() public type!: number;
   @Input() public animTo?: string; // None by default
-  @Input() public fitPosition?: string; // Center by default
-  @Input() public fitObject?: string; // Cover by default
+  @Input() public fitObject!: string; // Cover by default
+  @Input() public fitPosition!: string; // Center by default
 
   // General attributes
   @Input() public imgUrl!: string;
@@ -25,5 +25,10 @@ export class ChapterItemComponent {
   @Input() public category?: string;
   @Input() public chapter?: string;
   @Input() public viewed?: boolean;
+
+  ngOnInit() {
+    this.fitObject = 'cover';
+    this.fitPosition = 'center';
+  }
 
 }

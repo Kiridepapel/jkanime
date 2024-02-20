@@ -9,11 +9,11 @@
     </div>
     <img [src]="imgUrl" class="w-full top-[0] left-0 absolute z-30 rounded-md transition-all duration-500"
       [ngClass]="{
-        'object-cover': fitObject === undefined,
+        'object-cover': fitObject === 'cover',
         'object-fill': fitObject === 'fill',
         'object-none': fitObject === 'none',
         
-        'object-center': fitPosition === undefined,
+        'object-center': fitPosition === 'center',
         'object-top': fitPosition === 'top',
         'object-right': fitPosition === 'right',
         'object-bottom': fitPosition === 'bottom',

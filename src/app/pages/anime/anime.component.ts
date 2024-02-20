@@ -47,7 +47,7 @@ export class AnimeComponent {
   public searchChapter: string = '';
 
   constructor(
-    private externalScript: ExternalScriptService,
+    private externalScriptService: ExternalScriptService,
     private animeService: AnimeService,
     private sanitizer: DomSanitizer,
     private languageService: LanguageService,
@@ -75,7 +75,7 @@ export class AnimeComponent {
         this.manipulateData(data);
 
         // Carga el script de Disqus
-        this.externalScript.loadDisqusScript();
+        this.externalScriptService.loadDisqusScript();
       });
     } finally {
       this.isLoading = false;
@@ -108,7 +108,6 @@ export class AnimeComponent {
 
   // Crea la url de un capítulo
   public calcChapterUrl(chapter: string): string {
-    console.log(chapter)
     if (!chapter.includes(".")) {
       return this.uri + "/" + parseInt(chapter, 10).toString();
     } else {
@@ -302,10 +301,14 @@ export class AnimeComponent {
 
   private changeTitle() {
     if (this.isLoading) {
-      document.title = this.textTranslate('Cargando ', 'Loading ') + '...';
+      document.title = this.textTranslate('Cargando', 'Loading') + '...';
     } else {
       document.title = this.animeData.name;
     }
+  }
+
+  public firstUppercase(value: any): string {
+    return this.animeService.firstUppercase(value);
   }
 
   public textTranslate(spanish: string, english: string): string {
