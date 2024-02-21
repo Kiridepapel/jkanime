@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { LinkDTO } from '../../models/individual.model';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-download-dialog',
@@ -11,6 +12,12 @@ import { LinkDTO } from '../../models/individual.model';
 })
 export class DownloadDialogComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: LinkDTO[]) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: LinkDTO[],
+    private languageService: LanguageService
+    ) {}
 
+  public textTranslate(spanish: string, english: string): string {
+    return this.languageService.textTranslate(spanish, english);
+  }
 }

@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+// * Scrollbar
 ::-webkit-scrollbar {
   @apply w-[10px] h-[6px]
 }
@@ -32,4 +33,9 @@
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-secondary-alter;
   }
+}
+
+// * Dialog
+.mat-mdc-dialog-surface {
+  border-radius: 15px !important;
 }

@@ -111,16 +111,17 @@ export class ChapterComponent {
 
   public openDownloadDialog() {
     const config = new MatDialogConfig();
-    config.width = '500px';
-    config.minHeight = '400px';
+    config.maxWidth = '600px';
+    config.width = '90%';
+    config.minHeight = '360px';
     config.disableClose = false;
     config.autoFocus = true;
-    config.closeOnNavigation = true;
+    config.closeOnNavigation = false;
     config.enterAnimationDuration = 500;
     config.exitAnimationDuration = 500;
     config.data = this.chapterData.downloadOptions;
 
-    // this.dialog.open(DownloadDialogComponent, config);
+    this.dialog.open(DownloadDialogComponent, config);
   }
 
   // Muestra el día de la última actualización del anime
