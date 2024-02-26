@@ -18,7 +18,7 @@ export class ErrorComponent {
     this.errorService.currentError.subscribe((data: any) => {
       if (data) {
         this.errorData = data;
-        document.title= this.errorData.message + " - " + this.errorData.status;
+        document.title= this.errorData.message + " - " + this.errorData.code;
       }
     });
   }

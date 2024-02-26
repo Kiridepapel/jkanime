@@ -9,7 +9,8 @@ import { ResponseDTO } from '../models/response.model';
 export class ErrorService {
   private errorSource = new BehaviorSubject<ResponseDTO>({
     message: "Ocurrió un error inesperado",
-    status: 500
+    code: 500,
+    token: ""
   });
   currentError = this.errorSource.asObservable();
 

@@ -13,7 +13,10 @@ import { es } from 'date-fns/locale';
 export class AnimeService {
   private backendUrl = environment.BACKEND_URL + "anime/";
 
-  constructor(private http: HttpClient, private errorService: ErrorService, ) { }
+  constructor(
+    private http: HttpClient,
+    private errorService: ErrorService
+  ) {}
 
   public async getGenericData(uri: string): Promise<any> {
     try {
@@ -46,11 +49,6 @@ export class AnimeService {
 
   // Escribe la primera letra en mayúscula de los values de las keys
   public firstUppercase(value: any): string {
-    // if (typeof value === 'string') {
-    //   return value.charAt(0).toUpperCase() + value.slice(1);
-    // } else {
-    //   return value.toString();
-    // }
-    return value.toString().charAt(0).toUpperCase() + value.slice(1)
+    return typeof value === 'string' ? value.charAt(0).toUpperCase() + value.slice(1) : value.toString();
   }
 }

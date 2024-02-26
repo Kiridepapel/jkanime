@@ -1,4 +1,5 @@
 export class ResponseDTO {
   message!: string;
-  status!: number;
+  code!: number;
+  token!: string;
 }  

@@ -3,21 +3,28 @@ import { Component, Input } from '@angular/core';
 import { DarkModeService } from '../../services/dark-mode.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Mode } from '../../models/individual.model';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { AuthService } from '../../services/auth.service';
+import { AuthRequestDTO } from '../../models/auth.model';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
   public navState: boolean = false;
-  public searchQuery: string = '';
   public searchPlaceholder: string = '';
+  public authBlock: boolean = false;
+  public timer: any;
+  public isLogged: boolean = false;
+  // Forms
+  public searchForm!: FormGroup;
+  public authForm!: FormGroup;
   // Subscriptions
   private darkModeSubscription!: Subscription;
   private languageSubscription!: Subscription;
@@ -28,6 +35,8 @@ export class HeaderComponent {
     private router: Router,
     private darkModeService: DarkModeService,
     private languageService: LanguageService,
+    private authService: AuthService,
+    private formBuilder: FormBuilder
   ) {
     this.darkModeSubscription = this.darkModeService.darkMode$.subscribe((dark: Mode) => {
       this.dark = dark;
@@ -37,13 +46,65 @@ export class HeaderComponent {
     });
   }
 
-  public ngOnInit() {
+  ngOnInit() {
     this.variablesTranslate();
+    this.reactiveForms();
+    
+    if (localStorage.getItem('token')) {
+      this.isLogged = true;
+    }
   }
   
   ngOnDestroy() {
     this.darkModeSubscription.unsubscribe();
     this.languageSubscription.unsubscribe();
+  }
+
+  reactiveForms(): void {
+    this.searchForm = this.formBuilder.group({
+      search: ['', [Validators.required]],
+    });
+
+    this.authForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
+  }
+
+  public startTimer() {
+    this.authBlock = false;
+    this.timer = setTimeout(() => {
+      this.authBlock = true;
+    }, 1000);
+  }
+
+  public checkTimer() {
+    clearTimeout(this.timer);
+  }
+  
+  public stopPropagation(event: MouseEvent) {
+    event.stopPropagation();
+  }
+
+  public login() {
+    let data: AuthRequestDTO = {
+      email: this.authForm.get('email')?.value,
+      password: this.authForm.get('password')?.value,
+    };
+    
+    if (this.authForm.valid) {
+      this.authService.login(data)
+        .then(() => {
+          // this.authBlock = false;
+          this.isLogged = true;
+          this.authForm.reset();
+        })
+    }
+  }
+
+  public logout() {
+    localStorage.removeItem('token');
+    this.isLogged = false;
   }
 
   public variablesTranslate(): void {
@@ -86,10 +147,10 @@ export class HeaderComponent {
     }
 
     // Traduction
-    let value = this.language.value === 'es' ? '/buscar' : '/search';
+    let pathValue = this.language.value === 'es' ? '/buscar' : '/search';
+    let search = this.searchForm.get('search')?.value.trim().replace(/\s+/g, '_')
 
     // Format query and navigate to search page with query and page 1
-    let formattedQuery = this.searchQuery.trim().replace(/\s+/g, '_');
-    this.router.navigate([value, formattedQuery, '1']);
+    this.router.navigate([pathValue, search, '1']);
   }
 }

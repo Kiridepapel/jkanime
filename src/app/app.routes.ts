@@ -8,6 +8,8 @@ import { AnimeComponent } from './pages/anime/anime.component';
 import { ChapterComponent } from './pages/chapter/chapter.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { SearchComponent } from './pages/search/search.component';
+import { SpecialCasesComponent } from './pages/special-cases/special-cases.component';
+import { AuthGuard } from './core/auth.guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: JKAnimeComponent },
@@ -16,6 +18,7 @@ export const routes: Routes = [
   // ? Rutas estáticas
   // General
   // TODO: Español
+  { path: 'directorio', component: DirectoryComponent },
   { path: 'directorio/estrenos', component: PremiereComponent },
   { path: 'horario', component: ScheduleComponent },
   // TODO: English
@@ -23,6 +26,7 @@ export const routes: Routes = [
   { path: 'directory/premieres', component: PremiereComponent },
   { path: 'schedule', component: ScheduleComponent },
   // TODO: Español & English
+  { path: 'data/special-cases', component: SpecialCasesComponent, canActivate: [AuthGuard]},
   { path: 'top', component: TopComponent },
 
   // ? Rutas dinámicas
