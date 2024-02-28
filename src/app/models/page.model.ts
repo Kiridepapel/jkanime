@@ -60,6 +60,7 @@ export class DirectoryOptionsDTO {
   genres!: LinkDTO[];
   seasons!: LinkDTO[];
   studios!: LinkDTO[];
+  status!: LinkDTO[];
   types!: LinkDTO[];
   subs!: LinkDTO[];
   orders!: LinkDTO[];

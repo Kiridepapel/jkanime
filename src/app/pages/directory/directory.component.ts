@@ -30,6 +30,7 @@ export class DirectoryComponent {
   public genreSelectedOption: string = '';
   public seasonSelectedOption: string = '';
   public studioSelectedOption: string = '';
+  public statusSelectedOption: string = '';
   public typeSelectedOption: string = '';
   public subSelectedOption: string = '';
   public orderSelectedOption: string = '';
@@ -57,6 +58,22 @@ export class DirectoryComponent {
     });
 
     // Marca los elementos seleccionados desde la url en los selectores
+    this.selectParamFilters();
+    // Establece el número de página
+    let params = this.stablishPageNumber();
+
+    // Realiza la solicitud de los datos
+    try {
+      await this.animeService.getGenericData("directory/" + params).then((data: any) => {
+        this.directoryData = data;
+      });
+    } finally {
+      this.isLoading = false;
+      this.changeTitle();
+    }
+  }
+
+  private selectParamFilters() {
     if (this.uri.includes("?")) {
       let paramsUri: string = this.uri.split("?")[1];
       let listParams: string[] = [];
@@ -71,29 +88,23 @@ export class DirectoryComponent {
         if (key === "genre") this.genreSelectedOption = value;
         if (key === "season") this.seasonSelectedOption = value;
         if (key === "studio") this.studioSelectedOption = value;
+        if (key === "status") this.statusSelectedOption = value;
         if (key === "type") this.typeSelectedOption = value;
         if (key === "sub") this.subSelectedOption = value;
         if (key === "order") this.orderSelectedOption = value;
       });
     }
+  }
 
-    // Si no se indica la página en la url, se redirige a la primera
+  private stablishPageNumber(): string {
     let uri = window.location.href.split("/");
     let params = uri[uri.length - 1];
+    // Si no se indica la página en la url, se redirige a la primera
     if (params === "directorio" || params === "directory") {
-      params = this.page.toString();
+      return this.page.toString();
     } else {
       this.page = parseInt(params.split("?")[0]);
-    }
-
-    // Realiza la solicitud de los datos
-    try {
-      await this.animeService.getGenericData("directory/" + params).then((data: any) => {
-        this.directoryData = data;
-      });
-    } finally {
-      this.isLoading = false;
-      this.changeTitle();
+      return params;
     }
   }
 
@@ -124,6 +135,7 @@ export class DirectoryComponent {
     this.genreSelectedOption = '';
     this.seasonSelectedOption = '';
     this.studioSelectedOption = '';
+    this.statusSelectedOption = '';
     this.typeSelectedOption = '';
     this.subSelectedOption = '';
     this.orderSelectedOption = '';
@@ -140,6 +152,7 @@ export class DirectoryComponent {
     searchQuery += "&genre=" + this.genreSelectedOption;
     searchQuery += "&season=" + this.seasonSelectedOption;
     searchQuery += "&studio=" + this.studioSelectedOption;
+    searchQuery += "&status=" + this.statusSelectedOption;
     searchQuery += "&type=" + this.typeSelectedOption;
     searchQuery += "&sub=" + this.subSelectedOption;
     searchQuery += "&order=" + this.orderSelectedOption;
@@ -147,6 +160,7 @@ export class DirectoryComponent {
     if (this.genreSelectedOption === '') searchQuery = searchQuery.replace("&genre=", "");
     if (this.seasonSelectedOption === '') searchQuery = searchQuery.replace("&season=", "");
     if (this.studioSelectedOption === '') searchQuery = searchQuery.replace("&studio=", "");
+    if (this.statusSelectedOption === '') searchQuery = searchQuery.replace("&status=", "");
     if (this.typeSelectedOption === '') searchQuery = searchQuery.replace("&type=", "");
     if (this.subSelectedOption === '') searchQuery = searchQuery.replace("&sub=", "");
     if (this.orderSelectedOption === '') searchQuery = searchQuery.replace("&order=", "");

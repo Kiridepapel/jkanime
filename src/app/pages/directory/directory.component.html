@@ -47,6 +47,13 @@
           <option [ngClass]="{'text-primary dark:text-secondary': item.url === studioSelectedOption}" [value]="item.url">{{ item.name }}</option>
         }
       </select>
+      <select [(ngModel)]="statusSelectedOption" class="flex-auto text-[14px] px-1 py-2 rounded-sm border-none outline-none max-w-[calc(100dvw-32px)]
+      bg-section-two dark:bg-section-two-dark text-dark-alter dark:text-white-alter" [ngClass]="{'shadow-sm shadow-primary dark:shadow-secondary': statusSelectedOption !== ''}">
+        <option value="">{{ textTranslate('Estado', 'Status') }}</option>
+        @for (item of filterData!.status; track $index) {
+          <option [ngClass]="{'text-primary dark:text-secondary': item.url === statusSelectedOption}" [value]="item.url">{{ item.name }}</option>
+        }
+      </select>
       <select [(ngModel)]="typeSelectedOption" class="flex-auto text-[14px] px-1 py-2 rounded-sm border-none outline-none max-w-[calc(100dvw-32px)]
       bg-section-two dark:bg-section-two-dark text-dark-alter dark:text-white-alter" [ngClass]="{'shadow-sm shadow-primary dark:shadow-secondary': typeSelectedOption !== ''}">
         <option value="">{{ textTranslate('Tipo', 'Type') }}</option>
@@ -69,8 +76,8 @@
         }
       </select>
       <button type="submit" (click)="filter()" class="max-[441px]:flex-auto flex justify-center items-center gap-2 px-3 py-[5px] rounded-md transition-colors duration-500 text-white-alter
-        bg-primary hover:bg-primary-alter dark:bg-secondary dark:hover:bg-secondary-alter max-[441px]:order-9">
-        <i class="fa-solid fa-filter text-[18px]"></i>
+        bg-primary hover:bg-primary-alter dark:bg-secondary dark:hover:bg-secondary-alter order-9 text-[14px]">
+        <i class="fa-solid fa-filter"></i>
         <span>{{ textTranslate('Filtrar', 'Filter') }}</span>
       </button>
       <button type="submit" (click)="resetFilters()" class="max-[216px]:flex-auto flex justify-center items-center gap-2 size-[37px] rounded-md transition-colors duration-500 text-white-alter
