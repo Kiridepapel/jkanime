@@ -12,6 +12,7 @@
 
     <!-- Title -->
     <h2 class="border-l-4 self-start mb-3 border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">
+      <i class="fa-solid fa-home text-[18px] h-9 flex items-center mr-3"></i>
       {{ textTranslate('LISTA COMPLETA DE ANIMES', 'COMPLETE ANIME LIST') }}
     </h2>
     <!-- Letters -->
@@ -76,7 +77,7 @@
         }
       </select>
       <button type="submit" (click)="filter()" class="max-[441px]:flex-auto flex justify-center items-center gap-2 px-3 py-[5px] rounded-md transition-colors duration-500 text-white-alter
-        bg-primary hover:bg-primary-alter dark:bg-secondary dark:hover:bg-secondary-alter order-9 text-[14px]">
+        bg-primary hover:bg-primary-alter order-9 text-[14px]">
         <i class="fa-solid fa-filter"></i>
         <span>{{ textTranslate('Filtrar', 'Filter') }}</span>
       </button>
