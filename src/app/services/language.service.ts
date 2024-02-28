@@ -58,14 +58,4 @@ export class LanguageService {
 
     return spanish;
   }
-
-  public urlTranslate(spanish: string, english?: string) {
-    if (spanish != null && this.language === 'es') {
-      return spanish;
-    } else if (english != null && this.language === 'en') {
-      return english!;
-    }
-
-    return spanish;
-  }
 }

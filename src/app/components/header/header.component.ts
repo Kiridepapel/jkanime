@@ -107,16 +107,21 @@ export class HeaderComponent {
     this.isLogged = false;
   }
 
+  public goToRouter(pathEs: string, pathEn: string) {
+    // Close nav on mobile
+    if (window.innerWidth < 1024) {
+      this.toggleNav();
+    }
+
+    this.router.navigate([this.textTranslate(pathEs, pathEn)]);
+  }
+
   public variablesTranslate(): void {
     this.searchPlaceholder = this.language.value === 'es' ? 'Buscar animes...' : 'Search animes...';
   }
 
   public textTranslate(spanish: string, english: string): string {
     return this.languageService.textTranslate(spanish, english);
-  }
-
-  public urlTranslate(spanish: string, english?: string) {
-    return this.languageService.urlTranslate(spanish, english);
   }
 
   public toggleDarkMode() {

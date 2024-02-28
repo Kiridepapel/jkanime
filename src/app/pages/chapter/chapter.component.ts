@@ -154,8 +154,4 @@ export class ChapterComponent {
   public textTranslate(spanish: string, english: string): string {
     return this.languageService.textTranslate(spanish, english);
   }
-
-  public urlTranslate(spanish: string, english?: string) {
-    return this.languageService.urlTranslate(spanish, english);
-  }
 }
