@@ -27,13 +27,11 @@ export class SearchComponent {
   private languageSubscription!: Subscription;
   public language!: Mode;
   // Translate variables
-  private txtSearching: string = 'Buscando ';
   private txtResults: string = 'Resultados de';
 
   constructor(
     private animeService: AnimeService,
     private route: ActivatedRoute,
-    private router: Router,
     private languageService: LanguageService
   ) {
     this.languageSubscription = this.languageService.language$.subscribe(

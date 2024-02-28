@@ -19,7 +19,7 @@
     <!-- Content -->
     @if (!isLoading) {
       @if (searchData.message == null) {
-        <div class="w-full h-full grid grid-cols-6 max-[1650px]:grid-cols-5 max-xl:grid-cols-4 max-md:grid-cols-3 max-[500px]:grid-cols-2 gap-x-7 gap-y-5 max-xl:gap-x-5 max-xl:gap-y-3 mb-5">
+        <div class="w-full h-full grid grid-cols-6 max-[1650px]:grid-cols-5 max-xl:grid-cols-4 max-md:grid-cols-3 max-[500px]:grid-cols-2 max-[340px]:grid-cols-1 gap-x-7 gap-y-5 max-xl:gap-x-5 max-xl:gap-y-3 mb-5">
           @for (item of searchData.searchList; track $index) {
             <app-anime-item [name]="item.name!" [imgUrl]="item.imgUrl" [url]="item.url" [type]="item.type" [state]="item.state"></app-anime-item>
           }

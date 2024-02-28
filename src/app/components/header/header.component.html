@@ -1,12 +1,12 @@
-<div class="w-full h-header flex justify-center max-lg:justify-between max-lg:section max-lg:px-5 max-[300px]:px-[10px] gap-10 max-[300px]:gap-[5px] bg-primary text-white dark:bg-header-color-dark transition-all duration-600">  
+<div class="relative w-full h-header flex justify-center max-lg:justify-between max-lg:section max-lg:px-5 max-[300px]:px-[10px] gap-10 max-[300px]:gap-[5px] bg-primary text-white dark:bg-header-color-dark transition-all duration-600">  
   <div class="flex justify-center items-center gap-10 text-white">
     <!-- Logo in desktop -->
-    <a href="/" class="cursor-pointer max-w-40 grid place-items-center max-lg:hidden">
+    <a routerLink="/" class="cursor-pointer max-w-40 grid place-items-center max-xl:hidden">
       <img src="../../../assets/imgs/jkanime.webp" alt="" class="transition-all duration-900 hover:rotate-[-2deg]"
       />
     </a>
     <!-- Logo in mobile -->
-    <a href="/" class="cursor-pointer w-10 hidden max-lg:block transition-all duration-900 hover:rotate-[-2deg]">
+    <a routerLink="/" class="cursor-pointer w-10 hidden max-xl:block transition-all duration-900 hover:rotate-[-2deg]">
       <img src="../../../assets/imgs/jk.webp" alt="">
     </a>
     <!-- Options in desktop -->
@@ -49,11 +49,12 @@
       </button>
     </form>
     <!-- Profile button -->
-    <div class="relative flex justify-center items-center cursor-pointer text-[32px] max-lg:text-3xl w-8 text-white"
+    <div class="min-[400px]:relative flex justify-center items-center cursor-pointer text-[32px] max-lg:text-3xl w-8 text-white"
         (mousedown)="startTimer()" (mouseup)="checkTimer()">
       <i class="fa fa-user-circle cursor-pointer"></i>
       <form [formGroup]="authForm" class="auth-block w-[260px] absolute top-[32px] max-sm:top-[42px] left-[calc((-260px/2)+16px)] flex flex-col gap-[10px] p-4 mt-[12px] rounded-md cursor-default
-          text-[14px] bg-primary dark:bg-header-color-dark text-dark-alter" [ngClass]="{'show' : authBlock == true}" (mousedown)="stopPropagation($event)" (mouseup)="stopPropagation($event)">
+          max-[400px]:w-dvw max-[400px]:left-0 max-[400px]:m-0 max-[400px]:top-header text-[14px] bg-primary dark:bg-header-color-dark text-dark-alter"
+          [ngClass]="{'show' : authBlock == true}" (mousedown)="stopPropagation($event)" (mouseup)="stopPropagation($event)">
         @if (isLogged === false) {
           <input type="text" formControlName="email" placeholder="Email" class="h-[32px] px-2 rounded-[4px] outline-none">
           <input type="password" formControlName="password" placeholder="Password" class="h-[32px] px-2 rounded-[4px] outline-none">

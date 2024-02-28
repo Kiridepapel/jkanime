@@ -56,6 +56,15 @@ export class ChapterDTO {
   lastChapterDate!: string;
 }
 
+export class DirectoryOptionsDTO {
+  genres!: LinkDTO[];
+  seasons!: LinkDTO[];
+  studios!: LinkDTO[];
+  types!: LinkDTO[];
+  subs!: LinkDTO[];
+  orders!: LinkDTO[];
+}
+
 export class SearchDTO {
   lastPage?: number;
   searchList!: AnimeDataDTO[];
