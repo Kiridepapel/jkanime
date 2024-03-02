@@ -109,7 +109,6 @@ export class DirectoryComponent {
   }
 
   public constructLetterUrl(letter: string) {
-    // return environment.FRONTEND_URL + this.textTranslate('buscar', 'search') + "/" + letter;
     this.router.navigate([this.textTranslate('buscar', 'search') + "/" + letter]);
   }
 

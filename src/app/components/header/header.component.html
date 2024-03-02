@@ -16,18 +16,26 @@
       <a [routerLink]="textTranslate('/top', '/top')" class="button rounded-lg grid place-items-center px-5 py-2">Top</a>
     </div>
     <!-- Options in mobile -->
-    <div class="options justify-center items-center gap-2 hidden max-lg:flex" [class.expanded]="navState">
-      <!-- Search form -->
-      <form [formGroup]="searchForm" class="sm:hidden block relative text-white w-full basis-10">
-        <input type="text" formControlName="search" [placeholder]="searchPlaceholder"
-          class="search text-md button outline-none rounded-lg font-normal pl-5 pr-10 w-full h-full">
-        <button type="submit" (click)="searchAnime()" [disabled]="searchForm.invalid">
-          <i class="search-icon fa-solid fa-magnifying-glass absolute right-0"></i>
+    <div class="options justify-center items-start gap-2 hidden max-lg:flex" [class.expanded]="navState">
+      <!-- Search -->
+      <form [formGroup]="searchForm" class="sm:hidden block relative text-white w-full basis-10 mb-3">
+        <input type="text" formControlName="search" [placeholder]="searchPlaceholder" class="input text-md outline-none rounded-lg font-normal pl-5 pr-10 w-full h-full">
+        <button class="cursor-pointer" type="submit" (click)="searchAnime()" [disabled]="searchForm.invalid">
+          <i class="top-[calc(50%-8px)] right-4 fa-solid fa-magnifying-glass absolute"></i>
         </button>
       </form>
+      <!-- Directios -->
       <a (click)="goToRouter('/directorio', '/directory')" class="button text rounded-lg grid place-items-center w-full basis-10">{{ textTranslate('Directorio', 'Directory') }}</a>
       <a (click)="goToRouter('/horario', '/schedule')" class="button text rounded-lg grid place-items-center w-full basis-10">{{ textTranslate('Horario', 'Schedule') }}</a>
       <a (click)="goToRouter('/top', '/top')" class="button text rounded-lg grid place-items-center w-full basis-10">Top</a>
+      <!-- Letters -->
+      <div class="w-full flex flex-wrap justify-center gap-[6px] my-3 p-[10px] rounded-md font-semibold text-[16px] max-md:text-[14px] text-white-alter">
+        @for (item of letters; track $index) {
+          <a (click)="goToRouter(('buscar/' + item), ('search/' + item))" class="min-w-[30px] h-[40px] flex justify-center items-center rounded-sm transition-colors duration-200 cursor-pointer
+            hover:bg-white-alter hover:text-primary-alter dark:hover:text-section-two-dark"> {{ item }}
+          </a>
+        }
+      </div>
     </div>
   </div>
 
@@ -41,11 +49,10 @@
       <img [src]="language.icon" class="{{ language.styles }}">
     </a>
     <!-- Search form -->
-    <form [formGroup]="searchForm" class="search mx-2 h-[36px] relative max-sm:hidden text-white">
-      <input type="text" formControlName="search" [placeholder]="searchPlaceholder"
-          class="search w-full h-auto flex items-center input outline-none rounded-3xl font-normal pl-5 pr-10">
+    <form [formGroup]="searchForm" class="mx-2 h-[36px] relative max-sm:hidden text-white">
+      <input type="text" formControlName="search" [placeholder]="searchPlaceholder" class="input w-full h-auto flex items-center outline-none rounded-3xl font-normal pl-5 pr-10">
       <button type="submit" (click)="searchAnime()" [disabled]="searchForm.invalid">
-        <i class="search-icon fa-solid fa-magnifying-glass absolute right-0"></i>
+        <i class="top-[calc(50%-8px)] right-4 fa-solid fa-magnifying-glass absolute"></i>
       </button>
     </form>
     <!-- Profile button -->

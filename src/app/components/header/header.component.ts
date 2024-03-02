@@ -30,6 +30,7 @@ export class HeaderComponent {
   private languageSubscription!: Subscription;
   public dark!: Mode;
   public language!: Mode;
+  public letters: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
   constructor(
     private router: Router,
@@ -112,7 +113,7 @@ export class HeaderComponent {
     if (window.innerWidth < 1024) {
       this.toggleNav();
     }
-
+    // Navigate to path
     this.router.navigate([this.textTranslate(pathEs, pathEn)]);
   }
 

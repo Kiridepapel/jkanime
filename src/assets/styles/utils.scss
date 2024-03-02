@@ -14,7 +14,7 @@
   @apply h-full cursor-pointer transition-all duration-500 bg-button hover:bg-button-hover dark:bg-section-two-dark dark:hover:bg-button-hover-dark;
 }
 .input {
-  @apply h-full cursor-text transition-all duration-500 bg-button hover:bg-button-hover dark:bg-section-two-dark dark:hover:bg-button-hover-dark;
+  @apply h-full cursor-text transition-all duration-500 placeholder:text-white placeholder:opacity-70 bg-button hover:bg-button-hover dark:bg-section-two-dark dark:hover:bg-button-hover-dark;
 }
 
 .scroll-secondary {
