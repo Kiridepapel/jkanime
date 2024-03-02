@@ -22,11 +22,13 @@ export class DirectoryComponent {
   public directoryData!: AnimeDataDTO [];
   public filterData!: DirectoryOptionsDTO;
   public uri!: string;
+  public filteredUri!: string;
   public page: number = 1;
   // Subscriptions
   private languageSubscription!: Subscription;
   public language!: Mode;
   // Selectores
+  public letters: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   public genreSelectedOption: string = '';
   public seasonSelectedOption: string = '';
   public studioSelectedOption: string = '';
@@ -34,7 +36,6 @@ export class DirectoryComponent {
   public typeSelectedOption: string = '';
   public subSelectedOption: string = '';
   public orderSelectedOption: string = '';
-  public letters: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
   constructor(
     private animeService: AnimeService,
@@ -59,8 +60,8 @@ export class DirectoryComponent {
 
     // Marca los elementos seleccionados desde la url en los selectores
     this.selectParamFilters();
-    // Establece el número de página
-    let params = this.stablishPageNumber();
+    // Establece los parámetros de la página
+    let params = this.stablishParams();
 
     // Realiza la solicitud de los datos
     try {
@@ -96,7 +97,7 @@ export class DirectoryComponent {
     }
   }
 
-  private stablishPageNumber(): string {
+  private stablishParams(): string {
     let uri = window.location.href.split("/");
     let params = uri[uri.length - 1];
     // Si no se indica la página en la url, se redirige a la primera
@@ -166,7 +167,8 @@ export class DirectoryComponent {
 
     // Elimina el primer & y agregar ?
     searchQuery = searchQuery.slice(1);
-    if (searchQuery !== '') searchQuery = "?" + searchQuery;
+    if (searchQuery !== '')
+      searchQuery = "?" + searchQuery;
 
     return searchQuery;
   }
