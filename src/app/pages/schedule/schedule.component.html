@@ -62,12 +62,12 @@
     
     <!-- Content -->
     @if (!isLoading) {
-      <div class="mb-10 flex max-md:flex-col gap-6">
+      <div class="mb-10 flex max-xl:flex-col gap-6">
         <!-- List of available days -->
-        <div class="w-full h-fit flex-grow flex-wrap basis-[40%] max-2xl:basis-[60%] max-md:[basis-full]: max-w-[300px] max-md:max-w-full text-[15px] max-lg:text-[14px]
+        <div class="w-full h-fit flex-grow flex-wrap basis-[40%] max-xl:[basis-full]: max-w-[300px] max-xl:max-w-full text-[15px] max-lg:text-[14px]
           rounded-md bg-section-two dark:bg-section-two-dark">
           @for (item of daysList; track $index) {
-            <button class="w-full p-4 max-md:py-3 flex flex-wrap justify-between items-center gap-2 hover:text-white-alter hover:bg-primary dark:hover:bg-header-color-dark"
+            <button class="w-full p-4 max-xl:py-3 flex flex-wrap justify-between items-center gap-2 hover:text-white-alter hover:bg-primary dark:hover:bg-header-color-dark"
               [ngClass]="{
                 'rounded-tl-md rounded-tr-md': $index === 0,
                 'rounded-bl-md rounded-br-md' : $index === daysList.length - 1,
@@ -106,11 +106,13 @@
   </section>
   <!-- Comments -->
   <section class="w-full mb-6 text-sm max-lg:text-[13px] flex-col items-center gap-4 bg-section-one dark:bg-section-one-dark">
-    <h2 class="h-[30px] max-md:mx-0 flex border-l-4 self-start border-secondary min-[1800px]:text-[20px] max-[1800px]:text-[18px] max-md:text-[16px]
-        font-semibold font-oswald pl-3 items-center uppercase text-dark-alter dark:text-white">
-      {{ textTranslate('Comentarios', 'Comments') }}
-    </h2>
-    <div id="disqus_thread" class="w-full px-5 max-md:px-0"></div>
-    <noscript class="w-full">Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    @if (!isLoading) {
+      <h2 class="h-[30px] max-md:mx-0 flex border-l-4 self-start border-secondary min-[1800px]:text-[20px] max-[1800px]:text-[18px] max-md:text-[16px]
+          font-semibold font-oswald pl-3 items-center uppercase text-dark-alter dark:text-white">
+        {{ textTranslate('Comentarios', 'Comments') }}
+      </h2>
+      <div id="disqus_thread" class="w-full px-5 max-md:px-0"></div>
+      <noscript class="w-full">Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    }
   </section>
 </section>

@@ -75,7 +75,7 @@ export class ScheduleComponent {
   }
 
   public selectDay(index: number) {
-    this.filter.trim() === '';
+    this.filter = '';
     if (index !== this.selectedDay) {
       this.selectedDay = index;
     }
