@@ -19,11 +19,10 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class DirectoryComponent {
   public isLoading = true;
+  public uri!: string;
+  public page: number = 1;
   public directoryData!: AnimeDataDTO [];
   public filterData!: DirectoryOptionsDTO;
-  public uri!: string;
-  public filteredUri!: string;
-  public page: number = 1;
   // Subscriptions
   private languageSubscription!: Subscription;
   public language!: Mode;
@@ -58,10 +57,8 @@ export class DirectoryComponent {
       this.filterData = data;
     });
 
-    // Marca los elementos seleccionados desde la url en los selectores
-    this.selectParamFilters();
-    // Establece los parámetros de la página
-    let params = this.stablishParams();
+    this.selectParamFilters(); // Marca los filtros (de la url)
+    let params = this.stablishParams(); // Establece los parámetros (de la url)
 
     // Realiza la solicitud de los datos
     try {
@@ -118,7 +115,10 @@ export class DirectoryComponent {
     this.changeTitle();
 
     try {
-      let searchQuery = ("directory/") + this.page + this.constructFilterQuery();
+      let filterQuery = this.constructFilterQuery();
+      let searchQuery = ("directory/") + this.page + filterQuery;
+      this.uri = this.uri + filterQuery;
+      console.log(this.uri);
       // ? En caso se quiera buscar actualizando la página
       // window.location.href = environment.FRONTEND_URL + searchQuery;
       // ? En caso se quiera buscar sin actualizar la página

@@ -5,16 +5,24 @@ export class Mode {
   styles?: string;
 }
 
+export class AnimeDataDTO {
+  name!: string;
+  imgUrl!: string;
+  url!: string;
+  state!: string;
+  type!: string;
+}
+
 // Anime
 export class ChapterDataDTO {
   name?: string;
   imgUrl!: string;
-  type?: string;
   chapter!: string;
   date?: string;
   time?: string;
   url!: string;
-  state?: boolean;
+  type?: string;
+  state?: boolean | string;
 }
 
 export class TopDataDTO {
@@ -23,14 +31,11 @@ export class TopDataDTO {
   likes!: number;
   position!: number;
   url!: string;
-}
-
-export class AnimeDataDTO {
-  name!: string;
-  imgUrl!: string;
-  url!: string;
-  state!: string;
-  type!: string;
+  // Extras for section TOP
+  type?: string;
+  chapters?: number;
+  synopsis?: string;
+  synopsisEnglish?: string;
 }
 
 export class LinkDTO {

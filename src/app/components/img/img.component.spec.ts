@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnimeItemComponent } from './anime-item.component';
+import { ImgComponent } from './img.component';
 
-describe('TestComponent', () => {
-  let component: AnimeItemComponent;
-  let fixture: ComponentFixture<AnimeItemComponent>;
+describe('ChaptertestComponent', () => {
+  let component: ImgComponent;
+  let fixture: ComponentFixture<ImgComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AnimeItemComponent]
+      imports: [ImgComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AnimeItemComponent);
+    fixture = TestBed.createComponent(ImgComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

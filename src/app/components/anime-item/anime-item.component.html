@@ -1,10 +1,13 @@
-<div class="max-w-full min-h-auto">
-  <app-chapter-item class="w-full h-[255px] max-[350px]:h-[215px] max-[165px]:" [type]="0" [imgUrl]="imgUrl" [url]="url"></app-chapter-item>
-  <div class="mt-4 w-full">
-    <div class="w-full flex justify-start flex-wrap gap-1">
-    <app-tag class="" [type]="1" [category]="state"></app-tag>
-    <app-tag class="" [type]="1" [category]="type" bg="primary"></app-tag>
-    </div>
-    <p class="mt-2 text-[12px] font-bold font-mulish line-clamp-2">{{ name }}</p>
-  </div>
+<!-- Imagen -->
+@if (animeInfo.imgUrl !== undefined) {
+  <app-img class="h-[255px] max-[360px]:h-[215px]" [imgUrl]="animeInfo.imgUrl" [url]="animeInfo.url" ></app-img>
+} @else {
+  <app-img class="h-[255px] max-[360px]:h-[215px]" imgUrl="assets/imgs/error.svg" [url]="animeInfo.url" objFit="contain"></app-img>
+}
+<!-- Tags -->
+<div class="mt-2 flex justify-start flex-wrap gap-1">
+  <app-tag [type]="1" [category]="animeInfo.type" bg="primary"></app-tag>
+  <app-tag [type]="1" [category]="animeInfo.state"></app-tag>
 </div>
+<!-- Nombre -->
+<p class="text-[12px] font-bold font-mulish line-clamp-2">{{ animeInfo.name }}</p>

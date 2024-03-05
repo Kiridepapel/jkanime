@@ -7,8 +7,35 @@ export class HomePageDTO {
   nextAnimesProgramming!: ChapterDataDTO[];
   donghuasProgramming!: ChapterDataDTO[];
   topAnimes!: TopDataDTO[];
-  latestAddedAnimes!: ChapterDataDTO[];
-  latestAddedList!: ChapterDataDTO[];
+  latestAddedAnimes!: AnimeDataDTO[];
+  latestAddedList!: LinkDTO[];
+}
+
+export class DirectoryOptionsDTO {
+  genres!: LinkDTO[];
+  seasons!: LinkDTO[];
+  studios!: LinkDTO[];
+  status!: LinkDTO[];
+  types!: LinkDTO[];
+  subs!: LinkDTO[];
+  orders!: LinkDTO[];
+}
+
+export class ScheduleDTO {
+  todayValue!: number;
+  seasonName!: string;
+  seasonMonths!: string[];
+  monday!: ChapterDataDTO[];
+  tuesday!: ChapterDataDTO[];
+  wednesday!: ChapterDataDTO[];
+  thursday!: ChapterDataDTO[];
+  friday!: ChapterDataDTO[];
+  saturday!: ChapterDataDTO[];
+  sunday!: ChapterDataDTO[];
+}
+
+export class TopDTO {
+  top!: TopDataDTO[];
 }
 
 export class AnimeInfoDTO {
@@ -54,16 +81,6 @@ export class ChapterDTO {
 
   chapterImg!: string;
   lastChapterDate!: string;
-}
-
-export class DirectoryOptionsDTO {
-  genres!: LinkDTO[];
-  seasons!: LinkDTO[];
-  studios!: LinkDTO[];
-  status!: LinkDTO[];
-  types!: LinkDTO[];
-  subs!: LinkDTO[];
-  orders!: LinkDTO[];
 }
 
 export class SearchDTO {

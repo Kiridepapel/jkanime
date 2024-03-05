@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 // Components
-import { AnimeItemComponent } from '../../components/anime-item/anime-item.component';
 import { ChapterItemComponent } from '../../components/chapter-item/chapter-item.component';
 // Models
 import { Mode } from '../../models/individual.model';
@@ -14,6 +13,7 @@ import { ChapterDataDTO } from '../../models/individual.model';
 import { DarkModeService } from '../../services/dark-mode.service';
 import { AnimeService } from '../../services/anime.service';
 import { LanguageService } from '../../services/language.service';
+import { AnimeItemComponent } from '../../components/anime-item/anime-item.component';
 
 @Component({
   selector: 'app-jkanime',
@@ -21,8 +21,8 @@ import { LanguageService } from '../../services/language.service';
   imports: [
     CommonModule,
     RouterModule,
-    AnimeItemComponent,
     ChapterItemComponent,
+    AnimeItemComponent
   ],
   templateUrl: './jkanime.component.html',
   styleUrl: './jkanime.component.scss',

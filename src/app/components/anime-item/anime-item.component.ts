@@ -1,21 +1,19 @@
 import { Component, Input } from '@angular/core';
+import { ImgComponent } from '../img/img.component';
 import { TagComponent } from '../tag/tag.component';
-import { ChapterItemComponent } from '../chapter-item/chapter-item.component';
+import { AnimeDataDTO } from '../../models/individual.model';
 
 @Component({
   selector: 'app-anime-item',
   standalone: true,
-  imports: [TagComponent, ChapterItemComponent],
+  imports: [ImgComponent, TagComponent],
   templateUrl: './anime-item.component.html',
   styleUrl: './anime-item.component.scss'
 })
 export class AnimeItemComponent {
-  @Input() public name!: string;
-  @Input() public imgUrl!: string;
-  @Input() public url!: string;
-
-  // For tags
-  @Input() public type!: any;
-  @Input() public state!: any;
-
+  @Input() public animeInfo!: AnimeDataDTO;
+  
+  @Input() public animTo!: string;
+  @Input() public objFit!: string;
+  @Input() public objPos!: string;
 }

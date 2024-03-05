@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnimeItemComponent } from './anime-item.component';
+import { ScheduleItemComponent } from './schedule-item.component';
 
-describe('TestComponent', () => {
-  let component: AnimeItemComponent;
-  let fixture: ComponentFixture<AnimeItemComponent>;
+describe('ScheduleItemComponent', () => {
+  let component: ScheduleItemComponent;
+  let fixture: ComponentFixture<ScheduleItemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AnimeItemComponent]
+      imports: [ScheduleItemComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AnimeItemComponent);
+    fixture = TestBed.createComponent(ScheduleItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

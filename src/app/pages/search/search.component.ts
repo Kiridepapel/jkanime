@@ -3,10 +3,10 @@ import { AnimeService } from '../../services/anime.service';
 import { SearchDTO } from '../../models/page.model';
 import { environment } from '../../../environments/environment-prod';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { AnimeItemComponent } from '../../components/anime-item/anime-item.component';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Mode } from '../../models/individual.model';
 import { LanguageService } from '../../services/language.service';
+import { AnimeItemComponent } from '../../components/anime-item/anime-item.component';
 
 @Component({
   selector: 'app-search',

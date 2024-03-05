@@ -1,22 +1,24 @@
 <section class="section min-h-section py-6 justify-center items-start bg-section-one dark:bg-section-one-dark">
   <section class="flex flex-col w-full max-xl:w-[80%] max-lg:w-full">
     <!-- Icons -->
-    <div class="pb-10 w-full flex items-center flex-wrap gap-2 text-[15px] font-mulish text-dark-alter dark:text-white-alter">
-      <a routerLink="/" class="flex items-center gap-[6px] hover:text-secondary dark:hover:text-secondary-alter transition-colors duration-500">
+    <div class="mb-10 w-full flex items-center flex-wrap gap-2 text-[15px] font-semibold font-mulish text-dark-alter dark:text-white-alter">
+      <a routerLink="/" class="flex items-center gap-[6px] hover:text-primary dark:hover:text-secondary transition-colors duration-500">
         <i class="fa-solid fa-house text-[12px]"></i>
         <span>{{ textTranslate('Inicio', 'Home') }}</span>
       </a>
       <i class="fa-solid fa-chevron-right text-[10px]"></i>
-      <a [href]="uri" class="hover:text-secondary dark:hover:text-secondary-alter transition-colors duration-500">{{ textTranslate('Directorio', 'Directory') }}</a>
+      <a [routerLink]="textTranslate('directorio', 'directory')" class="text-primary hover:text-primary-alter dark:text-secondary dark:hover:text-secondary-alter transition-colors duration-500">
+        {{ textTranslate('Directorio', 'Directory') }}
+      </a>
     </div>
 
     <!-- Title -->
-    <h2 class="border-l-4 self-start mb-3 border-primary dark:border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">
+    <h2 class="mb-4 border-l-4 self-start border-primary dark:border-secondary text-dark-alter dark:text-white-alter text-[24px] max-md:text-[22px] max-[400px]:text-[20px] font-semibold font-oswald pl-4 flex items-center uppercase">
       <i class="fa-solid fa-home text-[18px] h-9 flex items-center mr-3"></i>
       {{ textTranslate('LISTA COMPLETA DE ANIMES', 'COMPLETE ANIME LIST') }}
     </h2>
     <!-- Letters -->
-    <div class="w-full flex justify-center max-xl:justify-start overflow-auto gap-[6px] mt-1 mb-1 p-[10px] rounded-md font-semibold text-[16px] max-md:text-[14px]
+    <div class="mb-2 w-full flex justify-center max-xl:justify-start overflow-auto gap-[6px] p-[10px] rounded-md font-semibold text-[16px] max-md:text-[14px]
       bg-section-two dark:bg-section-two-dark text-dark-alter dark:text-white-alter" *ngIf="filterData">
       @for (item of letters; track $index) {
         <a (click)="constructLetterUrl(item)" class="min-w-[30px] h-[40px] flex justify-center items-center rounded-sm transition-colors duration-200 cursor-pointer
@@ -26,7 +28,7 @@
       }
     </div>
     <!-- Filter -->
-    <div class="w-full flex flex-wrap justify-end gap-[6px] mt-1 mb-4 py-[10px]" *ngIf="filterData">
+    <div class="mb-4 w-full flex flex-wrap justify-end gap-[6px] py-[10px]" *ngIf="filterData">
       <select [(ngModel)]="genreSelectedOption" class="flex-auto text-[14px] px-1 py-2 rounded-sm border-none outline-none max-w-[calc(100dvw-32px)]
         bg-section-two dark:bg-section-two-dark text-dark-alter dark:text-white-alter" [ngClass]="{'shadow-sm shadow-primary dark:shadow-secondary': genreSelectedOption !== ''}">
         <option value="">{{ textTranslate('Género', 'Genre') }}</option>
@@ -90,16 +92,19 @@
         <i class="fa-solid fa-clipboard text-[14px]"></i>
       </button>
     </div>
-    <span class="w-full h-[2px] mb-6 bg-dark-alter dark:bg-white bg-opacity-25 dark:bg-opacity-15"></span>
+    <!-- Separator -->
+    <span class="separator"></span>
     
     <!-- Content -->
     @if (!isLoading) {
       @if (directoryData.length > 0) {
-        <div class="w-full h-full grid grid-cols-6 max-[1650px]:grid-cols-5 max-xl:grid-cols-4 max-md:grid-cols-3 max-[500px]:grid-cols-2 max-[340px]:grid-cols-1 gap-x-7 gap-y-5 max-xl:gap-x-5 max-xl:gap-y-3 mb-5">
+        <!-- List -->
+        <div class="animes-grid-container mb-12 max-xl:mb-0">
           @for (item of directoryData; track $index) {
-            <app-anime-item [name]="item.name!" [imgUrl]="item.imgUrl" [url]="item.url" [type]="item.type" [state]="item.state"></app-anime-item>
+            <app-anime-item class="anime-grid-child" [animeInfo]="item"></app-anime-item>
           }
         </div>
+        <!-- Previous and Next page -->
         <div class="w-full flex flex-wrap justify-center items-center gap-3 mt-3 mb-6 max-md:mt-1 max-md:mb-4 text-white-alter">
           @if (page > 1) {
             <a [href]="previousSearch()" class="px-6 py-[6px] rounded-md bg-secondary transition-colors duration-500 hover:bg-secondary-alter">
