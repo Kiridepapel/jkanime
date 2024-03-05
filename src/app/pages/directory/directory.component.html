@@ -7,7 +7,7 @@
         <span>{{ textTranslate('Inicio', 'Home') }}</span>
       </a>
       <i class="fa-solid fa-chevron-right text-[10px]"></i>
-      <a [routerLink]="textTranslate('directorio', 'directory')" class="text-primary hover:text-primary-alter dark:text-secondary dark:hover:text-secondary-alter transition-colors duration-500">
+      <a [routerLink]="['/', textTranslate('directorio', 'directory')]" class="text-primary hover:text-primary-alter dark:text-secondary dark:hover:text-secondary-alter transition-colors duration-500">
         {{ textTranslate('Directorio', 'Directory') }}
       </a>
     </div>
