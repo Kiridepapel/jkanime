@@ -110,6 +110,24 @@ export class TopComponent {
     return "?season=" + this.seasonSelectedOption + "&year=" + this.yearSelectedOption;
   }
 
+  public onYearChange(): void {
+    // Si el año seleccionado es diferente al actual, elimina la opción de "Temporada actual"
+    if (this.yearSelectedOption !== this.actualYear.toString()) {
+      // Si existe, elimina la opción de "Temporada actual"
+      if (this.seasonList.some(season => season.value === '')) {
+        this.seasonList.shift();
+        this.seasonSelectedOption = this.seasonList[0].value;
+      }
+    } else {
+      // Si no existe, vuelve a agregar en la primera posición la opción de "Temporada actual"
+      if (!this.seasonList.some(season => season.value === '')) {
+        this.seasonList.unshift({ name: this.textTranslate('Temporada actual', 'Current season'), value: '' });
+        this.seasonSelectedOption = this.seasonList[0].value;
+      }
+
+    }
+  }
+
   public async filter() {
     this.isLoading = true;
     this.changeTitle();
