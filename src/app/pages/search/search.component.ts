@@ -84,8 +84,6 @@ export class SearchComponent {
     this.search = splitUri[1];
     this.name = this.search.replaceAll('_', ' ');
     this.page = parseInt(splitUri[2]);
-
-    console.log('page', this.page);
   }
 
   public previousSearch() {
