@@ -21,6 +21,9 @@ export class DirectoryComponent {
   public isLoading = true;
   public uri!: string;
   public page: number = 1;
+  public filterQuery!: string;
+  public pastDirectory!: string;
+  public nextDirectory!: string;
   public directoryData!: AnimeDataDTO [];
   public filterData!: DirectoryOptionsDTO;
   // Subscriptions
@@ -59,6 +62,9 @@ export class DirectoryComponent {
 
     this.selectParamFilters(); // Marca los filtros (de la url)
     let params = this.stablishParams(); // Establece los parámetros (de la url)
+    this.filterQuery = this.constructFilterQuery();
+    this.previousSearch();
+    this.nextSearch();
 
     // Realiza la solicitud de los datos
     try {
@@ -115,10 +121,12 @@ export class DirectoryComponent {
     this.changeTitle();
 
     try {
-      let filterQuery = this.constructFilterQuery();
-      let searchQuery = ("directory/") + this.page + filterQuery;
-      this.uri = this.uri + filterQuery;
-      console.log(this.uri);
+      this.filterQuery = this.constructFilterQuery();
+      this.page = 1;
+      this.uri = this.textTranslate('directorio/', 'directory/') + this.page + this.filterQuery;
+      this.previousSearch();
+      this.nextSearch();
+      let searchQuery = ("directory/") + this.page + this.filterQuery;
       // ? En caso se quiera buscar actualizando la página
       // window.location.href = environment.FRONTEND_URL + searchQuery;
       // ? En caso se quiera buscar sin actualizar la página
@@ -139,6 +147,9 @@ export class DirectoryComponent {
     this.typeSelectedOption = '';
     this.subSelectedOption = '';
     this.orderSelectedOption = '';
+
+    this.uri = this.textTranslate('directorio', 'directory');
+
     this.filter();
   }
 
@@ -182,22 +193,32 @@ export class DirectoryComponent {
     document.body.removeChild(textArea);
   }
   
-  public previousSearch() {
+  public previousSearch(): void {
     // Si no hay numero en la url
     if (this.uri.split('/').length == 1) {
-      return this.uri + '/' + (this.page - 1);
+      this.pastDirectory = this.uri + '/' + (this.page - 1) + this.filterQuery;
+    } else {
+      // Si hay número y/o tiene parámetros
+      if (this.filterQuery !== '') {
+        this.pastDirectory = this.uri.replace('/' + (this.page), '/' + (this.page - 1));
+      } else {
+        this.pastDirectory = this.uri.replace('/' + (this.page), '/' + (this.page - 1) + this.filterQuery);
+      }
     }
-    // Si hay número y/o tiene parámetros
-    return this.uri.replace('/' + (this.page), '/' + (this.page - 1));
   }
 
-  public nextSearch() {
+  public nextSearch(): void {
     // Si no hay numero en la url
     if (this.uri.split('/').length == 1) {
-      return this.uri + '/' + (this.page + 1);
+      this.nextDirectory = this.uri + '/' + (this.page + 1) + this.filterQuery;
+    } else {
+      // Si hay número y/o tiene parámetros
+      if (this.page > 1 && this.filterQuery === '') {
+        this.nextDirectory = this.uri.replace('/' + (this.page), '/' + (this.page + 1) + this.filterQuery);
+      } else {
+        this.nextDirectory = this.uri.replace('/' + (this.page), '/' + (this.page + 1));
+      }
     }
-    // Si hay número y/o tiene parámetros
-    return this.uri.replace('/' + (this.page), '/' + (this.page + 1));
   }
 
   private changeTitle() {
