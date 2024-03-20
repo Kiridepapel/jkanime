@@ -146,7 +146,7 @@
             <!-- Trailer -->
             @if (animeData.trailer != null) {
               <h2 class="mb-1 font-mulish font-bold text-lg text-tertiary">Trailer ({{ textTranslate('compartido por', 'shared from') }} fraxi12)</h2>
-              <iframe
+              <!-- <iframe
                 class="rounded-md w-[85%] h-[186px]
                   max-[1666px]:w-full max-[1666px]:h-48
                   max-xl:w-96 max-xl:h-60 max-lg:w-[80%] max-lg:h-56
@@ -157,7 +157,11 @@
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
-              ></iframe>
+              ></iframe> -->
+              <!-- Include the CSS & JS.. (This could be direct from the package or bundled) -->
+              <!-- <link rel="stylesheet" href="node_modules/lite-youtube-embed/src/lite-yt-embed.css" />
+              <script src="node_modules/lite-youtube-embed/src/lite-yt-embed.js"></script>
+              <lite-youtube videoid="ogfYd705cRs" playlabel="Play: Keynote (Google I/O '18)"></lite-youtube> -->
             } @else {
               <h2 class="mt-5 font-mulish font-bold text-lg text-tertiary">Trailer</h2>
               <p class="font-mulish text-dark-alter dark:text-white-alter">{{ textTranslate('No hay trailer disponible', 'No trailer available') }}</p>
