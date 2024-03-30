@@ -69,6 +69,13 @@ export class ChapterComponent {
     this.languageSubscription.unsubscribe();
   }
 
+  public verifyActualChapter() {
+    let actualChapter = this.chapterData.actualChapter;
+
+    if (!actualChapter.includes('-final')) return actualChapter;
+    else return actualChapter.replace('-final', '');
+  }
+
   public getPreviousChapterUrl() {
     return `${this.uri}/${this.chapterData.previousChapter.replace('.', '-')}`;
   }
