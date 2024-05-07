@@ -111,7 +111,7 @@ export class AnimeComponent {
     if (!chapter.includes(".")) {
       return this.uri + "/" + parseInt(chapter, 10).toString();
     } else {
-      return this.uri + "/" + parseInt(chapter.split(".")[0], 10).toString() + "-5";
+      return this.uri + "/" + chapter.replace(".", "-");
     }
   }
 
